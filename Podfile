@@ -3,10 +3,12 @@ use_frameworks!
 
 target 'Blendle Assignment' do
 
-pod 'Spring'
+pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift2'
 pod 'Alamofire', '~> 2.0'
 pod 'SVProgressHUD'
 pod 'RazzleDazzle'
+pod 'SwiftyJSON'
+pod 'DrawerController'
 
 end
 

@@ -7,29 +7,125 @@
 //
 
 import UIKit
+import DrawerController
 
-class BlendleViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+extension UIView {
+    
+    public class var nameOfClass: String{
+        return NSStringFromClass(self).componentsSeparatedByString(".").last!
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    public var nameOfClass: String{
+        return NSStringFromClass(self.dynamicType).componentsSeparatedByString(".").last!
     }
-    */
+    
+    var loadFromNib: AnyObject? {
+        let nibName = self.nameOfClass
+        let elements = NSBundle.mainBundle().loadNibNamed(nibName, owner: nil, options: nil)
+        
+        for anObject in elements {
+            if anObject.isKindOfClass(self.dynamicType) {
+                return anObject
+            }
+        }
+        
+        return nil
+    }
+    
+}
 
+extension UISegmentedControl {
+    
+    func setLocalizedTitles(titles: [String]) {
+        for title in titles {
+            self.setTitle(NSLocalizedString(title, comment: ""), forSegmentAtIndex: titles.indexOf(title)!)
+        }
+    }
+}
+
+extension UIColor {
+    
+    func imageWithSize(size: CGSize) -> UIImage {
+        let rect = CGRectMake(0.0, 0.0, size.width, size.height)
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()
+        
+        CGContextSetFillColorWithColor(context, self.CGColor)
+        CGContextFillRect(context, rect)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image
+    }
+    
+}
+
+class BlendleViewController: UIViewController {
+    
+    var loading = false
+    var appLoader: Loader!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+        
+        setupNavigationBar()
+    }
+    
+    func setupNavigationBar() {
+        navigationController?.navigationBar.translucent = false
+        
+        navigationController?.navigationBar.barTintColor = Helper.mainColor
+        navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        
+        updateTitle(title!)
+    }
+    
+    func updateTitle(title: String) {
+        let titleLabel = UILabel()
+        titleLabel.font = Helper.defaultFontWith(.Regular, size: 24)
+        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.text = title
+        navigationItem.titleView = titleLabel
+        titleLabel.sizeToFit()
+    }
+    
+    func toggleMenu() {
+        if evo_drawerController?.openSide == .Right {
+            UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
+            evo_drawerController?.closeDrawerAnimated(true, completion: nil)
+        } else {
+            UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
+            evo_drawerController?.openDrawerSide(.Right, animated: true, completion: nil)
+        }
+    }
+    
+    func startLoading() {
+        if !loading {
+            loading = true
+            
+            if appLoader == nil {
+                appLoader = Loader().loadFromNib as! Loader
+                appLoader.translatesAutoresizingMaskIntoConstraints = false
+                view.addSubview(appLoader)
+                
+                appLoader.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[self(==140)]", options: .AlignmentMask, metrics: nil, views: ["self": appLoader]))
+                appLoader.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[self(==140)]", options: .AlignmentMask, metrics: nil, views: ["self": appLoader]))
+                view.addConstraint(NSLayoutConstraint(item: appLoader, attribute: .CenterX, relatedBy: .Equal, toItem: view, attribute: .CenterX, multiplier: 1, constant: 0))
+                view.addConstraint(NSLayoutConstraint(item: appLoader, attribute: .CenterY, relatedBy: .Equal, toItem: view, attribute: .CenterY, multiplier: 1, constant: 0))
+            }
+            appLoader.startAnimating()
+            appLoader.hidden = false
+        }
+    }
+    
+    func stopLoading() {
+        loading = false
+        appLoader.hidden = true
+        appLoader.stopAnimating()
+    }
+    
 }

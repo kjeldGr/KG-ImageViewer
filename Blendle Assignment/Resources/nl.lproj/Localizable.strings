@@ -1,0 +1,15 @@
+// General values
+"app_title"="Blendle";
+"text_back"="Terug";
+
+// View Titles
+"view_photo_grid_title"="Blendle foto's";
+
+// Photo Grid
+"photo_grid_category_popular"="Populair";
+"photo_grid_category_highest_rating"="Highest Rating";
+"photo_grid_category_editors"="Editors";
+"photo_grid_category_upcoming"="Opkomend";
+
+// Filter View
+"filter_text_nsfw"="Toon NSFW afbeeldingen:";

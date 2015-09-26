@@ -8,6 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		AFCDC166BA12855F24B8AF5F /* Pods_Blendle_Assignment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E68C49D3715C5384DEEE0C1 /* Pods_Blendle_Assignment.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		C6154B001BB698130006EAD7 /* SegmentedBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6154AFF1BB698130006EAD7 /* SegmentedBarView.swift */; settings = {ASSET_TAGS = (); }; };
+		C6154B031BB69E5B0006EAD7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C6154B051BB69E5B0006EAD7 /* Localizable.strings */; };
+		C6154B091BB6A4DB0006EAD7 /* BlendleImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6154B081BB6A4DB0006EAD7 /* BlendleImageCell.swift */; settings = {ASSET_TAGS = (); }; };
+		C6154B0B1BB6A4FF0006EAD7 /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6154B0A1BB6A4FF0006EAD7 /* ImageData.swift */; settings = {ASSET_TAGS = (); }; };
+		C6154B0D1BB6B40B0006EAD7 /* BlendleImageLoaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6154B0C1BB6B40B0006EAD7 /* BlendleImageLoaderCell.swift */; settings = {ASSET_TAGS = (); }; };
+		C69A83A91BB59171009CAB28 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69A83A71BB59171009CAB28 /* API.swift */; settings = {ASSET_TAGS = (); }; };
+		C69A83AA1BB59171009CAB28 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69A83A81BB59171009CAB28 /* Helper.swift */; settings = {ASSET_TAGS = (); }; };
+		C6B855B41BB6C877006C51BE /* ProximaNova-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6B855AE1BB6C877006C51BE /* ProximaNova-Bold.otf */; settings = {ASSET_TAGS = (); }; };
+		C6B855B51BB6C877006C51BE /* ProximaNova-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6B855AF1BB6C877006C51BE /* ProximaNova-Light.otf */; settings = {ASSET_TAGS = (); }; };
+		C6B855B61BB6C877006C51BE /* ProximaNova-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6B855B01BB6C877006C51BE /* ProximaNova-LightItalic.otf */; settings = {ASSET_TAGS = (); }; };
+		C6B855B71BB6C877006C51BE /* ProximaNova-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6B855B11BB6C877006C51BE /* ProximaNova-Regular.otf */; settings = {ASSET_TAGS = (); }; };
+		C6B855B81BB6C877006C51BE /* ProximaNova-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6B855B21BB6C877006C51BE /* ProximaNova-RegularItalic.otf */; settings = {ASSET_TAGS = (); }; };
+		C6B855B91BB6C877006C51BE /* ProximaNova-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6B855B31BB6C877006C51BE /* ProximaNova-Semibold.otf */; settings = {ASSET_TAGS = (); }; };
+		C6B855BB1BB6CC14006C51BE /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B855BA1BB6CC14006C51BE /* Loader.swift */; settings = {ASSET_TAGS = (); }; };
+		C6B855C11BB6D25B006C51BE /* Loader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6B855C01BB6D25B006C51BE /* Loader.xib */; settings = {ASSET_TAGS = (); }; };
+		C6B855C31BB6DA4F006C51BE /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B855C21BB6DA4F006C51BE /* FilterViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C6B855C51BB6E4CE006C51BE /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B855C41BB6E4CE006C51BE /* ImageDetailViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C6B855C71BB6F6FC006C51BE /* UIImageEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B855C61BB6F6FC006C51BE /* UIImageEffects.swift */; settings = {ASSET_TAGS = (); }; };
+		C6B855C91BB6FF42006C51BE /* ImagePagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B855C81BB6FF42006C51BE /* ImagePagerViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C6BEDAE31BB573C400F196D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BEDAD61BB573C400F196D5 /* AppDelegate.swift */; settings = {ASSET_TAGS = (); }; };
 		C6BEDAE51BB573C400F196D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6BEDADB1BB573C400F196D5 /* Assets.xcassets */; settings = {ASSET_TAGS = (); }; };
 		C6BEDAE61BB573C400F196D5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6BEDADC1BB573C400F196D5 /* LaunchScreen.storyboard */; settings = {ASSET_TAGS = (); }; };
@@ -22,6 +41,26 @@
 		0B8DCB025AFBD6BC0F2DC4E2 /* Pods-Blendle Assignment.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blendle Assignment.release.xcconfig"; path = "Pods/Target Support Files/Pods-Blendle Assignment/Pods-Blendle Assignment.release.xcconfig"; sourceTree = "<group>"; };
 		1E68C49D3715C5384DEEE0C1 /* Pods_Blendle_Assignment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Blendle_Assignment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		62E8C1A35F5A96E6838306F4 /* Pods-Blendle Assignment.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blendle Assignment.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Blendle Assignment/Pods-Blendle Assignment.debug.xcconfig"; sourceTree = "<group>"; };
+		C6154AFF1BB698130006EAD7 /* SegmentedBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedBarView.swift; sourceTree = "<group>"; };
+		C6154B041BB69E5B0006EAD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C6154B061BB69E700006EAD7 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C6154B081BB6A4DB0006EAD7 /* BlendleImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlendleImageCell.swift; sourceTree = "<group>"; };
+		C6154B0A1BB6A4FF0006EAD7 /* ImageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
+		C6154B0C1BB6B40B0006EAD7 /* BlendleImageLoaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlendleImageLoaderCell.swift; sourceTree = "<group>"; };
+		C69A83A71BB59171009CAB28 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		C69A83A81BB59171009CAB28 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		C6B855AE1BB6C877006C51BE /* ProximaNova-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Bold.otf"; sourceTree = "<group>"; };
+		C6B855AF1BB6C877006C51BE /* ProximaNova-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Light.otf"; sourceTree = "<group>"; };
+		C6B855B01BB6C877006C51BE /* ProximaNova-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-LightItalic.otf"; sourceTree = "<group>"; };
+		C6B855B11BB6C877006C51BE /* ProximaNova-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Regular.otf"; sourceTree = "<group>"; };
+		C6B855B21BB6C877006C51BE /* ProximaNova-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-RegularItalic.otf"; sourceTree = "<group>"; };
+		C6B855B31BB6C877006C51BE /* ProximaNova-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Semibold.otf"; sourceTree = "<group>"; };
+		C6B855BA1BB6CC14006C51BE /* Loader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
+		C6B855C01BB6D25B006C51BE /* Loader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Loader.xib; sourceTree = "<group>"; };
+		C6B855C21BB6DA4F006C51BE /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		C6B855C41BB6E4CE006C51BE /* ImageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
+		C6B855C61BB6F6FC006C51BE /* UIImageEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageEffects.swift; sourceTree = "<group>"; };
+		C6B855C81BB6FF42006C51BE /* ImagePagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePagerViewController.swift; sourceTree = "<group>"; };
 		C6BEDABB1BB5735D00F196D5 /* Blendle Assignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blendle Assignment.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6BEDAD61BB573C400F196D5 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C6BEDADB1BB573C400F196D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -60,6 +99,57 @@
 				0B8DCB025AFBD6BC0F2DC4E2 /* Pods-Blendle Assignment.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		C6154AFE1BB697F00006EAD7 /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				C6154AFF1BB698130006EAD7 /* SegmentedBarView.swift */,
+				C6B855BF1BB6CC8B006C51BE /* CollectionCells */,
+				C6B855BE1BB6CC7D006C51BE /* Loader */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		C69A83A61BB59171009CAB28 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C69A83A71BB59171009CAB28 /* API.swift */,
+				C69A83A81BB59171009CAB28 /* Helper.swift */,
+				C6B855C61BB6F6FC006C51BE /* UIImageEffects.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		C6B855AD1BB6C877006C51BE /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C6B855AE1BB6C877006C51BE /* ProximaNova-Bold.otf */,
+				C6B855AF1BB6C877006C51BE /* ProximaNova-Light.otf */,
+				C6B855B01BB6C877006C51BE /* ProximaNova-LightItalic.otf */,
+				C6B855B11BB6C877006C51BE /* ProximaNova-Regular.otf */,
+				C6B855B21BB6C877006C51BE /* ProximaNova-RegularItalic.otf */,
+				C6B855B31BB6C877006C51BE /* ProximaNova-Semibold.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		C6B855BE1BB6CC7D006C51BE /* Loader */ = {
+			isa = PBXGroup;
+			children = (
+				C6B855C01BB6D25B006C51BE /* Loader.xib */,
+				C6B855BA1BB6CC14006C51BE /* Loader.swift */,
+			);
+			name = Loader;
+			sourceTree = "<group>";
+		};
+		C6B855BF1BB6CC8B006C51BE /* CollectionCells */ = {
+			isa = PBXGroup;
+			children = (
+				C6154B081BB6A4DB0006EAD7 /* BlendleImageCell.swift */,
+				C6154B0C1BB6B40B0006EAD7 /* BlendleImageLoaderCell.swift */,
+			);
+			name = CollectionCells;
 			sourceTree = "<group>";
 		};
 		C6BEDAB21BB5735D00F196D5 = {
@@ -102,6 +192,7 @@
 		C6BEDAD41BB573C400F196D5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C6154B0A1BB6A4FF0006EAD7 /* ImageData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -111,9 +202,13 @@
 			children = (
 				C6BEDAD61BB573C400F196D5 /* AppDelegate.swift */,
 				C6BEDADC1BB573C400F196D5 /* LaunchScreen.storyboard */,
+				C6B855AD1BB6C877006C51BE /* Fonts */,
+				C6154AFE1BB697F00006EAD7 /* UIComponents */,
+				C69A83A61BB59171009CAB28 /* Helpers */,
 				C6BEDAD91BB573C400F196D5 /* CoreData */,
 				C6BEDADA1BB573C400F196D5 /* Images */,
 				C6BEDADD1BB573C400F196D5 /* Storyboards */,
+				C6154B051BB69E5B0006EAD7 /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -155,6 +250,9 @@
 			children = (
 				C6BEDAED1BB5741200F196D5 /* BlendleViewController.swift */,
 				C6BEDAEF1BB5742600F196D5 /* PhotoGridViewController.swift */,
+				C6B855C21BB6DA4F006C51BE /* FilterViewController.swift */,
+				C6B855C41BB6E4CE006C51BE /* ImageDetailViewController.swift */,
+				C6B855C81BB6FF42006C51BE /* ImagePagerViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -203,6 +301,7 @@
 			knownRegions = (
 				en,
 				Base,
+				nl,
 			);
 			mainGroup = C6BEDAB21BB5735D00F196D5;
 			productRefGroup = C6BEDABC1BB5735D00F196D5 /* Products */;
@@ -219,8 +318,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6154B031BB69E5B0006EAD7 /* Localizable.strings in Resources */,
+				C6B855B61BB6C877006C51BE /* ProximaNova-LightItalic.otf in Resources */,
+				C6B855C11BB6D25B006C51BE /* Loader.xib in Resources */,
+				C6B855B71BB6C877006C51BE /* ProximaNova-Regular.otf in Resources */,
 				C6BEDAE51BB573C400F196D5 /* Assets.xcassets in Resources */,
 				C6BEDAE71BB573C400F196D5 /* Main.storyboard in Resources */,
+				C6B855B91BB6C877006C51BE /* ProximaNova-Semibold.otf in Resources */,
+				C6B855B81BB6C877006C51BE /* ProximaNova-RegularItalic.otf in Resources */,
+				C6B855B51BB6C877006C51BE /* ProximaNova-Light.otf in Resources */,
+				C6B855B41BB6C877006C51BE /* ProximaNova-Bold.otf in Resources */,
 				C6BEDAE61BB573C400F196D5 /* LaunchScreen.storyboard in Resources */,
 				C6BEDAE81BB573C400F196D5 /* Info.plist in Resources */,
 			);
@@ -282,13 +389,36 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6BEDAEC1BB573EE00F196D5 /* Blendle_Assignment.xcdatamodeld in Sources */,
+				C6B855C51BB6E4CE006C51BE /* ImageDetailViewController.swift in Sources */,
+				C6154B0D1BB6B40B0006EAD7 /* BlendleImageLoaderCell.swift in Sources */,
 				C6BEDAE31BB573C400F196D5 /* AppDelegate.swift in Sources */,
+				C6154B091BB6A4DB0006EAD7 /* BlendleImageCell.swift in Sources */,
+				C6B855C91BB6FF42006C51BE /* ImagePagerViewController.swift in Sources */,
 				C6BEDAEE1BB5741200F196D5 /* BlendleViewController.swift in Sources */,
+				C6B855C71BB6F6FC006C51BE /* UIImageEffects.swift in Sources */,
 				C6BEDAF01BB5742600F196D5 /* PhotoGridViewController.swift in Sources */,
+				C6B855C31BB6DA4F006C51BE /* FilterViewController.swift in Sources */,
+				C6154B0B1BB6A4FF0006EAD7 /* ImageData.swift in Sources */,
+				C69A83A91BB59171009CAB28 /* API.swift in Sources */,
+				C6B855BB1BB6CC14006C51BE /* Loader.swift in Sources */,
+				C69A83AA1BB59171009CAB28 /* Helper.swift in Sources */,
+				C6154B001BB698130006EAD7 /* SegmentedBarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C6154B051BB69E5B0006EAD7 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C6154B041BB69E5B0006EAD7 /* Base */,
+				C6154B061BB69E700006EAD7 /* nl */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		C6BEDACE1BB5735D00F196D5 /* Debug */ = {
@@ -377,7 +507,7 @@
 			baseConfigurationReference = 62E8C1A35F5A96E6838306F4 /* Pods-Blendle Assignment.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "Blendle Assignment/Info.plist";
+				INFOPLIST_FILE = "Blendle Assignment/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.kjeldgr.Blendle-Assignment";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -389,7 +519,7 @@
 			baseConfigurationReference = 0B8DCB025AFBD6BC0F2DC4E2 /* Pods-Blendle Assignment.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "Blendle Assignment/Info.plist";
+				INFOPLIST_FILE = "Blendle Assignment/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.kjeldgr.Blendle-Assignment";
 				PRODUCT_NAME = "$(TARGET_NAME)";
