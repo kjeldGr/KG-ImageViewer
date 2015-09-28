@@ -15,14 +15,6 @@ class Loader: UIView {
     @IBOutlet weak var loaderImage: SpringImageView!
     private var animating = false
     
-    init() {
-        super.init(frame: CGRectZero)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
     func doAnimation() {
         if animating == false {
             return
@@ -32,11 +24,9 @@ class Loader: UIView {
         loaderImage.animation = Spring.AnimationPreset.Pop.rawValue
         loaderImage.duration = duration
         loaderImage.rotate = 4
-//        loaderImage.delay = 0.2
         loaderImage.animate()
         
         loaderImage.animateNext { () -> () in
-//            self.doAnimation()
             self.performSelector("doAnimation", withObject: nil, afterDelay: NSTimeInterval(0.2))
         }
         

@@ -12,4 +12,13 @@
 "photo_grid_category_upcoming"="Opkomend";
 
 // Filter View
+"filter_text_title"="Instellingen";
 "filter_text_nsfw"="Toon NSFW afbeeldingen:";
+"filter_text_cache"="Bewaar afbeeldingen van\nhoge resolutie in cache\ntijdens de sessie:";
+
+// Error Messages
+"error_loading_images_title"="Oeps!";
+"error_loading_images_message"="Er ging iets missen tijdens het ophalen van de afbeeldingen.";
+"error_loading_image_message"="Er ging iets missen tijdens het ophalen van de afbeelding in hoge resolutie.";
+"error_button_try_again"="Probeer opnieuw";
+"error_button_ok"="Ok";

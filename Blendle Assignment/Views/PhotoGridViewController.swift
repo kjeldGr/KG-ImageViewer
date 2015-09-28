@@ -27,7 +27,6 @@ class PhotoGridViewController: BlendleViewController, UICollectionViewDelegate, 
     private var currentCategory = Category.Popular
     private var currentPage = 1
     private var images: [ImageData] = Array()
-    let imageCache = NSCache()
     
     // Collection View properties
     @IBOutlet weak var imageCollectionView: UICollectionView!
@@ -36,6 +35,7 @@ class PhotoGridViewController: BlendleViewController, UICollectionViewDelegate, 
     let sectionInset: CGFloat = 5
     let cellSpacing: CGFloat = 2
     let cellsPerRow = 4
+    let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         title = NSLocalizedString("view_photo_grid_title", comment: "")
@@ -61,6 +61,11 @@ class PhotoGridViewController: BlendleViewController, UICollectionViewDelegate, 
         
         imageCollectionView!.registerClass(BlendleImageCell.classForCoder(), forCellWithReuseIdentifier: imageCellIdentifier)
         imageCollectionView!.registerClass(BlendleImageLoaderCell.classForCoder(), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: loaderCellIdentifier)
+        
+        refreshControl.backgroundColor = Helper.mainColor
+        refreshControl.tintColor = UIColor.whiteColor()
+        imageCollectionView.addSubview(refreshControl)
+        refreshControl.addTarget(self, action: "reloadImages", forControlEvents: UIControlEvents.ValueChanged)
         
         updateImages()
         
@@ -106,22 +111,32 @@ class PhotoGridViewController: BlendleViewController, UICollectionViewDelegate, 
                             self.images.append(ImageData(data: image.dictionaryValue))
                         }
                         
-                        if lastItem < self.images.count {
-                            let indexPaths = (lastItem..<self.images.count).map { NSIndexPath(forItem: $0, inSection: 0) }
-                            
-                            dispatch_async(dispatch_get_main_queue()) {
-                                if self.images.count < indexPaths.count {
-                                    return
-                                }
-                                self.imageCollectionView!.insertItemsAtIndexPaths(indexPaths)
+                        let indexPaths = (lastItem..<self.images.count).map { NSIndexPath(forItem: $0, inSection: 0) }
+                        
+                        dispatch_async(dispatch_get_main_queue()) {
+                            if self.images.count < indexPaths.count {
+                                return
                             }
+                            self.imageCollectionView!.insertItemsAtIndexPaths(indexPaths)
+                            self.currentPage++
+                            self.stopLoading()
                         }
                     }
-                    self.currentPage++
-                case Result.Failure(_, let error):
-                    print(error)
+                case Result.Failure(_, _):
+                    let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default) {
+                        UIAlertAction in
+                        
+                    }
+                    let tryAgainAction = UIAlertAction(title: NSLocalizedString("error_button_try_again", comment: ""), style: .Default) {
+                        UIAlertAction in
+                        self.updateImages()
+                    }
+                    
+                    let alertController = self.alertControllerWithTitle(NSLocalizedString("error_loading_images_title", comment: ""), andMessage: NSLocalizedString("error_loading_images_message", comment: ""), andStyle: .Alert, andActions: [okAction, tryAgainAction])
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                    
+                    self.stopLoading()
                 }
-                self.stopLoading()
             })
     }
     
@@ -148,6 +163,11 @@ class PhotoGridViewController: BlendleViewController, UICollectionViewDelegate, 
             detailViewController.images = images
             detailViewController.currentIndex = sender as! Int
         }
+    }
+    
+    override func stopLoading() {
+        super.stopLoading()
+        refreshControl.endRefreshing()
     }
     
     // MARK: - Scroll View Methods
@@ -188,7 +208,7 @@ class PhotoGridViewController: BlendleViewController, UICollectionViewDelegate, 
         let imageURL = images[indexPath.item].url
         cell.request?.cancel()
         
-        if let image = self.imageCache.objectForKey(imageURL) as? UIImage {
+        if let image = CacheData.sharedInstance.thumbnailCache.objectForKey(imageURL) as? UIImage {
             cell.imageView.image = image
         } else {
             cell.imageView.image = nil
@@ -198,12 +218,10 @@ class PhotoGridViewController: BlendleViewController, UICollectionViewDelegate, 
                     switch result {
                     case .Success(let data):
                         let image = UIImage(data: data, scale: UIScreen.mainScreen().scale)
-                        
-                        self.imageCache.setObject(image!, forKey: request!.URLString)
-                        
+                        CacheData.sharedInstance.thumbnailCache.setObject(image!, forKey: request!.URLString)
                         cell.imageView.image = image
-                    case .Failure(let errorData, _):
-                        print("error: ", errorData)
+                    case .Failure(_, _):
+                        break
                     }
                 })
         }

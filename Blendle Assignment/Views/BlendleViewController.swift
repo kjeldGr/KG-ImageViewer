@@ -72,6 +72,16 @@ class BlendleViewController: UIViewController {
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         
         setupNavigationBar()
+        
+        let completionHandler:(DrawerController, UIGestureRecognizer) -> Void = {
+            (drawerController: DrawerController, gestureRecognizer: UIGestureRecognizer) -> Void in
+            if drawerController.openSide == .Right {
+                UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
+            } else {
+                UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
+            }
+        }
+        evo_drawerController?.gestureCompletionBlock = completionHandler
     }
     
     func setupNavigationBar() {
@@ -101,6 +111,20 @@ class BlendleViewController: UIViewController {
             UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
             evo_drawerController?.openDrawerSide(.Right, animated: true, completion: nil)
         }
+    }
+    
+    func closedDrawerController(drawerController: DrawerController, gestureRecognizer: UIGestureRecognizer) {
+        
+    }
+    
+    func alertControllerWithTitle(title: String, andMessage message: String, andStyle style: UIAlertControllerStyle, andActions actions: [UIAlertAction]) -> UIAlertController {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
+        
+        for action in actions {
+            alertController.addAction(action)
+        }
+        
+        return alertController
     }
     
     func startLoading() {

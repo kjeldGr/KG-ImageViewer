@@ -35,6 +35,7 @@
 		C6BEDAEC1BB573EE00F196D5 /* Blendle_Assignment.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C6BEDAEA1BB573EE00F196D5 /* Blendle_Assignment.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
 		C6BEDAEE1BB5741200F196D5 /* BlendleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BEDAED1BB5741200F196D5 /* BlendleViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C6BEDAF01BB5742600F196D5 /* PhotoGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BEDAEF1BB5742600F196D5 /* PhotoGridViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C6C0B3531BB83A1B009E1760 /* CacheData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C0B3521BB83A1B009E1760 /* CacheData.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		C6BEDAEB1BB573EE00F196D5 /* Blendle_Assignment.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Blendle_Assignment.xcdatamodel; sourceTree = "<group>"; };
 		C6BEDAED1BB5741200F196D5 /* BlendleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlendleViewController.swift; sourceTree = "<group>"; };
 		C6BEDAEF1BB5742600F196D5 /* PhotoGridViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoGridViewController.swift; sourceTree = "<group>"; };
+		C6C0B3521BB83A1B009E1760 /* CacheData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				C6154B0A1BB6A4FF0006EAD7 /* ImageData.swift */,
+				C6C0B3521BB83A1B009E1760 /* CacheData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				C6B855C91BB6FF42006C51BE /* ImagePagerViewController.swift in Sources */,
 				C6BEDAEE1BB5741200F196D5 /* BlendleViewController.swift in Sources */,
 				C6B855C71BB6F6FC006C51BE /* UIImageEffects.swift in Sources */,
+				C6C0B3531BB83A1B009E1760 /* CacheData.swift in Sources */,
 				C6BEDAF01BB5742600F196D5 /* PhotoGridViewController.swift in Sources */,
 				C6B855C31BB6DA4F006C51BE /* FilterViewController.swift in Sources */,
 				C6154B0B1BB6A4FF0006EAD7 /* ImageData.swift in Sources */,
@@ -457,7 +461,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -495,7 +499,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
