@@ -22,3 +22,8 @@
 "error_loading_image_message"="Er ging iets missen tijdens het ophalen van de afbeelding in hoge resolutie.";
 "error_button_try_again"="Probeer opnieuw";
 "error_button_ok"="Ok";
+"error_please_wait_title"="Even geduld aub";
+"error_not_downloaded_message"="Je kan de afbeeldin alleen opslaan als deze volledig geladen is.";
+
+// Intro
+"button_title_got_it"="Ik snap het!";

@@ -84,6 +84,15 @@ class BlendleViewController: UIViewController {
         evo_drawerController?.gestureCompletionBlock = completionHandler
     }
     
+    func navigationBarButtonWithIcon(icon: UIImage, action: Selector) -> UIBarButtonItem {
+        let button: UIButton = UIButton(frame: CGRectMake(0, 0, icon.size.width, icon.size.height))
+        button.setBackgroundImage(icon, forState: .Normal)
+        button.addTarget(self, action: action, forControlEvents: .TouchUpInside)
+        
+        let barButton: UIBarButtonItem = UIBarButtonItem(customView: button)
+        return barButton
+    }
+    
     func setupNavigationBar() {
         navigationController?.navigationBar.translucent = false
         

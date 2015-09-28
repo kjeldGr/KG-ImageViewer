@@ -22,6 +22,9 @@ class ImagePagerViewController: BlendleViewController, UIPageViewControllerDeleg
         
         super.viewDidLoad()
         
+        let downloadButton = navigationBarButtonWithIcon(UIImage(named:"Download")!, action: "downloadImage")
+        navigationItem.setRightBarButtonItem(downloadButton, animated: false)
+        
         let firstViewController = imageDetailViewControllerForIndex(currentIndex)!
         
         pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
@@ -33,6 +36,20 @@ class ImagePagerViewController: BlendleViewController, UIPageViewControllerDeleg
         pageViewController.didMoveToParentViewController(self)
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[self]|", options: .AlignmentMask, metrics: nil, views: ["self": pageViewController.view]))
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[self]|", options: .AlignmentMask, metrics: nil, views: ["self": pageViewController.view]))
+    }
+    
+    func downloadImage() {
+        let currentController = pageViewController.viewControllers?.first as! ImageDetailViewController
+        if currentController.detailImage != nil {
+            UIImageWriteToSavedPhotosAlbum(currentController.detailImage, nil, nil, nil)
+        } else {
+            let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default) {
+                UIAlertAction in
+                
+            }
+            let alert = alertControllerWithTitle(NSLocalizedString("error_please_wait_title", comment: ""), andMessage: NSLocalizedString("error_not_downloaded_message", comment: ""), andStyle: .Alert, andActions: [okAction])
+            presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     // Page View Controller Methods

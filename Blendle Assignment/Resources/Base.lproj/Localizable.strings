@@ -22,3 +22,11 @@
 "error_loading_image_message"="Something went wrong while loading the image in high resolution.";
 "error_button_try_again"="Try again";
 "error_button_ok"="Ok";
+"error_please_wait_title"="Please wait";
+"error_not_downloaded_message"="You can only save the image when it's fully loaded.";
+
+// Intro
+"text_home_screen"="When you're in the homescreen,\nyou can scroll through all the images.";
+"text_filter_settings"="To filter your images or change some\nsettings, swipe to the left from the\nright side of the screen, or press the\nfilter button.";
+"text_tap_detail"="Tap a thumbnail image to go to\nthe detail image viewer.";
+"button_title_got_it"="Got it!";

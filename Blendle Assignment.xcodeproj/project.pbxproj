@@ -13,6 +13,7 @@
 		C6154B091BB6A4DB0006EAD7 /* BlendleImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6154B081BB6A4DB0006EAD7 /* BlendleImageCell.swift */; settings = {ASSET_TAGS = (); }; };
 		C6154B0B1BB6A4FF0006EAD7 /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6154B0A1BB6A4FF0006EAD7 /* ImageData.swift */; settings = {ASSET_TAGS = (); }; };
 		C6154B0D1BB6B40B0006EAD7 /* BlendleImageLoaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6154B0C1BB6B40B0006EAD7 /* BlendleImageLoaderCell.swift */; settings = {ASSET_TAGS = (); }; };
+		C66961D71BB93C3100D52059 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66961D61BB93C3100D52059 /* IntroViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C69A83A91BB59171009CAB28 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69A83A71BB59171009CAB28 /* API.swift */; settings = {ASSET_TAGS = (); }; };
 		C69A83AA1BB59171009CAB28 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69A83A81BB59171009CAB28 /* Helper.swift */; settings = {ASSET_TAGS = (); }; };
 		C6B855B41BB6C877006C51BE /* ProximaNova-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6B855AE1BB6C877006C51BE /* ProximaNova-Bold.otf */; settings = {ASSET_TAGS = (); }; };
@@ -48,6 +49,7 @@
 		C6154B081BB6A4DB0006EAD7 /* BlendleImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlendleImageCell.swift; sourceTree = "<group>"; };
 		C6154B0A1BB6A4FF0006EAD7 /* ImageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
 		C6154B0C1BB6B40B0006EAD7 /* BlendleImageLoaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlendleImageLoaderCell.swift; sourceTree = "<group>"; };
+		C66961D61BB93C3100D52059 /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		C69A83A71BB59171009CAB28 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		C69A83A81BB59171009CAB28 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		C6B855AE1BB6C877006C51BE /* ProximaNova-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Bold.otf"; sourceTree = "<group>"; };
@@ -251,11 +253,12 @@
 		C6BEDAE11BB573C400F196D5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C66961D61BB93C3100D52059 /* IntroViewController.swift */,
 				C6BEDAED1BB5741200F196D5 /* BlendleViewController.swift */,
 				C6BEDAEF1BB5742600F196D5 /* PhotoGridViewController.swift */,
-				C6B855C21BB6DA4F006C51BE /* FilterViewController.swift */,
-				C6B855C41BB6E4CE006C51BE /* ImageDetailViewController.swift */,
 				C6B855C81BB6FF42006C51BE /* ImagePagerViewController.swift */,
+				C6B855C41BB6E4CE006C51BE /* ImageDetailViewController.swift */,
+				C6B855C21BB6DA4F006C51BE /* FilterViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				C6154B091BB6A4DB0006EAD7 /* BlendleImageCell.swift in Sources */,
 				C6B855C91BB6FF42006C51BE /* ImagePagerViewController.swift in Sources */,
 				C6BEDAEE1BB5741200F196D5 /* BlendleViewController.swift in Sources */,
+				C66961D71BB93C3100D52059 /* IntroViewController.swift in Sources */,
 				C6B855C71BB6F6FC006C51BE /* UIImageEffects.swift in Sources */,
 				C6C0B3531BB83A1B009E1760 /* CacheData.swift in Sources */,
 				C6BEDAF01BB5742600F196D5 /* PhotoGridViewController.swift in Sources */,

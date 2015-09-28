@@ -18,14 +18,17 @@ enum Category: String {
     case Upcoming = "upcoming"
 }
 
-class PhotoGridViewController: BlendleViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate {
+class PhotoGridViewController: BlendleViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, UISearchBarDelegate {
     
     @IBOutlet weak var splashView: SpringView!
     @IBOutlet weak var blendleLogo: SpringImageView!
     @IBOutlet weak var categorySegmentedBarView: SegmentedBarView!
+    @IBOutlet weak var disableView: UIView!
     
     private var currentCategory = Category.Popular
     private var currentPage = 1
+    private var searching = false
+    private var searchTerm: String!
     private var images: [ImageData] = Array()
     
     // Collection View properties
@@ -47,15 +50,13 @@ class PhotoGridViewController: BlendleViewController, UICollectionViewDelegate, 
         navigationController?.navigationBar.shadowImage = UIColor.clearColor().imageWithSize(CGSizeMake(1, 1))
         navigationController?.navigationBar.setBackgroundImage(Helper.mainColor.imageWithSize(CGSizeMake(1, 1)), forBarMetrics: UIBarMetrics.Default)
         
-        let filterIcon: UIImage = UIImage(named: "Filter")!
-        let filterButton: UIButton = UIButton(frame: CGRectMake(0, 0, filterIcon.size.width, filterIcon.size.height))
-        filterButton.setBackgroundImage(filterIcon, forState: .Normal)
-        filterButton.addTarget(self, action: "toggleMenu", forControlEvents: .TouchUpInside)
-        
-        let filterBarButton: UIBarButtonItem = UIBarButtonItem(customView: filterButton)
-        navigationItem.setRightBarButtonItem(filterBarButton, animated: false)
+        let filterBarButton = navigationBarButtonWithIcon(UIImage(named: "Filter")!, action: "toggleMenu")
+        let searchBarButton = navigationBarButtonWithIcon(UIImage(named: "Search")!, action: "toggleSearchBar")
+        navigationItem.setRightBarButtonItems([filterBarButton, searchBarButton], animated: false)
         
         categorySegmentedBarView.segmentedControl.setLocalizedTitles(["photo_grid_category_popular", "photo_grid_category_highest_rating", "photo_grid_category_editors", "photo_grid_category_upcoming"])
+        
+        categorySegmentedBarView.searchBar.delegate = self
         
         layoutCollectionView()
         
@@ -78,6 +79,17 @@ class PhotoGridViewController: BlendleViewController, UICollectionViewDelegate, 
         }
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowImage" {
+            navigationController!.navigationBar.topItem!.title = NSLocalizedString("text_back", comment: "");
+            let detailViewController = segue.destinationViewController as! ImagePagerViewController
+            detailViewController.images = images
+            detailViewController.currentIndex = sender as! Int
+        }
+    }
+    
+    // MARK: - Load Images methods
+    
     func reloadImages() {
         images.removeAll()
         currentPage = 1
@@ -87,6 +99,11 @@ class PhotoGridViewController: BlendleViewController, UICollectionViewDelegate, 
         updateImages()
     }
     
+    override func stopLoading() {
+        super.stopLoading()
+        refreshControl.endRefreshing()
+    }
+    
     func updateImages() {
         if loading {
             return
@@ -94,7 +111,14 @@ class PhotoGridViewController: BlendleViewController, UICollectionViewDelegate, 
         
         startLoading()
         
-        Alamofire.request(API.Router.getImages(["page": currentPage, "feature": currentCategory.rawValue])).validate()
+        var request: URLRequestConvertible!
+        if searching {
+            request = API.Router.searchImages(["page": currentPage, "feature": currentCategory.rawValue, "term": searchTerm])
+        } else {
+            request = API.Router.getImages(["page": currentPage, "feature": currentCategory.rawValue])
+        }
+        
+        Alamofire.request(request).validate()
             .responseJSON(completionHandler: { (request, response, result) -> Void in
                 switch result {
                 case .Success(let data):
@@ -156,18 +180,49 @@ class PhotoGridViewController: BlendleViewController, UICollectionViewDelegate, 
         reloadImages()
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ShowImage" {
-            navigationController!.navigationBar.topItem!.title = NSLocalizedString("text_back", comment: "");
-            let detailViewController = segue.destinationViewController as! ImagePagerViewController
-            detailViewController.images = images
-            detailViewController.currentIndex = sender as! Int
+    // MARK: - Search Bar Methods
+    
+    @IBAction func didTapDisableView(sender: AnyObject) {
+        if categorySegmentedBarView.searchBar.text?.length == 0 {
+            closeSearchBar()
         }
     }
     
-    override func stopLoading() {
-        super.stopLoading()
-        refreshControl.endRefreshing()
+    func toggleSearchBar() {
+        if categorySegmentedBarView.showingSearchBar {
+            closeSearchBar()
+        } else {
+            categorySegmentedBarView.showSearchBar()
+        }
+    }
+    
+    func closeSearchBar() {
+        disableView.hidden = true
+        
+        categorySegmentedBarView.closeSearchBar()
+        categorySegmentedBarView.searchBar.resignFirstResponder()
+        
+        if searching {
+            searching = false
+            searchTerm = ""
+            
+            reloadImages()
+        }
+    }
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        disableView.hidden = false
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        disableView.hidden = true
+        
+        searching = true
+        searchTerm = searchBar.text!
+        
+        searchBar.resignFirstResponder()
+        
+        reloadImages()
     }
     
     // MARK: - Scroll View Methods

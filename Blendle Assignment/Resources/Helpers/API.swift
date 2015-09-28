@@ -32,15 +32,20 @@ struct API {
         static let consumerKey = "1cpVOiEnzp9QEYoIIlU0qgww77ayOHTVSLbasWSa"
         
         case getImages([String: AnyObject])
+        case searchImages([String: AnyObject])
         case getImage(Int, [String: AnyObject])
         
         var URLRequest: NSMutableURLRequest {
             let (path, parameters, method): (String, [String: AnyObject], Alamofire.Method) = {
                 switch self {
                 case .getImages (let params):
-                    var requestParams: [String: AnyObject] = ["consumer_key": Router.consumerKey, "rpp": "50",  "include_store": "store_download"]
+                    var requestParams: [String: AnyObject] = ["consumer_key": Router.consumerKey, "rpp": "50"]
                     requestParams.update(params)
                     return ("/photos", requestParams, Alamofire.Method.GET)
+                case .searchImages (let params):
+                    var requestParams: [String: AnyObject] = ["consumer_key": Router.consumerKey, "rpp": "50",  "include_store": "store_download"]
+                    requestParams.update(params)
+                    return ("/photos/search", requestParams, Alamofire.Method.GET)
                 case .getImage(let imageId, let params):
                     var requestParams: [String: AnyObject] = ["consumer_key": Router.consumerKey]
                     requestParams.update(params)

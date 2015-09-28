@@ -14,6 +14,7 @@ class ImageDetailViewController: BlendleViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var backgroundImageView: UIImageView!
+    var detailImage: UIImage!
     var imageData: ImageData!
     var scrollView = UIScrollView()
     
@@ -94,6 +95,7 @@ class ImageDetailViewController: BlendleViewController, UIScrollViewDelegate {
     }
     
     func setImage(image: UIImage) {
+        detailImage = image
         self.imageView.image = image
         self.backgroundImageView.image = image.applyBlurWithRadius(5, tintColor: Helper.mainColor.colorWithAlphaComponent(0.5), saturationDeltaFactor: 1.8)
     }
