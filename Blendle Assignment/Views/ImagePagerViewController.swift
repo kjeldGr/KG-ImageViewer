@@ -87,14 +87,12 @@ class ImagePagerViewController: BlendleViewController, UIPageViewControllerDeleg
     }
     
     func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
-//        print("pending: ", pendingViewControllers)
         let imageData = (pendingViewControllers.first as! ImageDetailViewController).imageData
         transitionIndex = images.indexOf(imageData)!
         transitionTitle = imageData.name
     }
     
     func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-//        print("previous: ", previousViewControllers)
         if (finished && completed) {
             currentIndex = transitionIndex
             updateTitle(transitionTitle)

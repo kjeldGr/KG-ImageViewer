@@ -42,6 +42,8 @@ class IntroViewController: AnimatedPagingScrollViewController {
     func createIntroViews() {
         var alphaAnimation: AlphaAnimation!
         
+        // Add Page control and Phone model
+        
         pageControl.numberOfPages = numberOfPages()
         pageControl.pageIndicatorTintColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
         pageControl.currentPageIndicatorTintColor = UIColor.whiteColor()
@@ -78,6 +80,7 @@ class IntroViewController: AnimatedPagingScrollViewController {
         animator.addAnimation(alphaAnimation)
         
         // First page
+        
         var keepViewArray: [CGFloat]
         switch Helper.deviceType() {
         case .iPhone6:
@@ -123,9 +126,11 @@ class IntroViewController: AnimatedPagingScrollViewController {
         addLabelForPage(1, withText: NSLocalizedString("text_filter_settings", comment: ""))
         
         // Third page
+        
         addLabelForPage(2, withText: NSLocalizedString("text_search_tap", comment: ""))
         
         // Fourth page
+        
         addLabelForPage(3, withText: NSLocalizedString("text_search_term", comment: ""))
         
         let searchInactive = screenshotForPages([2, 3, 4], atTimes: [2, 3, 4], image: UIImage(named: "SearchDisabled")!)
@@ -146,6 +151,7 @@ class IntroViewController: AnimatedPagingScrollViewController {
         animator.addAnimation(alphaAnimation)
         
         // Fifth page
+        
         addLabelForPage(4, withText: NSLocalizedString("text_search_go", comment: ""))
         
         let searchDone = screenshotForPages([4, 5, 6], atTimes: [4, 5, 6], image: UIImage(named: "SearchDone")!)
@@ -171,6 +177,7 @@ class IntroViewController: AnimatedPagingScrollViewController {
         animator.addAnimation(alphaAnimation)
         
         // Sixth page
+        
         let detailScreen = screenshotForPages([4, 5, 6, 6.15], atTimes: [4, 5, 6, 6.15], image: UIImage(named: "DetailIntro")!)
         
         alphaAnimation = AlphaAnimation(view: detailScreen)
@@ -183,9 +190,11 @@ class IntroViewController: AnimatedPagingScrollViewController {
         addLabelForPage(5, withText: NSLocalizedString("text_tap_detail", comment: ""))
         
         // Seventh page
+        
         addLabelForPage(6, withText: NSLocalizedString("text_save", comment: ""))
         
         // Last page
+        
         let appLabel = addLabelForPage(7, withText: NSLocalizedString("text_have_fun", comment: ""))
         appLabel.font = Helper.defaultFontWith(.Regular, size: 26)
         
@@ -355,10 +364,6 @@ class IntroViewController: AnimatedPagingScrollViewController {
     func startApp() {
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: "ShowedIntro")
         NSUserDefaults.standardUserDefaults().synchronize()
-        
-        evo_drawerController?.centerHiddenInteractionMode = DrawerOpenCenterInteractionMode.Full
-//        evo_drawerController?.openDrawerGestureModeMask = OpenDrawerGestureMode.BezelPanningCenterView
-//        evo_drawerController?.closeDrawerGestureModeMask = CloseDrawerGestureMode.PanningCenterView
         
         evo_drawerController?.setCenterViewController(storyboard!.instantiateViewControllerWithIdentifier("PhotoGridNavigationView"), withCloseAnimation: false, completion: nil)
     }

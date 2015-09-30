@@ -9,6 +9,8 @@
 import UIKit
 import DrawerController
 
+// Extensions
+
 extension UIView {
     
     public class var nameOfClass: String{
@@ -91,6 +93,8 @@ extension UIColor {
     }
     
 }
+
+// Blendle (Main) View Controller
 
 class BlendleViewController: UIViewController {
     
