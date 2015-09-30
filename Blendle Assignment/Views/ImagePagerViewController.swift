@@ -53,18 +53,19 @@ class ImagePagerViewController: BlendleViewController, UIPageViewControllerDeleg
     }
     
     func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafePointer<Void>)       {
-        
+        let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default) {
+            UIAlertAction in
+            
+        }
+        var alert: UIAlertController!
         if error != nil {
-            print("error", error)
+            
+            alert = alertControllerWithTitle(NSLocalizedString("error_saving_failed_title", comment: ""), andMessage: NSLocalizedString("error_saving_failed_message", comment: ""), andStyle: .Alert, andActions: [okAction])
         }
         else{
-            let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default) {
-                UIAlertAction in
-                
-            }
-            let alert = alertControllerWithTitle(NSLocalizedString("error_saved_title", comment: ""), andMessage: NSLocalizedString("error_saved_message", comment: ""), andStyle: .Alert, andActions: [okAction])
-            presentViewController(alert, animated: true, completion: nil)
+            alert = alertControllerWithTitle(NSLocalizedString("error_saved_title", comment: ""), andMessage: NSLocalizedString("error_saved_message", comment: ""), andStyle: .Alert, andActions: [okAction])
         }
+        presentViewController(alert, animated: true, completion: nil)
     }
     
     // Page View Controller Methods

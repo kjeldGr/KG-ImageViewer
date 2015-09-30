@@ -47,6 +47,7 @@ class IntroViewController: AnimatedPagingScrollViewController {
         pageControl.numberOfPages = numberOfPages()
         pageControl.pageIndicatorTintColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
         pageControl.currentPageIndicatorTintColor = UIColor.whiteColor()
+        pageControl.userInteractionEnabled = false
         contentView.addSubview(pageControl)
         if Helper.deviceType() == .iPhone6 || Helper.deviceType() == .iPhone6Plus {
             contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[self]-20-|", options: .AlignmentMask, metrics: nil, views: ["self": pageControl]))

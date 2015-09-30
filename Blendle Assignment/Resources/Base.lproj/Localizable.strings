@@ -28,6 +28,9 @@
 "error_not_downloaded_message"="You can only save the image when it's fully loaded.";
 "error_saved_title"="Image saved";
 "error_saved_message"="The image is saved to your Camera Roll.";
+"error_saving_failed_title"="Saving failed";
+"error_saving_failed_message"="Something went wrong while saving the image to your Camera Roll. Please check if you gave the app access to your photos.";
+
 
 // Intro
 "text_home_screen"="When you're in the homescreen, you can\nscroll through all the images.";

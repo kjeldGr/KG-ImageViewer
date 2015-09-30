@@ -28,6 +28,8 @@
 "error_not_downloaded_message"="Je kan de afbeeldin alleen opslaan als deze volledig geladen is.";
 "error_saved_title"="Afbeelding opgeslagen";
 "error_saved_message"="De afbeelding is opgeslagen in je Filmrol.";
+"error_saving_failed_title"="Opslaan mislukt";
+"error_saving_failed_message"="Er ging iets mis tijdens het opslaan van de foto. Controleer aub of je de app toegang hebt gegeven tot je foto's.";
 
 // Intro
 "text_home_screen"="In het beginscherm kun je door alle\nafbeeldingen heen scrollen.";
