@@ -22,13 +22,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = UIColor.whiteColor()
         
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let showedIntro = NSUserDefaults.standardUserDefaults().boolForKey("ShowedIntro")
         
         var centerViewController: UIViewController!
-//        if NSUserDefaults.standardUserDefaults().boolForKey("ShowedIntro") {
+        if showedIntro {
             centerViewController = storyboard.instantiateViewControllerWithIdentifier("PhotoGridNavigationView")
-//        } else {
-//            centerViewController = storyboard.instantiateViewControllerWithIdentifier("IntroView")
-//        }
+        } else {
+            centerViewController = storyboard.instantiateViewControllerWithIdentifier("IntroView")
+        }
         let rightViewController: FilterViewController = storyboard.instantiateViewControllerWithIdentifier("FilterView") as! FilterViewController
         
         let drawerController: DrawerController = DrawerController(centerViewController: centerViewController, rightDrawerViewController: rightViewController)
@@ -36,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         drawerController.setMaximumLeftDrawerWidth(menuWidth, animated: false, completion: nil)
         
         drawerController.openDrawerGestureModeMask = OpenDrawerGestureMode.BezelPanningCenterView
-        drawerController.closeDrawerGestureModeMask = CloseDrawerGestureMode.PanningCenterView
+        drawerController.closeDrawerGestureModeMask = [CloseDrawerGestureMode.PanningCenterView, CloseDrawerGestureMode.TapCenterView]
         
         window?.rootViewController = drawerController
         window?.makeKeyAndVisible()

@@ -34,6 +34,37 @@ extension UIView {
     
 }
 
+extension UILabel {
+    var localizedText: String {
+        set (key) {
+            text = NSLocalizedString(key, comment: "")
+        }
+        get {
+            return text!
+        }
+    }
+}
+
+extension UIButton {
+    var localizedTitleForNormal: String {
+        set (key) {
+            setTitle(NSLocalizedString(key, comment: ""), forState: .Normal)
+        }
+        get {
+            return titleForState(.Normal)!
+        }
+    }
+    
+    var localizedTitleForHighlighted: String {
+        set (key) {
+            setTitle(NSLocalizedString(key, comment: ""), forState: .Highlighted)
+        }
+        get {
+            return titleForState(.Highlighted)!
+        }
+    }
+}
+
 extension UISegmentedControl {
     
     func setLocalizedTitles(titles: [String]) {

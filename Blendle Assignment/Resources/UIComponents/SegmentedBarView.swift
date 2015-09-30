@@ -43,14 +43,15 @@ class SegmentedBarView: UIView {
     }
     
     func animateSearchBar(open: Bool) {
+        let animationSpeed = 0.15
         self.showingSearchBar = open
         let heightConstraint = constraints.filter() { $0.firstAttribute == .Height }[0]
         if open {
-            UIView.animateWithDuration(0.4, animations: { () -> Void in
+            UIView.animateWithDuration(animationSpeed, animations: { () -> Void in
                 heightConstraint.constant += 44
                 self.layoutIfNeeded()
                 }, completion: { (finished) -> Void in
-                    UIView.animateWithDuration(0.4, animations: { () -> Void in
+                    UIView.animateWithDuration(animationSpeed, animations: { () -> Void in
                         self.searchBar.hidden = false
                         self.searchBar.alpha = 1
                         }, completion: { (finished) -> Void in
@@ -59,12 +60,12 @@ class SegmentedBarView: UIView {
             })
         } else {
             self.searchBar.resignFirstResponder()
-            UIView.animateWithDuration(0.4, animations: { () -> Void in
+            UIView.animateWithDuration(animationSpeed, animations: { () -> Void in
                 self.searchBar.alpha = 0
                 }, completion: { (finished) -> Void in
                     self.searchBar.hidden = true
                     self.searchBar.text = ""
-                    UIView.animateWithDuration(0.4, animations: { () -> Void in
+                    UIView.animateWithDuration(animationSpeed, animations: { () -> Void in
                         heightConstraint.constant -= 44
                         self.layoutIfNeeded()
                     })

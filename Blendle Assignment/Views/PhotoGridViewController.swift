@@ -34,7 +34,6 @@ class PhotoGridViewController: BlendleViewController, UICollectionViewDelegate, 
     // Collection View properties
     @IBOutlet weak var imageCollectionView: UICollectionView!
     let imageCellIdentifier = "BlendleImageCell"
-    let loaderCellIdentifier = "BlendleLoaderCell"
     let sectionInset: CGFloat = 5
     let cellSpacing: CGFloat = 2
     let cellsPerRow = 4
@@ -61,7 +60,6 @@ class PhotoGridViewController: BlendleViewController, UICollectionViewDelegate, 
         layoutCollectionView()
         
         imageCollectionView!.registerClass(BlendleImageCell.classForCoder(), forCellWithReuseIdentifier: imageCellIdentifier)
-        imageCollectionView!.registerClass(BlendleImageLoaderCell.classForCoder(), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: loaderCellIdentifier)
         
         refreshControl.backgroundColor = Helper.mainColor
         refreshControl.tintColor = UIColor.whiteColor()

@@ -12,8 +12,7 @@
 		C6154B031BB69E5B0006EAD7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C6154B051BB69E5B0006EAD7 /* Localizable.strings */; };
 		C6154B091BB6A4DB0006EAD7 /* BlendleImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6154B081BB6A4DB0006EAD7 /* BlendleImageCell.swift */; settings = {ASSET_TAGS = (); }; };
 		C6154B0B1BB6A4FF0006EAD7 /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6154B0A1BB6A4FF0006EAD7 /* ImageData.swift */; settings = {ASSET_TAGS = (); }; };
-		C6154B0D1BB6B40B0006EAD7 /* BlendleImageLoaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6154B0C1BB6B40B0006EAD7 /* BlendleImageLoaderCell.swift */; settings = {ASSET_TAGS = (); }; };
-		C66961D71BB93C3100D52059 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66961D61BB93C3100D52059 /* IntroViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		C6343BEF1BBB011800F4DF0C /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66961D61BB93C3100D52059 /* IntroViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		C69A83A91BB59171009CAB28 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69A83A71BB59171009CAB28 /* API.swift */; settings = {ASSET_TAGS = (); }; };
 		C69A83AA1BB59171009CAB28 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69A83A81BB59171009CAB28 /* Helper.swift */; settings = {ASSET_TAGS = (); }; };
 		C6B855B41BB6C877006C51BE /* ProximaNova-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6B855AE1BB6C877006C51BE /* ProximaNova-Bold.otf */; settings = {ASSET_TAGS = (); }; };
@@ -48,7 +47,6 @@
 		C6154B061BB69E700006EAD7 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C6154B081BB6A4DB0006EAD7 /* BlendleImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlendleImageCell.swift; sourceTree = "<group>"; };
 		C6154B0A1BB6A4FF0006EAD7 /* ImageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
-		C6154B0C1BB6B40B0006EAD7 /* BlendleImageLoaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlendleImageLoaderCell.swift; sourceTree = "<group>"; };
 		C66961D61BB93C3100D52059 /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		C69A83A71BB59171009CAB28 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		C69A83A81BB59171009CAB28 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
@@ -151,7 +149,6 @@
 			isa = PBXGroup;
 			children = (
 				C6154B081BB6A4DB0006EAD7 /* BlendleImageCell.swift */,
-				C6154B0C1BB6B40B0006EAD7 /* BlendleImageLoaderCell.swift */,
 			);
 			name = CollectionCells;
 			sourceTree = "<group>";
@@ -396,12 +393,10 @@
 			files = (
 				C6BEDAEC1BB573EE00F196D5 /* Blendle_Assignment.xcdatamodeld in Sources */,
 				C6B855C51BB6E4CE006C51BE /* ImageDetailViewController.swift in Sources */,
-				C6154B0D1BB6B40B0006EAD7 /* BlendleImageLoaderCell.swift in Sources */,
 				C6BEDAE31BB573C400F196D5 /* AppDelegate.swift in Sources */,
 				C6154B091BB6A4DB0006EAD7 /* BlendleImageCell.swift in Sources */,
 				C6B855C91BB6FF42006C51BE /* ImagePagerViewController.swift in Sources */,
 				C6BEDAEE1BB5741200F196D5 /* BlendleViewController.swift in Sources */,
-				C66961D71BB93C3100D52059 /* IntroViewController.swift in Sources */,
 				C6B855C71BB6F6FC006C51BE /* UIImageEffects.swift in Sources */,
 				C6C0B3531BB83A1B009E1760 /* CacheData.swift in Sources */,
 				C6BEDAF01BB5742600F196D5 /* PhotoGridViewController.swift in Sources */,
@@ -411,6 +406,7 @@
 				C6B855BB1BB6CC14006C51BE /* Loader.swift in Sources */,
 				C69A83AA1BB59171009CAB28 /* Helper.swift in Sources */,
 				C6154B001BB698130006EAD7 /* SegmentedBarView.swift in Sources */,
+				C6343BEF1BBB011800F4DF0C /* IntroViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

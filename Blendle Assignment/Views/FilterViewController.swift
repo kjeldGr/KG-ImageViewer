@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DrawerController
 
 enum Setting: String {
     case ShowNSFW = "ShowNSFWImages"
@@ -15,21 +16,13 @@ enum Setting: String {
 
 class FilterViewController: UIViewController {
 
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var nsfwSwitch: UISwitch!
-    @IBOutlet weak var nsfwLabel: UILabel!
     @IBOutlet weak var cacheSwitch: UISwitch!
-    @IBOutlet weak var cacheLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        titleLabel.text = NSLocalizedString("filter_text_title", comment: "")
-        
-        nsfwLabel.text = NSLocalizedString("filter_text_nsfw", comment: "")
         nsfwSwitch.setOn(NSUserDefaults.standardUserDefaults().boolForKey(Setting.ShowNSFW.rawValue), animated: false)
-        
-        cacheLabel.text = NSLocalizedString("filter_text_cache", comment: "")
         cacheSwitch.setOn(NSUserDefaults.standardUserDefaults().boolForKey(Setting.SaveHighRes.rawValue), animated: false)
     }
 
@@ -45,6 +38,10 @@ class FilterViewController: UIViewController {
         }
         NSUserDefaults.standardUserDefaults().setBool(cacheSwitch.on, forKey: Setting.SaveHighRes.rawValue)
         NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
+    @IBAction func introButtonPressed(sender: AnyObject) {
+        evo_drawerController?.setCenterViewController(storyboard!.instantiateViewControllerWithIdentifier("IntroView"), withCloseAnimation: true, completion: nil)
     }
     
 }

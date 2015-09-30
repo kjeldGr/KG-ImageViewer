@@ -12,6 +12,8 @@
         </mutableArray>
         <mutableArray key="ProximaNova-Semibold.otf">
             <string>ProximaNova-Semibold</string>
+            <string>ProximaNova-Semibold</string>
+            <string>ProximaNova-Semibold</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -244,58 +246,106 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mYL-yd-Zyc">
-                                <rect key="frame" x="531" y="133" width="51" height="31"/>
+                                <rect key="frame" x="531" y="93" width="51" height="31"/>
                                 <color key="onTintColor" red="1" green="0.38431372549999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="toggleNsfwSwitch:" destination="qBW-jV-TmE" eventType="valueChanged" id="5uA-yj-fxz"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iv7-Dh-G8d">
-                                <rect key="frame" x="261.5" y="60" width="77" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iv7-Dh-G8d">
+                                <rect key="frame" x="20" y="65" width="48" height="21"/>
                                 <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="21"/>
                                 <color key="textColor" red="1" green="0.38431372549999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="filter_text_filter"/>
+                                </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show NSFW images:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CkV-Zd-K1U">
-                                <rect key="frame" x="20" y="141" width="134.5" height="15"/>
+                                <rect key="frame" x="20" y="101" width="134.5" height="15"/>
                                 <fontDescription key="fontDescription" name="ProximaNova-Light" family="Proxima Nova" pointSize="15"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="filter_text_nsfw"/>
+                                </userDefinedRuntimeAttributes>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Af9-hD-OfL">
-                                <rect key="frame" x="531" y="173" width="51" height="31"/>
+                                <rect key="frame" x="531" y="179" width="51" height="31"/>
                                 <color key="onTintColor" red="1" green="0.38431372549999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="toggleCacheSwitch:" destination="qBW-jV-TmE" eventType="valueChanged" id="Ce9-jr-mS5"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save cache:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="akQ-WO-7Us">
-                                <rect key="frame" x="20" y="181" width="79" height="15"/>
+                                <rect key="frame" x="20" y="187" width="79" height="15"/>
                                 <fontDescription key="fontDescription" name="ProximaNova-Light" family="Proxima Nova" pointSize="15"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="filter_text_cache"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEC-C7-GGj">
+                                <rect key="frame" x="20" y="505" width="560" height="55"/>
+                                <color key="backgroundColor" red="1" green="0.38431372549999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="Kq2-v0-wM6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="15"/>
+                                <state key="normal" title="Introduction">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedTitleForNormal" value="filter_button_text_introduction"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="self.layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="introButtonPressed:" destination="qBW-jV-TmE" eventType="touchUpInside" id="qtA-07-aHv"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Other settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wUj-A0-0MO">
+                                <rect key="frame" x="20" y="151" width="133.5" height="21"/>
+                                <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="21"/>
+                                <color key="textColor" red="1" green="0.38431372549999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="filter_text_other_settings"/>
+                                </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Af9-hD-OfL" firstAttribute="trailing" secondItem="mYL-yd-Zyc" secondAttribute="trailing" id="02s-Hc-54y"/>
-                            <constraint firstItem="akQ-WO-7Us" firstAttribute="top" secondItem="CkV-Zd-K1U" secondAttribute="bottom" constant="25" id="5D3-Vb-Wob"/>
                             <constraint firstItem="CkV-Zd-K1U" firstAttribute="leading" secondItem="Wvu-MN-6CN" secondAttribute="leading" constant="20" id="CUE-GM-DnA"/>
+                            <constraint firstItem="sEC-C7-GGj" firstAttribute="leading" secondItem="Wvu-MN-6CN" secondAttribute="leading" constant="20" id="CoE-8N-9t9"/>
+                            <constraint firstItem="biD-IB-VU0" firstAttribute="top" secondItem="sEC-C7-GGj" secondAttribute="bottom" constant="40" id="OXa-Zb-tfd"/>
+                            <constraint firstAttribute="trailing" secondItem="sEC-C7-GGj" secondAttribute="trailing" constant="20" id="Oaq-3u-sfD"/>
+                            <constraint firstItem="akQ-WO-7Us" firstAttribute="top" secondItem="wUj-A0-0MO" secondAttribute="bottom" constant="15" id="Q6D-1r-ivt"/>
                             <constraint firstItem="Iv7-Dh-G8d" firstAttribute="centerX" secondItem="Wvu-MN-6CN" secondAttribute="centerX" id="QMb-rA-skg"/>
                             <constraint firstAttribute="trailing" secondItem="mYL-yd-Zyc" secondAttribute="trailing" constant="20" id="Qhz-rh-kcP"/>
-                            <constraint firstItem="Iv7-Dh-G8d" firstAttribute="top" secondItem="lQ3-10-7vK" secondAttribute="bottom" constant="40" id="mn9-je-YPG"/>
+                            <constraint firstItem="wUj-A0-0MO" firstAttribute="centerX" secondItem="Wvu-MN-6CN" secondAttribute="centerX" id="fCR-Jl-jc6"/>
+                            <constraint firstItem="Iv7-Dh-G8d" firstAttribute="leading" secondItem="Wvu-MN-6CN" secondAttribute="leading" constant="20" id="fnP-3b-qP1"/>
+                            <constraint firstItem="wUj-A0-0MO" firstAttribute="leading" secondItem="Wvu-MN-6CN" secondAttribute="leading" constant="20" id="izH-CS-dY0"/>
+                            <constraint firstItem="Iv7-Dh-G8d" firstAttribute="top" secondItem="lQ3-10-7vK" secondAttribute="bottom" constant="45" id="mn9-je-YPG"/>
+                            <constraint firstItem="wUj-A0-0MO" firstAttribute="top" secondItem="CkV-Zd-K1U" secondAttribute="bottom" constant="35" id="mtO-0w-kye"/>
                             <constraint firstItem="akQ-WO-7Us" firstAttribute="leading" secondItem="CkV-Zd-K1U" secondAttribute="leading" id="zO8-zZ-e1W"/>
-                            <constraint firstItem="CkV-Zd-K1U" firstAttribute="top" secondItem="Iv7-Dh-G8d" secondAttribute="bottom" constant="60" id="zkC-2w-zEY"/>
+                            <constraint firstItem="CkV-Zd-K1U" firstAttribute="top" secondItem="Iv7-Dh-G8d" secondAttribute="bottom" constant="15" id="zkC-2w-zEY"/>
                             <constraint firstItem="mYL-yd-Zyc" firstAttribute="centerY" secondItem="CkV-Zd-K1U" secondAttribute="centerY" id="zl1-QO-z4P"/>
                             <constraint firstItem="Af9-hD-OfL" firstAttribute="centerY" secondItem="akQ-WO-7Us" secondAttribute="centerY" id="zsa-qf-rMu"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="QMb-rA-skg"/>
+                                <exclude reference="fCR-Jl-jc6"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
-                        <outlet property="cacheLabel" destination="akQ-WO-7Us" id="wPQ-iF-HN6"/>
                         <outlet property="cacheSwitch" destination="Af9-hD-OfL" id="CMw-J0-Uf7"/>
-                        <outlet property="nsfwLabel" destination="CkV-Zd-K1U" id="G2M-Dg-PMC"/>
                         <outlet property="nsfwSwitch" destination="mYL-yd-Zyc" id="ddQ-vJ-Qiu"/>
-                        <outlet property="titleLabel" destination="Iv7-Dh-G8d" id="lQG-UP-OMf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ebq-jw-v1Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -321,22 +371,21 @@
             <point key="canvasLocation" x="275" y="1081"/>
         </scene>
         <!--Intro View Controller-->
-        <scene sceneID="VB1-Bt-wKv">
+        <scene sceneID="6mf-K1-40i">
             <objects>
-                <viewController storyboardIdentifier="IntroView" id="AiP-ra-5aH" customClass="IntroViewController" customModule="Blendle_Assignment" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IntroView" id="9i3-45-fsK" customClass="IntroViewController" customModule="Blendle_Assignment" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="yl5-Kz-MZc"/>
-                        <viewControllerLayoutGuide type="bottom" id="LXb-47-vV7"/>
+                        <viewControllerLayoutGuide type="top" id="iUK-8F-t5I"/>
+                        <viewControllerLayoutGuide type="bottom" id="JNq-Dt-2UD"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="FaR-S5-jW8">
+                    <view key="view" contentMode="scaleToFill" id="ZjV-uq-egU">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="0.38431372549999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4QC-4M-Ky5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kzS-cH-sIn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-446" y="-410"/>
         </scene>
     </scenes>
     <resources>
