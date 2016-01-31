@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImagePagerViewController: KGViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+class ImagePagerViewController: KGViewController {
 
     var pageViewController: UIPageViewController!
     var images: [ImageData]!
@@ -69,6 +69,10 @@ class ImagePagerViewController: KGViewController, UIPageViewControllerDelegate, 
         }
         presentViewController(alert, animated: true, completion: nil)
     }
+
+}
+
+extension ImagePagerViewController: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     
     // MARK: - Page View Controller Methods
     
@@ -101,5 +105,5 @@ class ImagePagerViewController: KGViewController, UIPageViewControllerDelegate, 
             updateTitle(transitionTitle)
         }
     }
-
+    
 }
