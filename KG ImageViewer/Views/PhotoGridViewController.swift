@@ -46,8 +46,8 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadImages", name: Setting.ShowNSFW.rawValue, object: nil)
         
-        navigationController?.navigationBar.shadowImage = UIColor.clearColor().imageWithSize(CGSizeMake(1, 1))
-        navigationController?.navigationBar.setBackgroundImage(Helper.mainColor.imageWithSize(CGSizeMake(1, 1)), forBarMetrics: UIBarMetrics.Default)
+        navigationController?.navigationBar.shadowImage = UIImage.imageWithColor(.clearColor(), size: CGSizeMake(1, 1))
+        navigationController?.navigationBar.setBackgroundImage(UIImage.imageWithColor(Helper.mainColor, size: CGSizeMake(1, 1)), forBarMetrics: UIBarMetrics.Default)
         
         let searchBarButton = UIImage(named: "Search")!.navigationBarButtonWithAction { (sender) -> Void in
             self.toggleSearchBar()

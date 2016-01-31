@@ -27,7 +27,7 @@ class ImageDetailViewController: KGViewController {
         navigationController?.navigationBar.layer.shadowColor = UIColor.blackColor().CGColor
         navigationController?.navigationBar.layer.shadowOpacity = 0.25
         
-        backgroundImageView.image = UIColor.whiteColor().imageWithSize(CGSizeMake(1, 1)).applyBlurWithRadius(5, tintColor: Helper.mainColor.colorWithAlphaComponent(0.5), saturationDeltaFactor: 1.8)
+        backgroundImageView.image = UIImage.imageWithColor(UIColor.whiteColor(), size: CGSizeMake(1, 1)).applyBlurWithRadius(5, tintColor: Helper.mainColor.colorWithAlphaComponent(0.5), saturationDeltaFactor: 1.8)
         backgroundImageView.frame = view.bounds
         imageView.frame = view.bounds
         

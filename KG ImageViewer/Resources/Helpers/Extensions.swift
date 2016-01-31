@@ -14,22 +14,16 @@ import EZSwiftExtensions
 
 extension UIView {
     
-    public class var nameOfClass: String{
+    public class var nameOfClass: String {
         return NSStringFromClass(self).componentsSeparatedByString(".").last!
     }
     
-    public var nameOfClass: String{
-        return NSStringFromClass(self.dynamicType).componentsSeparatedByString(".").last!
-    }
-    
-    var loadFromNib: AnyObject? {
+    class func loadFromNib() -> UIView? {
         let nibName = nameOfClass
         let elements = NSBundle.mainBundle().loadNibNamed(nibName, owner: nil, options: nil)
         
-        for anObject in elements {
-            if anObject.isKindOfClass(self.dynamicType) {
-                return anObject
-            }
+        for anObject in elements where anObject.isKindOfClass(UIView) {
+            return anObject as? UIView
         }
         
         return nil
@@ -86,16 +80,12 @@ extension UIImage {
         return barButton
     }
     
-}
-
-extension UIColor {
-    
-    func imageWithSize(size: CGSize) -> UIImage {
+    class func imageWithColor(color: UIColor, size: CGSize) -> UIImage {
         let rect = CGRectMake(0.0, 0.0, size.width, size.height)
         UIGraphicsBeginImageContext(rect.size)
         let context = UIGraphicsGetCurrentContext()
         
-        CGContextSetFillColorWithColor(context, CGColor)
+        CGContextSetFillColorWithColor(context, color.CGColor)
         CGContextFillRect(context, rect)
         
         let image = UIGraphicsGetImageFromCurrentImageContext()
@@ -106,15 +96,17 @@ extension UIColor {
     
 }
 
-// MARK: - Numeric types
-
-extension Int {
+extension UIColor {
     
-    func color() -> UIColor {
-        return UIColor(red: (CGFloat(((self & 0xFF0000) >> 16)))/255.0,
-            green: (CGFloat(((self & 0xFF00) >> 8)))/255.0,
-            blue: (CGFloat((self & 0xFF)))/255.0,
-            alpha: 1.0)
+    convenience init(hex: Int, alpha: CGFloat = 1.0) {
+        self.init(red: (CGFloat(((hex & 0xFF0000) >> 16)))/255.0,
+            green: (CGFloat(((hex & 0xFF00) >> 8)))/255.0,
+            blue: (CGFloat((hex & 0xFF)))/255.0,
+            alpha: alpha)
+    }
+    
+    convenience init(r: CGFloat, g: CGFloat, b: CGFloat, alpha: CGFloat = 1.0) {
+        self.init(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: alpha)
     }
     
 }

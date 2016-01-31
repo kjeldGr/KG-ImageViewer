@@ -100,7 +100,7 @@ class IntroViewController: AnimatedPagingScrollViewController {
         alphaAnimation.addKeyframe(4, value: 0)
         animator.addAnimation(alphaAnimation)
         
-        let blurView = UIImageView(image: UIColor.whiteColor().imageWithSize(CGSizeMake(CGRectGetWidth(homeScreen.frame)*0.7, CGRectGetHeight(homeScreen.frame))).applyBlurWithRadius(5, tintColor: Helper.mainColor.colorWithAlphaComponent(0.5), saturationDeltaFactor: 1.8))
+        let blurView = UIImageView(image: UIImage.imageWithColor(UIColor.whiteColor(), size: CGSizeMake(CGRectGetWidth(homeScreen.frame)*0.7, CGRectGetHeight(homeScreen.frame))).applyBlurWithRadius(5, tintColor: Helper.mainColor.colorWithAlphaComponent(0.5), saturationDeltaFactor: 1.8))
         homeScreen.addSubview(blurView)
         
         alphaAnimation = AlphaAnimation(view: blurView)

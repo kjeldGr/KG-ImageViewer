@@ -27,7 +27,7 @@ enum DeviceType: Int {
 }
 
 public class Helper: NSObject {
-    static let mainColor = (0x4DE8AA).color()
+    static let mainColor = UIColor(hex: 0x4DE8AA)
     
     class func defaultFontWithType(type: FontType, size: CGFloat) -> UIFont {
         return UIFont(name: "ProximaNova" + type.rawValue, size: size)!

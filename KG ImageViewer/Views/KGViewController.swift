@@ -103,7 +103,7 @@ class KGViewController: UIViewController {
             loading = true
             
             if appLoader == nil {
-                appLoader = Loader().loadFromNib as! Loader
+                appLoader = Loader.loadFromNib() as! Loader
                 appLoader.translatesAutoresizingMaskIntoConstraints = false
                 view.addSubview(appLoader)
                 
