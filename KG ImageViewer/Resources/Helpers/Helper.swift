@@ -12,26 +12,12 @@ import UIKit
 Use this class to create public functions you want to use through the whole app
 */
 
-enum FontType: String {
-    case Bold = "-Bold"
-    case BoldItalic = "-BoldItalic"
-    case Semibold = "-Semibold"
-    case Italic = "-RegularIt"
-    case Light = "-Light"
-    case LightItalic = "-LightIt"
-    case Regular = "-Regular"
-}
-
 enum DeviceType: Int {
     case iPhone4, iPhone5, iPhone6, iPhone6Plus, iPad, Unknown
 }
 
 public class Helper: NSObject {
     static let mainColor = UIColor(hex: 0x4DE8AA)
-    
-    class func defaultFontWithType(type: FontType, size: CGFloat) -> UIFont {
-        return UIFont(name: "ProximaNova" + type.rawValue, size: size)!
-    }
     
     class func deviceType() -> DeviceType {
         let mainscreenBounds: CGRect = UIScreen.mainScreen().bounds

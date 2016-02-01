@@ -24,11 +24,11 @@ class SegmentedBarView: UIView {
         layer.shadowColor = UIColor.blackColor().CGColor
         layer.shadowOpacity = 0.25
         
-        segmentedControl.setTitleTextAttributes([NSFontAttributeName: Helper.defaultFontWithType(.Light, size: 12)], forState: UIControlState.Normal)
+        segmentedControl.setTitleTextAttributes([NSFontAttributeName: UIFont(familyName: .ProximaNova, fontType: .Light, size: 12)!], forState: UIControlState.Normal)
         
         searchBar.setBackgroundImage(UIImage.imageWithColor(Helper.mainColor, size: CGSizeMake(1, 1)), forBarPosition: .Top, barMetrics: UIBarMetrics.Default)
         
-        let textfieldFont = Helper.defaultFontWithType(.Regular, size: 15)
+        let textfieldFont = UIFont(familyName: .ProximaNova, fontType: .Regular, size: 15)
         if #available(iOS 9.0, *) {
             UITextField.appearanceWhenContainedInInstancesOfClasses([UISearchBar.self]).font = textfieldFont
         } else {

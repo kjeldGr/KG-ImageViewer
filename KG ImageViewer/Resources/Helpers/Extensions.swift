@@ -10,6 +10,19 @@ import Foundation
 import UIKit
 import EZSwiftExtensions
 
+// Mark: - Objects
+
+extension NSObject {
+    
+    func DLog(message:String, function:String = __FUNCTION__) {
+        // Before you can use this please make sure you added the "-DDEBUG" flag to: Swift Compiler - Custom Flags->Other
+        #if DEBUG
+            print("\(self.dynamicType) - \(function): \(message)")
+        #endif
+    }
+    
+}
+
 // MARK: - UI Elements
 
 extension UIView {
@@ -107,6 +120,30 @@ extension UIColor {
     
     convenience init(r: CGFloat, g: CGFloat, b: CGFloat, alpha: CGFloat = 1.0) {
         self.init(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: alpha)
+    }
+    
+}
+
+extension UIFont {
+    
+    enum FontFamilyName: String {
+        case HelveticaNeue = "HelveticaNeue"
+        case ProximaNova = "ProximaNova"
+    }
+    
+    enum FontType: String {
+        case Bold = "-Bold"
+        case BoldItalic = "-BoldItalic"
+        case Semibold = "-Semibold"
+        case Italic = "-RegularIt"
+        case Light = "-Light"
+        case LightItalic = "-LightIt"
+        case Regular = "-Regular"
+    }
+    
+    convenience init? (familyName: FontFamilyName, fontType: FontType, size: CGFloat) {
+        let name = familyName.rawValue+fontType.rawValue
+        self.init(name: name, size: size)
     }
     
 }

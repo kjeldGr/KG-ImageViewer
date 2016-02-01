@@ -16,6 +16,8 @@ enum View: String {
     case Filter = "FilterView"
 }
 
+// MARK: - Menu View Controller Protocol
+
 protocol MenuViewController {
     func toggleMenu()
     func makeMenuViewController()
@@ -50,12 +52,21 @@ extension MenuViewController where Self: KGViewController {
     
 }
 
+// MARK: - App Loader Protocol
+
+protocol AppLoader {
+    var loading: Bool { get }
+    var appLoader: Loader { get }
+    func startLoading()
+    func stopLoading()
+}
+
 // Main View Controller
 
 class KGViewController: UIViewController {
     
     var loading = false
-    var appLoader: Loader!
+    var appLoader = Loader.loadFromNib() as! Loader
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +92,7 @@ class KGViewController: UIViewController {
     
     func updateTitle(title: String) {
         let titleLabel = UILabel()
-        titleLabel.font = Helper.defaultFontWithType(.Regular, size: 24)
+        titleLabel.font = UIFont(familyName: .ProximaNova, fontType: .Regular, size: 24)
         titleLabel.textColor = UIColor.whiteColor()
         titleLabel.text = title
         navigationItem.titleView = titleLabel
@@ -98,12 +109,15 @@ class KGViewController: UIViewController {
         return alertController
     }
     
+}
+
+extension KGViewController: AppLoader {
+    
     func startLoading() {
         if !loading {
             loading = true
             
-            if appLoader == nil {
-                appLoader = Loader.loadFromNib() as! Loader
+            if !appLoader.isDescendantOfView(view) {
                 appLoader.translatesAutoresizingMaskIntoConstraints = false
                 view.addSubview(appLoader)
                 
