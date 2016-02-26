@@ -23,17 +23,17 @@ public class Helper: NSObject {
         let mainscreenBounds: CGRect = UIScreen.mainScreen().bounds
         
         if CGRectGetHeight(mainscreenBounds) == 480 {
-            return DeviceType.iPhone4
+            return .iPhone4
         } else if CGRectGetHeight(mainscreenBounds) == 568 {
-            return DeviceType.iPhone5
+            return .iPhone5
         } else if CGRectGetHeight(mainscreenBounds) == 667 {
-            return DeviceType.iPhone6
+            return .iPhone6
         } else if CGRectGetHeight(mainscreenBounds) == 736 {
-            return DeviceType.iPhone6Plus
+            return .iPhone6Plus
         } else if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            return DeviceType.iPad
+            return .iPad
         }
-        return DeviceType.Unknown
+        return .Unknown
     }
     
 }

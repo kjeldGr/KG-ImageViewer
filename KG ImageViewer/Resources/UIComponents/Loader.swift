@@ -13,10 +13,16 @@ import QuartzCore
 class Loader: UIView {
     
     @IBOutlet weak var loaderImage: SpringImageView!
-    private var animating = false
+    var animating = false {
+        didSet {
+            if animating {
+                doAnimation()
+            }
+        }
+    }
     
     func doAnimation() {
-        if animating == false {
+        if !animating {
             return
         }
         let duration: CGFloat = 1.0
@@ -26,19 +32,10 @@ class Loader: UIView {
         loaderImage.rotate = 4
         loaderImage.animate()
         
-        loaderImage.animateNext { () -> () in
+        loaderImage.animateNext { [unowned self] () -> () in
             self.performSelector("doAnimation", withObject: nil, afterDelay: NSTimeInterval(0.2))
         }
         
-    }
-    
-    func startAnimating() {
-        animating = true
-        doAnimation()
-    }
-    
-    func stopAnimating() {
-        animating = false
     }
 
 }

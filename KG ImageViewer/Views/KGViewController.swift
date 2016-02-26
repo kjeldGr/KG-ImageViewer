@@ -129,14 +129,14 @@ extension KGViewController: AppLoader {
                 make.centerY.equalTo(view)
             })
         }
-        appLoader.startAnimating()
+        appLoader.animating = true
         appLoader.hidden = false
     }
     
     func stopLoading() {
         loading = false
         appLoader.hidden = true
-        appLoader.stopAnimating()
+        appLoader.animating = false
     }
     
 }
