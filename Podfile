@@ -9,6 +9,7 @@ pod 'RazzleDazzle'
 pod 'SwiftyJSON', '~> 2.0'
 pod 'DrawerController', '~> 1.0'
 pod 'EZSwiftExtensions'
+pod 'SnapKit'
 
 end
 

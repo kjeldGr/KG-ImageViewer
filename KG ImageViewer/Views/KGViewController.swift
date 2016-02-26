@@ -39,7 +39,7 @@ extension MenuViewController where Self: KGViewController {
         }
         evo_drawerController?.gestureCompletionBlock = completionHandler
     }
-
+    
     func toggleMenu() {
         if evo_drawerController?.openSide == .Right {
             UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
@@ -114,19 +114,23 @@ class KGViewController: UIViewController {
 extension KGViewController: AppLoader {
     
     func startLoading() {
-        if !loading {
-            loading = true
-            
-            if !appLoader.isDescendantOfView(view) {
-                appLoader.translatesAutoresizingMaskIntoConstraints = false
-                view.addSubview(appLoader)
-                
-                appLoader.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[self(==140)]", options: .AlignmentMask, metrics: nil, views: ["self": appLoader]) + NSLayoutConstraint.constraintsWithVisualFormat("V:[self(==140)]", options: .AlignmentMask, metrics: nil, views: ["self": appLoader]))
-                view.addConstraints([NSLayoutConstraint(item: appLoader, attribute: .CenterX, relatedBy: .Equal, toItem: view, attribute: .CenterX, multiplier: 1, constant: 0), NSLayoutConstraint(item: appLoader, attribute: .CenterY, relatedBy: .Equal, toItem: view, attribute: .CenterY, multiplier: 1, constant: 0)])
-            }
-            appLoader.startAnimating()
-            appLoader.hidden = false
+        if loading {
+            return
         }
+        loading = true
+        
+        if !appLoader.isDescendantOfView(view) {
+            appLoader.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(appLoader)
+            
+            appLoader.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[appLoader(==140)]", options: .AlignmentMask, metrics: nil, views: ["appLoader": appLoader]) + NSLayoutConstraint.constraintsWithVisualFormat("V:[appLoader(==140)]", options: .AlignmentMask, metrics: nil, views: ["appLoader": appLoader]))
+            appLoader.snp_makeConstraints(closure: { (make) -> Void in
+                make.centerX.equalTo(view)
+                make.centerY.equalTo(view)
+            })
+        }
+        appLoader.startAnimating()
+        appLoader.hidden = false
     }
     
     func stopLoading() {

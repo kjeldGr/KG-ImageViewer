@@ -25,11 +25,11 @@ class PhotoGridViewController: KGViewController, MenuViewController {
     @IBOutlet weak var categorySegmentedBarView: SegmentedBarView!
     @IBOutlet weak var disableView: UIView!
     
-    private var currentCategory = Category.Popular
+    private var currentCategory: Category = .Popular
     private var currentPage = 1
     private var searching = false
     private var searchTerm: String!
-    private var images: [ImageData] = Array()
+    private var images = [ImageData]()
     
     // Collection View properties
     @IBOutlet weak var imageCollectionView: UICollectionView!

@@ -9,7 +9,7 @@
 import UIKit
 
 class ImagePagerViewController: KGViewController {
-
+    
     var pageViewController: UIPageViewController!
     var images: [ImageData]!
     var currentIndex = 0
@@ -36,40 +36,33 @@ class ImagePagerViewController: KGViewController {
         addChildViewController(pageViewController)
         view.addSubview(pageViewController.view)
         pageViewController.didMoveToParentViewController(self)
-        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[self]|", options: .AlignmentMask, metrics: nil, views: ["self": pageViewController.view]) +
-            NSLayoutConstraint.constraintsWithVisualFormat("V:|[self]|", options: .AlignmentMask, metrics: nil, views: ["self": pageViewController.view]))
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[pageView]|", options: .AlignmentMask, metrics: nil, views: ["pageView": pageViewController.view]) +
+            NSLayoutConstraint.constraintsWithVisualFormat("V:|[pageView]|", options: .AlignmentMask, metrics: nil, views: ["pageView": pageViewController.view]))
     }
     
     func downloadImage() {
         let currentController = pageViewController.viewControllers?.first as! ImageDetailViewController
         if currentController.detailImage != nil {
             UIImageWriteToSavedPhotosAlbum(currentController.detailImage, self, Selector("image:didFinishSavingWithError:contextInfo:"), nil)
-        } else {
-            let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default) {
-                UIAlertAction in
-                
-            }
-            let alert = alertControllerWithTitle(NSLocalizedString("error_please_wait_title", comment: ""), andMessage: NSLocalizedString("error_not_downloaded_message", comment: ""), andStyle: .Alert, andActions: [okAction])
-            presentViewController(alert, animated: true, completion: nil)
+            return
         }
+        
+        let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default, handler: nil)
+        let alert = alertControllerWithTitle(NSLocalizedString("error_please_wait_title", comment: ""), andMessage: NSLocalizedString("error_not_downloaded_message", comment: ""), andStyle: .Alert, andActions: [okAction])
+        presentViewController(alert, animated: true, completion: nil)
     }
     
     func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafePointer<Void>)       {
-        let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default) {
-            UIAlertAction in
-            
-        }
+        let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default, handler: nil)
         var alert: UIAlertController!
         if error != nil {
-            
             alert = alertControllerWithTitle(NSLocalizedString("error_saving_failed_title", comment: ""), andMessage: NSLocalizedString("error_saving_failed_message", comment: ""), andStyle: .Alert, andActions: [okAction])
-        }
-        else{
+        }else{
             alert = alertControllerWithTitle(NSLocalizedString("error_saved_title", comment: ""), andMessage: NSLocalizedString("error_saved_message", comment: ""), andStyle: .Alert, andActions: [okAction])
         }
         presentViewController(alert, animated: true, completion: nil)
     }
-
+    
 }
 
 extension ImagePagerViewController: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
@@ -94,9 +87,11 @@ extension ImagePagerViewController: UIPageViewControllerDelegate, UIPageViewCont
     }
     
     func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
-        let imageData = (pendingViewControllers.first as! ImageDetailViewController).imageData
-        transitionIndex = images.indexOf(imageData)!
-        transitionTitle = imageData.name
+        if let detailViewController = pendingViewControllers.first as? ImageDetailViewController {
+            let imageData = detailViewController.imageData
+            transitionIndex = images.indexOf(imageData)!
+            transitionTitle = imageData.name
+        }
     }
     
     func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {

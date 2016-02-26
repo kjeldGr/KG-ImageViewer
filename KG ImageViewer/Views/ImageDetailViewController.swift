@@ -41,21 +41,17 @@ class ImageDetailViewController: KGViewController {
     func getDetailedImageData() {
         startLoading()
         Alamofire.request(API.Router.getImage(imageData.id, ["image_size": ImageSize.XLarge.rawValue])).validate()
-            .responseJSON(completionHandler: { (request, response, result) -> Void in
+            .responseJSON(completionHandler: { [unowned self] (request, response, result) -> Void in
                 switch result {
                 case .Success(let data):
                     let imageDetailData = JSON(data).dictionaryValue
                     self.loadImageForData(imageDetailData["photo"]!.dictionaryValue)
                 case Result.Failure(_, _):
                     self.stopLoading()
-                    let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default) {
-                        UIAlertAction in
-                        
-                    }
-                    let tryAgainAction = UIAlertAction(title: NSLocalizedString("error_button_try_again", comment: ""), style: .Default) {
-                        UIAlertAction in
+                    let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default, handler: nil)
+                    let tryAgainAction = UIAlertAction(title: NSLocalizedString("error_button_try_again", comment: ""), style: .Default, handler: { [unowned self] (action) -> Void in
                         self.getDetailedImageData()
-                    }
+                    })
                     
                     let alertController = self.alertControllerWithTitle(NSLocalizedString("error_loading_image_title", comment: ""), andMessage: NSLocalizedString("error_loading_images_message", comment: ""), andStyle: .Alert, andActions: [okAction, tryAgainAction])
                     self.presentViewController(alertController, animated: true, completion: nil)
@@ -66,7 +62,7 @@ class ImageDetailViewController: KGViewController {
     func loadImageForData(data: [String: JSON]) {
         Alamofire.request(Alamofire.Method.GET, data["image_url"]!.stringValue)
             .validate(contentType: ["image/*"])
-            .responseData({ (request, response, result) -> Void in
+            .responseData({ [unowned self] (request, response, result) -> Void in
                 switch result {
                 case .Success(let data):
                     let image = UIImage(data: data, scale: UIScreen.mainScreen().scale)
@@ -77,14 +73,10 @@ class ImageDetailViewController: KGViewController {
                     }
                     self.stopLoading()
                 case .Failure(_, _):
-                    let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default) {
-                        UIAlertAction in
-                        
-                    }
-                    let tryAgainAction = UIAlertAction(title: NSLocalizedString("error_button_try_again", comment: ""), style: .Default) {
-                        UIAlertAction in
+                    let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default, handler: nil)
+                    let tryAgainAction = UIAlertAction(title: NSLocalizedString("error_button_try_again", comment: ""), style: .Default, handler: { [unowned self] (action) -> Void in
                         self.loadImageForData(data)
-                    }
+                    })
                     
                     let alertController = self.alertControllerWithTitle(NSLocalizedString("error_loading_image_title", comment: ""), andMessage: NSLocalizedString("error_loading_images_message", comment: ""), andStyle: .Alert, andActions: [okAction, tryAgainAction])
                     self.presentViewController(alertController, animated: true, completion: nil)
