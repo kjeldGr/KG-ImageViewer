@@ -33,7 +33,7 @@
 		C6BEDAE61BB573C400F196D5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6BEDADC1BB573C400F196D5 /* LaunchScreen.storyboard */; };
 		C6BEDAE71BB573C400F196D5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6BEDADE1BB573C400F196D5 /* Main.storyboard */; };
 		C6BEDAE81BB573C400F196D5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C6BEDAE01BB573C400F196D5 /* Info.plist */; };
-		C6BEDAEC1BB573EE00F196D5 /* Blendle_Assignment.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C6BEDAEA1BB573EE00F196D5 /* Blendle_Assignment.xcdatamodeld */; };
+		C6BEDAEC1BB573EE00F196D5 /* KG_ImageViewer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C6BEDAEA1BB573EE00F196D5 /* KG_ImageViewer.xcdatamodeld */; };
 		C6BEDAEE1BB5741200F196D5 /* KGViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BEDAED1BB5741200F196D5 /* KGViewController.swift */; };
 		C6BEDAF01BB5742600F196D5 /* PhotoGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BEDAEF1BB5742600F196D5 /* PhotoGridViewController.swift */; };
 		C6C0B3531BB83A1B009E1760 /* CacheData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C0B3521BB83A1B009E1760 /* CacheData.swift */; };
@@ -70,7 +70,7 @@
 		C6BEDADC1BB573C400F196D5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C6BEDADE1BB573C400F196D5 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		C6BEDAE01BB573C400F196D5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C6BEDAEB1BB573EE00F196D5 /* Blendle_Assignment.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Blendle_Assignment.xcdatamodel; sourceTree = "<group>"; };
+		C6BEDAEB1BB573EE00F196D5 /* KG_ImageViewer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KG_ImageViewer.xcdatamodel; sourceTree = "<group>"; };
 		C6BEDAED1BB5741200F196D5 /* KGViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KGViewController.swift; sourceTree = "<group>"; };
 		C6BEDAEF1BB5742600F196D5 /* PhotoGridViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoGridViewController.swift; sourceTree = "<group>"; };
 		C6C0B3521BB83A1B009E1760 /* CacheData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheData.swift; sourceTree = "<group>"; };
@@ -227,7 +227,7 @@
 		C6BEDAD91BB573C400F196D5 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				C6BEDAEA1BB573EE00F196D5 /* Blendle_Assignment.xcdatamodeld */,
+				C6BEDAEA1BB573EE00F196D5 /* KG_ImageViewer.xcdatamodeld */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -400,7 +400,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C6BEDAEC1BB573EE00F196D5 /* Blendle_Assignment.xcdatamodeld in Sources */,
+				C6BEDAEC1BB573EE00F196D5 /* KG_ImageViewer.xcdatamodeld in Sources */,
 				C6B855C51BB6E4CE006C51BE /* ImageDetailViewController.swift in Sources */,
 				C6BEDAE31BB573C400F196D5 /* AppDelegate.swift in Sources */,
 				C6154B091BB6A4DB0006EAD7 /* KGImageCell.swift in Sources */,
@@ -523,6 +523,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "KG ImageViewer/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.kjeldgr.KG-ImageViewer";
 				PRODUCT_NAME = "KG ImageViewer";
 			};
@@ -535,6 +536,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "KG ImageViewer/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\"";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.kjeldgr.KG-ImageViewer";
 				PRODUCT_NAME = "KG ImageViewer";
 			};
@@ -564,13 +566,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		C6BEDAEA1BB573EE00F196D5 /* Blendle_Assignment.xcdatamodeld */ = {
+		C6BEDAEA1BB573EE00F196D5 /* KG_ImageViewer.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				C6BEDAEB1BB573EE00F196D5 /* Blendle_Assignment.xcdatamodel */,
+				C6BEDAEB1BB573EE00F196D5 /* KG_ImageViewer.xcdatamodel */,
 			);
-			currentVersion = C6BEDAEB1BB573EE00F196D5 /* Blendle_Assignment.xcdatamodel */;
-			path = Blendle_Assignment.xcdatamodeld;
+			currentVersion = C6BEDAEB1BB573EE00F196D5 /* KG_ImageViewer.xcdatamodel */;
+			path = KG_ImageViewer.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

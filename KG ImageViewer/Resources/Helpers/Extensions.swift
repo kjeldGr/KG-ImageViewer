@@ -14,7 +14,7 @@ import EZSwiftExtensions
 
 extension NSObject {
     
-    func DLog(message:String, function:String = __FUNCTION__) {
+    func DLog(message:String, function:String = #function) {
         // Before you can use this please make sure you added the "-DDEBUG" flag to: Swift Compiler - Custom Flags->Other
         #if DEBUG
             print("\(self.dynamicType) - \(function): \(message)")

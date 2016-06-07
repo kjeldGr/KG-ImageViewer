@@ -43,7 +43,7 @@ class ImagePagerViewController: KGViewController {
     func downloadImage() {
         let currentController = pageViewController.viewControllers?.first as! ImageDetailViewController
         if currentController.detailImage != nil {
-            UIImageWriteToSavedPhotosAlbum(currentController.detailImage, self, Selector("image:didFinishSavingWithError:contextInfo:"), nil)
+            UIImageWriteToSavedPhotosAlbum(currentController.detailImage, self, #selector(ImagePagerViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
             return
         }
         

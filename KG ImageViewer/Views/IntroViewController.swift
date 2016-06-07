@@ -180,11 +180,11 @@ class IntroViewController: AnimatedPagingScrollViewController {
         keepView(appTitleLabel, onPages: [6.4, 7], atTimes: [6, 7])
         addAnimation(AlphaAnimation(view: appTitleLabel), withKeyFrames: [(6.6, 0), (7, 1)])
         
-        let startButton = addButtonWithTitle(NSLocalizedString("button_title_got_it", comment: ""), selector: "startApp", pageTimes: [(6.4, 6), (7, 7)])
+        let startButton = addButtonWithTitle(NSLocalizedString("button_title_got_it", comment: ""), selector: #selector(IntroViewController.startApp), pageTimes: [(6.4, 6), (7, 7)])
         contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[startButton(==buttonWidth)]", options: .AlignmentMask, metrics: ["buttonWidth": CGRectGetWidth(UIScreen.mainScreen().bounds)-40], views: ["startButton": startButton]) + NSLayoutConstraint.constraintsWithVisualFormat("V:[startButton(==55)]-40-|", options: .AlignmentMask, metrics: nil, views: ["startButton": startButton]))
         addAnimation(AlphaAnimation(view: startButton), withKeyFrames: [(6.6, 0), (7, 1)])
         
-        let againButton = addButtonWithTitle(NSLocalizedString("button_title_again", comment: ""), selector: "watchAgain", pageTimes: [(6.4, 6), (7, 7)])
+        let againButton = addButtonWithTitle(NSLocalizedString("button_title_again", comment: ""), selector: #selector(IntroViewController.watchAgain), pageTimes: [(6.4, 6), (7, 7)])
         contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[againButton(==buttonWidth)]", options: .AlignmentMask, metrics: ["buttonWidth": CGRectGetWidth(UIScreen.mainScreen().bounds)-40], views: ["againButton": againButton]) + NSLayoutConstraint.constraintsWithVisualFormat("V:[againButton(==55)]", options: .AlignmentMask, metrics: nil, views: ["againButton": againButton]))
         againButton.snp_makeConstraints { (make) -> Void in
             make.bottom.equalTo(startButton.snp_top).offset(-15)

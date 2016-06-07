@@ -44,7 +44,7 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadImages", name: Setting.ShowNSFW.rawValue, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PhotoGridViewController.reloadImages), name: Setting.ShowNSFW.rawValue, object: nil)
         
         navigationController?.navigationBar.shadowImage = UIImage.imageWithColor(.clearColor(), size: CGSizeMake(1, 1))
         navigationController?.navigationBar.setBackgroundImage(UIImage.imageWithColor(Helper.mainColor, size: CGSizeMake(1, 1)), forBarMetrics: UIBarMetrics.Default)
@@ -65,7 +65,7 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         refreshControl.backgroundColor = Helper.mainColor
         refreshControl.tintColor = UIColor.whiteColor()
         imageCollectionView.addSubview(refreshControl)
-        refreshControl.addTarget(self, action: "reloadImages", forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(PhotoGridViewController.reloadImages), forControlEvents: UIControlEvents.ValueChanged)
         
         updateImages()
         
@@ -142,7 +142,7 @@ class PhotoGridViewController: KGViewController, MenuViewController {
                                 return
                             }
                             self.imageCollectionView!.insertItemsAtIndexPaths(indexPaths)
-                            self.currentPage++
+                            self.currentPage += 1
                             self.stopLoading()
                         }
                     }
