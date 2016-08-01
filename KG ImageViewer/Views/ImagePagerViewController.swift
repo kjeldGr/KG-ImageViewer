@@ -22,7 +22,7 @@ class ImagePagerViewController: KGViewController {
         
         super.viewDidLoad()
         
-        let downloadButton = UIImage(named:"Download")!.navigationBarButtonWithAction({ (sender) -> Void in
+        let downloadButton = UIImage(named:"Download")!.navigationBarButtonWithAction({ [unowned self] (sender) -> Void in
             self.downloadImage()
         })
         navigationItem.setRightBarButtonItem(downloadButton, animated: false)

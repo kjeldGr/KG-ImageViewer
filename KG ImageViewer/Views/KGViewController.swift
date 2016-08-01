@@ -26,7 +26,7 @@ protocol MenuViewController {
 extension MenuViewController where Self: KGViewController {
     
     func makeMenuViewController() {
-        navigationItem.setRightBarButtonItem(UIImage(named: "Filter")!.navigationBarButtonWithAction({ (sender) -> Void in
+        navigationItem.setRightBarButtonItem(UIImage(named: "Filter")!.navigationBarButtonWithAction({ [unowned self] (sender) -> Void in
             self.toggleMenu()
         }), animated: false)
         let completionHandler:(DrawerController, UIGestureRecognizer) -> Void = {

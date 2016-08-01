@@ -49,7 +49,7 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         navigationController?.navigationBar.shadowImage = UIImage.imageWithColor(.clearColor(), size: CGSizeMake(1, 1))
         navigationController?.navigationBar.setBackgroundImage(UIImage.imageWithColor(Helper.mainColor, size: CGSizeMake(1, 1)), forBarMetrics: UIBarMetrics.Default)
         
-        let searchBarButton = UIImage(named: "Search")!.navigationBarButtonWithAction { (sender) -> Void in
+        let searchBarButton = UIImage(named: "Search")!.navigationBarButtonWithAction { [unowned self] (sender) -> Void in
             self.toggleSearchBar()
         }
         navigationItem.setRightBarButtonItems([navigationItem.rightBarButtonItem!, searchBarButton], animated: false)
@@ -71,7 +71,7 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         
         appLoader.hidden = true
         logoImage.animate()
-        splashView.animateNext { () -> () in
+        splashView.animateNext { [unowned self] () -> () in
             if self.loading {
                 self.appLoader.hidden = false
             }
@@ -118,50 +118,54 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         }
         
         Alamofire.request(request).validate()
-            .responseJSON(completionHandler: { (request, response, result) -> Void in
-                switch result {
+            .responseJSON { [weak self] response in
+                guard let strongSelf = self else { return }
+                switch response.result {
                 case .Success(let data):
-                    let resultData = JSON(data).dictionaryValue
+                    let resultData = JSON(data)
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
+                        let lastItem = strongSelf.images.count
+                        
                         let showNSFW = NSUserDefaults.standardUserDefaults().boolForKey(Setting.ShowNSFW.rawValue)
+                        let resultImages = resultData["photos"].arrayValue
+                        strongSelf.addImages(resultImages, showNSFW: showNSFW)
                         
-                        let resultImages = resultData["photos"]!.arrayValue
-                        let lastItem = self.images.count
-                        
-                        self.images += resultImages.flatMap {
-                            if !showNSFW && $0.dictionaryValue["nsfw"]!.boolValue == true {
-                                return nil
-                            }
-                            return ImageData(data: $0.dictionaryValue)
-                        }
-                        
-                        let indexPaths = (lastItem..<self.images.count).map { NSIndexPath(forItem: $0, inSection: 0) }
+                        let indexPaths = (lastItem..<strongSelf.images.count).map { NSIndexPath(forItem: $0, inSection: 0) }
                         
                         dispatch_async(dispatch_get_main_queue()) {
-                            if self.images.count < indexPaths.count {
-                                return
-                            }
-                            self.imageCollectionView!.insertItemsAtIndexPaths(indexPaths)
-                            self.currentPage += 1
-                            self.stopLoading()
+                            strongSelf.insertImagesInCollectionView(indexPaths)
                         }
                     }
-                case Result.Failure(_, _):
-                    let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default) {
-                        UIAlertAction in
-                        
-                    }
-                    let tryAgainAction = UIAlertAction(title: NSLocalizedString("error_button_try_again", comment: ""), style: .Default) {
-                        UIAlertAction in
-                        self.updateImages()
-                    }
+                case .Failure(_):
+                    let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default, handler: nil)
+                    let tryAgainAction = UIAlertAction(title: NSLocalizedString("error_button_try_again", comment: ""), style: .Default, handler: { (alertAction) in
+                        strongSelf.updateImages()
+                    })
                     
-                    let alertController = self.alertControllerWithTitle(NSLocalizedString("error_loading_images_title", comment: ""), andMessage: NSLocalizedString("error_loading_images_message", comment: ""), andStyle: .Alert, andActions: [okAction, tryAgainAction])
-                    self.presentViewController(alertController, animated: true, completion: nil)
+                    let alertController = strongSelf.alertControllerWithTitle(NSLocalizedString("error_loading_images_title", comment: ""), andMessage: NSLocalizedString("error_loading_images_message", comment: ""), andStyle: .Alert, andActions: [okAction, tryAgainAction])
+                    strongSelf.presentViewController(alertController, animated: true, completion: nil)
                     
-                    self.stopLoading()
+                    strongSelf.stopLoading()
                 }
-            })
+            }
+    }
+    
+    func addImages(resultImages: [JSON], showNSFW: Bool) {
+        images += resultImages.flatMap {
+            if !showNSFW && $0.dictionaryValue["nsfw"]!.boolValue == true {
+                return nil
+            }
+            return ImageData(data: $0.dictionaryValue)
+        }
+    }
+    
+    func insertImagesInCollectionView(indexPaths: [NSIndexPath]) {
+        if images.count < indexPaths.count {
+            return
+        }
+        imageCollectionView!.insertItemsAtIndexPaths(indexPaths)
+        currentPage += 1
+        stopLoading()
     }
     
     @IBAction func didSelectCategory(sender: AnyObject) {
@@ -232,16 +236,16 @@ extension PhotoGridViewController: UICollectionViewDelegate, UICollectionViewDat
             cell.imageView.image = nil
             cell.request = Alamofire.request(Alamofire.Method.GET, imageURL)
                 .validate(contentType: ["image/*"])
-                .responseData({ (request, response, result) -> Void in
-                    switch result {
+                .responseData { response -> Void in
+                    switch response.result {
                     case .Success(let data):
                         let image = UIImage(data: data, scale: UIScreen.mainScreen().scale)
-                        CacheData.sharedInstance.thumbnailCache.setObject(image!, forKey: request!.URLString)
+                        CacheData.sharedInstance.thumbnailCache.setObject(image!, forKey: response.request!.URLString)
                         cell.imageView.image = image
-                    case .Failure(_, _):
+                    case .Failure(_):
                         break
                     }
-                })
+                }
         }
         
         return cell

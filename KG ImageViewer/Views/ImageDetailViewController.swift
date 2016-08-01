@@ -41,20 +41,21 @@ class ImageDetailViewController: KGViewController {
     func getDetailedImageData() {
         startLoading()
         Alamofire.request(API.Router.getImage(imageData.id, ["image_size": ImageSize.XLarge.rawValue])).validate()
-            .responseJSON(completionHandler: { [unowned self] (request, response, result) -> Void in
-                switch result {
+            .responseJSON(completionHandler: { [weak self] result -> Void in
+                guard let strongSelf = self else { return }
+                switch result.result {
                 case .Success(let data):
                     let imageDetailData = JSON(data).dictionaryValue
-                    self.loadImageForData(imageDetailData["photo"]!.dictionaryValue)
-                case Result.Failure(_, _):
-                    self.stopLoading()
+                    strongSelf.loadImageForData(imageDetailData["photo"]!.dictionaryValue)
+                case Result.Failure(_):
+                    strongSelf.stopLoading()
                     let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default, handler: nil)
-                    let tryAgainAction = UIAlertAction(title: NSLocalizedString("error_button_try_again", comment: ""), style: .Default, handler: { [unowned self] (action) -> Void in
-                        self.getDetailedImageData()
+                    let tryAgainAction = UIAlertAction(title: NSLocalizedString("error_button_try_again", comment: ""), style: .Default, handler: { (action) -> Void in
+                        strongSelf.getDetailedImageData()
                     })
                     
-                    let alertController = self.alertControllerWithTitle(NSLocalizedString("error_loading_image_title", comment: ""), andMessage: NSLocalizedString("error_loading_images_message", comment: ""), andStyle: .Alert, andActions: [okAction, tryAgainAction])
-                    self.presentViewController(alertController, animated: true, completion: nil)
+                    let alertController = strongSelf.alertControllerWithTitle(NSLocalizedString("error_loading_image_title", comment: ""), andMessage: NSLocalizedString("error_loading_images_message", comment: ""), andStyle: .Alert, andActions: [okAction, tryAgainAction])
+                    strongSelf.presentViewController(alertController, animated: true, completion: nil)
                 }
             })
     }
@@ -62,27 +63,28 @@ class ImageDetailViewController: KGViewController {
     func loadImageForData(data: [String: JSON]) {
         Alamofire.request(Alamofire.Method.GET, data["image_url"]!.stringValue)
             .validate(contentType: ["image/*"])
-            .responseData({ [unowned self] (request, response, result) -> Void in
-                switch result {
+            .responseData { [weak self] response -> Void in
+                guard let strongSelf = self else { return }
+                switch response.result {
                 case .Success(let data):
                     let image = UIImage(data: data, scale: UIScreen.mainScreen().scale)
-                    self.setImage(image!)
+                    strongSelf.setImage(image!)
                     let saveImage = NSUserDefaults.standardUserDefaults().boolForKey(Setting.SaveHighRes.rawValue)
                     if saveImage {
-                        CacheData.sharedInstance.imageCache.setObject(image!, forKey: self.imageData.id)
+                        CacheData.sharedInstance.imageCache.setObject(image!, forKey: strongSelf.imageData.id)
                     }
-                    self.stopLoading()
-                case .Failure(_, _):
+                    strongSelf.stopLoading()
+                case .Failure(_):
                     let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default, handler: nil)
-                    let tryAgainAction = UIAlertAction(title: NSLocalizedString("error_button_try_again", comment: ""), style: .Default, handler: { [unowned self] (action) -> Void in
-                        self.loadImageForData(data)
+                    let tryAgainAction = UIAlertAction(title: NSLocalizedString("error_button_try_again", comment: ""), style: .Default, handler: { (action) -> Void in
+                        strongSelf.loadImageForData(data)
                     })
                     
-                    let alertController = self.alertControllerWithTitle(NSLocalizedString("error_loading_image_title", comment: ""), andMessage: NSLocalizedString("error_loading_images_message", comment: ""), andStyle: .Alert, andActions: [okAction, tryAgainAction])
-                    self.presentViewController(alertController, animated: true, completion: nil)
-                    self.stopLoading()
+                    let alertController = strongSelf.alertControllerWithTitle(NSLocalizedString("error_loading_image_title", comment: ""), andMessage: NSLocalizedString("error_loading_images_message", comment: ""), andStyle: .Alert, andActions: [okAction, tryAgainAction])
+                    strongSelf.presentViewController(alertController, animated: true, completion: nil)
+                    strongSelf.stopLoading()
                 }
-            })
+            }
     }
     
     func setImage(image: UIImage) {

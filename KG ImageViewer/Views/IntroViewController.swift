@@ -15,7 +15,7 @@ extension Animation {
     
     func addKeyFrames(keyFrames: [(time: CGFloat, value: T)]) {
         for keyFrame in keyFrames {
-            self.addKeyframe(keyFrame.time, value: keyFrame.value)
+            addKeyframe(keyFrame.time, value: keyFrame.value)
         }
     }
     
