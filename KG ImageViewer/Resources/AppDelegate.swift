@@ -22,9 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = UIColor.whiteColor()
         
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let showedIntro = NSUserDefaults.standardUserDefaults().boolForKey(Setting.ShowedIntro.rawValue)
+        let shouldShowIntro = NSUserDefaults.standardUserDefaults().boolForKey(Setting.ShouldShowIntrol.rawValue)
         
-        let centerViewController = storyboard.instantiateViewControllerWithIdentifier(showedIntro ? View.PhotoGrid.rawValue : View.Intro.rawValue)
+        let centerViewController = storyboard.instantiateViewControllerWithIdentifier(shouldShowIntro ? View.Intro.rawValue : View.PhotoGrid.rawValue)
         let rightViewController = storyboard.instantiateViewControllerWithIdentifier(View.Filter.rawValue)
         
         let drawerController: DrawerController = DrawerController(centerViewController: centerViewController, rightDrawerViewController: rightViewController)

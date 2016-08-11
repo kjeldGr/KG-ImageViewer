@@ -27,6 +27,8 @@
 		C6B855C51BB6E4CE006C51BE /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B855C41BB6E4CE006C51BE /* ImageDetailViewController.swift */; };
 		C6B855C71BB6F6FC006C51BE /* UIImageEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B855C61BB6F6FC006C51BE /* UIImageEffects.swift */; };
 		C6B855C91BB6FF42006C51BE /* ImagePagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B855C81BB6FF42006C51BE /* ImagePagerViewController.swift */; };
+		C6B9A3531D5BCBFA00131694 /* KG_ImageViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B9A3521D5BCBFA00131694 /* KG_ImageViewerUITests.swift */; };
+		C6B9A35C1D5BCEDA00131694 /* Pods_KG_ImageViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6B9A35B1D5BCEDA00131694 /* Pods_KG_ImageViewer.framework */; };
 		C6BEDAE31BB573C400F196D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BEDAD61BB573C400F196D5 /* AppDelegate.swift */; };
 		C6BEDAE51BB573C400F196D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6BEDADB1BB573C400F196D5 /* Assets.xcassets */; };
 		C6BEDAE61BB573C400F196D5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6BEDADC1BB573C400F196D5 /* LaunchScreen.storyboard */; };
@@ -38,6 +40,16 @@
 		C6C0B3531BB83A1B009E1760 /* CacheData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C0B3521BB83A1B009E1760 /* CacheData.swift */; };
 		D5DB25B60B7BB11BB6F02B17 /* Pods_KG_ImageViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BEBD436FF303A4241D190C6 /* Pods_KG_ImageViewer.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C6B9A3551D5BCBFA00131694 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C6BEDAB31BB5735D00F196D5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C6BEDABA1BB5735D00F196D5;
+			remoteInfo = "KG ImageViewer";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1294FADEB05C0D088E83E8F6 /* Pods-KG ImageViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KG ImageViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KG ImageViewer/Pods-KG ImageViewer.debug.xcconfig"; sourceTree = "<group>"; };
@@ -63,6 +75,10 @@
 		C6B855C41BB6E4CE006C51BE /* ImageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
 		C6B855C61BB6F6FC006C51BE /* UIImageEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageEffects.swift; sourceTree = "<group>"; };
 		C6B855C81BB6FF42006C51BE /* ImagePagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePagerViewController.swift; sourceTree = "<group>"; };
+		C6B9A3501D5BCBFA00131694 /* KG ImageViewerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "KG ImageViewerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6B9A3521D5BCBFA00131694 /* KG_ImageViewerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KG_ImageViewerUITests.swift; sourceTree = "<group>"; };
+		C6B9A3541D5BCBFA00131694 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C6B9A35B1D5BCEDA00131694 /* Pods_KG_ImageViewer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_KG_ImageViewer.framework; path = "../../../../Library/Developer/Xcode/DerivedData/KG_ImageViewer-dtnfssmjmdjjdpfzvbyuvtbbgskh/Build/Products/Debug-iphonesimulator/Pods_KG_ImageViewer.framework"; sourceTree = "<group>"; };
 		C6BEDABB1BB5735D00F196D5 /* KG ImageViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "KG ImageViewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6BEDAD61BB573C400F196D5 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C6BEDADB1BB573C400F196D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -77,6 +93,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C6B9A34D1D5BCBFA00131694 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C6B9A35C1D5BCEDA00131694 /* Pods_KG_ImageViewer.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C6BEDAB81BB5735D00F196D5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -148,10 +172,20 @@
 			name = CollectionCells;
 			sourceTree = "<group>";
 		};
+		C6B9A3511D5BCBFA00131694 /* KG ImageViewerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C6B9A3521D5BCBFA00131694 /* KG_ImageViewerUITests.swift */,
+				C6B9A3541D5BCBFA00131694 /* Info.plist */,
+			);
+			path = "KG ImageViewerUITests";
+			sourceTree = "<group>";
+		};
 		C6BEDAB21BB5735D00F196D5 = {
 			isa = PBXGroup;
 			children = (
 				C6BEDABD1BB5735D00F196D5 /* KG ImageViewer */,
+				C6B9A3511D5BCBFA00131694 /* KG ImageViewerUITests */,
 				C6BEDABC1BB5735D00F196D5 /* Products */,
 				9238BB6EA62EB357C105DE71 /* Pods */,
 				E2F7B9DC5C4489323CF05E40 /* Frameworks */,
@@ -162,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				C6BEDABB1BB5735D00F196D5 /* KG ImageViewer.app */,
+				C6B9A3501D5BCBFA00131694 /* KG ImageViewerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -258,6 +293,7 @@
 		E2F7B9DC5C4489323CF05E40 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C6B9A35B1D5BCEDA00131694 /* Pods_KG_ImageViewer.framework */,
 				6BEBD436FF303A4241D190C6 /* Pods_KG_ImageViewer.framework */,
 			);
 			name = Frameworks;
@@ -266,6 +302,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		C6B9A34F1D5BCBFA00131694 /* KG ImageViewerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C6B9A3591D5BCBFA00131694 /* Build configuration list for PBXNativeTarget "KG ImageViewerUITests" */;
+			buildPhases = (
+				C6B9A34C1D5BCBFA00131694 /* Sources */,
+				C6B9A34D1D5BCBFA00131694 /* Frameworks */,
+				C6B9A34E1D5BCBFA00131694 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C6B9A3561D5BCBFA00131694 /* PBXTargetDependency */,
+			);
+			name = "KG ImageViewerUITests";
+			productName = "KG ImageViewerUITests";
+			productReference = C6B9A3501D5BCBFA00131694 /* KG ImageViewerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		C6BEDABA1BB5735D00F196D5 /* KG ImageViewer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C6BEDAD01BB5735D00F196D5 /* Build configuration list for PBXNativeTarget "KG ImageViewer" */;
@@ -292,9 +346,14 @@
 		C6BEDAB31BB5735D00F196D5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = KjeldGr;
 				TargetAttributes = {
+					C6B9A34F1D5BCBFA00131694 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = C6BEDABA1BB5735D00F196D5;
+					};
 					C6BEDABA1BB5735D00F196D5 = {
 						CreatedOnToolsVersion = 7.0;
 					};
@@ -315,11 +374,19 @@
 			projectRoot = "";
 			targets = (
 				C6BEDABA1BB5735D00F196D5 /* KG ImageViewer */,
+				C6B9A34F1D5BCBFA00131694 /* KG ImageViewerUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C6B9A34E1D5BCBFA00131694 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C6BEDAB91BB5735D00F196D5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -390,6 +457,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C6B9A34C1D5BCBFA00131694 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C6B9A3531D5BCBFA00131694 /* KG_ImageViewerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C6BEDAB71BB5735D00F196D5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -416,6 +491,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		C6B9A3561D5BCBFA00131694 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C6BEDABA1BB5735D00F196D5 /* KG ImageViewer */;
+			targetProxy = C6B9A3551D5BCBFA00131694 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		C6154B051BB69E5B0006EAD7 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
@@ -429,6 +512,32 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		C6B9A3571D5BCBFA00131694 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				INFOPLIST_FILE = "KG ImageViewerUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "nl.kpgroot.KG-ImageViewerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "KG ImageViewer";
+			};
+			name = Debug;
+		};
+		C6B9A3581D5BCBFA00131694 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				INFOPLIST_FILE = "KG ImageViewerUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "nl.kpgroot.KG-ImageViewerUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "KG ImageViewer";
+			};
+			name = Release;
+		};
 		C6BEDACE1BB5735D00F196D5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -539,6 +648,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C6B9A3591D5BCBFA00131694 /* Build configuration list for PBXNativeTarget "KG ImageViewerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C6B9A3571D5BCBFA00131694 /* Debug */,
+				C6B9A3581D5BCBFA00131694 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		C6BEDAB61BB5735D00F196D5 /* Build configuration list for PBXProject "KG ImageViewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

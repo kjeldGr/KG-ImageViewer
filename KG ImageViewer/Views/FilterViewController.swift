@@ -10,7 +10,7 @@ import UIKit
 import DrawerController
 
 enum Setting: String {
-    case ShowedIntro = "ShowedIntro"
+    case ShouldShowIntrol = "ShouldShowIntro"
     case ShowNSFW = "ShowNSFWImages"
     case SaveHighRes = "SaveHighResImages"
 }

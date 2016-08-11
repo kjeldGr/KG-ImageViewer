@@ -44,6 +44,8 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         
         super.viewDidLoad()
         
+        imageCollectionView.accessibilityLabel = "PhotoGridCollectionView"
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PhotoGridViewController.reloadImages), name: Setting.ShowNSFW.rawValue, object: nil)
         
         navigationController?.navigationBar.shadowImage = UIImage.imageWithColor(.clearColor(), size: CGSizeMake(1, 1))

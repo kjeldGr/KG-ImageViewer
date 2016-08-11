@@ -31,9 +31,10 @@ class IntroViewController: AnimatedPagingScrollViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        evo_drawerController?.centerHiddenInteractionMode = .None
         
-        evo_drawerController?.centerHiddenInteractionMode = DrawerOpenCenterInteractionMode.None
+        scrollView.accessibilityLabel = "IntroScrollView"
         
         createIntroViews()
     }
@@ -181,10 +182,12 @@ class IntroViewController: AnimatedPagingScrollViewController {
         addAnimation(AlphaAnimation(view: appTitleLabel), withKeyFrames: [(6.6, 0), (7, 1)])
         
         let startButton = addButtonWithTitle(NSLocalizedString("button_title_got_it", comment: ""), selector: #selector(IntroViewController.startApp), pageTimes: [(6.4, 6), (7, 7)])
+        startButton.accessibilityLabel = "IntroStartAppButton"
         contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[startButton(==buttonWidth)]", options: .AlignmentMask, metrics: ["buttonWidth": CGRectGetWidth(UIScreen.mainScreen().bounds)-40], views: ["startButton": startButton]) + NSLayoutConstraint.constraintsWithVisualFormat("V:[startButton(==55)]-40-|", options: .AlignmentMask, metrics: nil, views: ["startButton": startButton]))
         addAnimation(AlphaAnimation(view: startButton), withKeyFrames: [(6.6, 0), (7, 1)])
         
         let againButton = addButtonWithTitle(NSLocalizedString("button_title_again", comment: ""), selector: #selector(IntroViewController.watchAgain), pageTimes: [(6.4, 6), (7, 7)])
+        againButton.accessibilityLabel = "IntroWatchAgainButton"
         contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[againButton(==buttonWidth)]", options: .AlignmentMask, metrics: ["buttonWidth": CGRectGetWidth(UIScreen.mainScreen().bounds)-40], views: ["againButton": againButton]) + NSLayoutConstraint.constraintsWithVisualFormat("V:[againButton(==55)]", options: .AlignmentMask, metrics: nil, views: ["againButton": againButton]))
         againButton.snp_makeConstraints { (make) -> Void in
             make.bottom.equalTo(startButton.snp_top).offset(-15)
@@ -276,7 +279,7 @@ class IntroViewController: AnimatedPagingScrollViewController {
     }
     
     func startApp() {
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: Setting.ShowedIntro.rawValue)
+        NSUserDefaults.standardUserDefaults().setBool(false, forKey: Setting.ShouldShowIntrol.rawValue)
         NSUserDefaults.standardUserDefaults().synchronize()
         
         evo_drawerController?.setCenterViewController(storyboard!.instantiateViewControllerWithIdentifier(View.PhotoGrid.rawValue), withCloseAnimation: false, completion: nil)
