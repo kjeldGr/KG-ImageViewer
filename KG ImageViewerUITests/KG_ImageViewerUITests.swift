@@ -43,11 +43,11 @@ class KG_ImageViewerUITests: XCTestCase {
     
     func testOnboarding() {
         // Set showed intro to false to make sure intro is showed
-        launchApp(true)
+        launchApp(shouldShowIntro: true)
         
         let scrollView = XCUIApplication().scrollViews["IntroScrollView"]
         // Wait until the scrollview's layout is set
-        waitUntilElementExists(scrollView, waitTime: 2)
+        waitUntilElementExists(scrollView, waitTime: 1)
         
         let watchAgainButton = XCUIApplication().buttons["IntroWatchAgainButton"]
         let startAppButton = XCUIApplication().buttons["IntroStartAppButton"]
@@ -60,10 +60,10 @@ class KG_ImageViewerUITests: XCTestCase {
         // Check if the photo grid is shown
         let photoGridCollectionView = XCUIApplication().otherElements.collectionViews["PhotoGridCollectionView"]
         // First check if collection view exists
-        waitUntilElementExists(photoGridCollectionView, waitTime: 3)
+        XCTAssert(photoGridCollectionView.exists, "Photo Grid CollectionView doesn't exist")
         // When collectionview exists, check if it's visible
         let collectionViewIsVisible = elementIsVisible(photoGridCollectionView)
-        XCTAssert(collectionViewIsVisible, "CollectionView Should be visible")
+        XCTAssert(collectionViewIsVisible, "Photo Grid CollectionView should be visible")
     }
     
     func testImagesScrolling() {
@@ -78,7 +78,7 @@ class KG_ImageViewerUITests: XCTestCase {
         // Check if loader becomes visible when scrolling
         photoGridCollectionView.swipeUp()
         let loader = XCUIApplication().otherElements["Loader"]
-        waitUntilElementExists(loader, waitTime: 3)
+        XCTAssert(loader.exists, "Loader doesn't exist")
     }
     
     func testImageDetail() {
@@ -99,15 +99,29 @@ class KG_ImageViewerUITests: XCTestCase {
         
     }
     
+    func testRecording() {
+        launchApp()
+        
+        let app = XCUIApplication()
+        app.navigationBars["Photos"].buttons["Search"].tap()
+        app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).elementBoundByIndex(1).childrenMatchingType(.Other).element.childrenMatchingType(.SearchField).element.tap()
+        
+        app.searchFields.containingType(.Button, identifier:"Clear text").element
+        let element = app.searchFields.elementBoundByIndex(0)
+        waitUntilElementExists(element, waitTime: 6)
+        element.typeText("test\r")
+        
+    }
+    
 }
 
 // Test helper functions
 extension KG_ImageViewerUITests {
     
-    func launchApp(showIntro: Bool = false) {
-        let shouldShowIntro = showIntro ? "YES" : "NO"
+    func launchApp(shouldShowIntro showIntro: Bool = false) {
+        let showedIntro = showIntro ? "NO" : "YES"
         let app = XCUIApplication()
-        app.launchArguments += ["-ShouldShowIntro", shouldShowIntro]
+        app.launchArguments += ["-ShowedIntro", showedIntro]
         app.launch()
     }
     

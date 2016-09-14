@@ -108,7 +108,7 @@ class IntroViewController: AnimatedPagingScrollViewController {
         
         addAnimation(AlphaAnimation(view: blurView), withKeyFrames: [(0.4, 0), (1, 0.6), (1.3, 0)])
         
-        addLabelForPage(0, withText: NSLocalizedString("text_home_screen", comment: ""))
+        addLabelForPage(0, withText: "text_home_screen".localize())
         
         // Second page
         let settingsScreen = screenshotForPages([0, 1, 2, 3], atTimes: [0, 1, 2, 3], image: UIImage(named: "SettingsIntro")!)
@@ -116,13 +116,13 @@ class IntroViewController: AnimatedPagingScrollViewController {
         
         addAnimation(AlphaAnimation(view: settingsScreen), withKeyFrames: [(0, 1), (1, 1), (2, 1), (2.01, 0)])
         
-        addLabelForPage(1, withText: NSLocalizedString("text_filter_settings", comment: ""))
+        addLabelForPage(1, withText: "text_filter_settings".localize())
         
         // Third page
-        addLabelForPage(2, withText: NSLocalizedString("text_search_tap", comment: ""))
+        addLabelForPage(2, withText: "text_search_tap".localize())
         
         // Fourth page
-        addLabelForPage(3, withText: NSLocalizedString("text_search_term", comment: ""))
+        addLabelForPage(3, withText: "text_search_term".localize())
         
         let searchInactive = screenshotForPages([2, 3, 4], atTimes: [2, 3, 4], image: UIImage(named: "SearchDisabled")!)
 
@@ -133,14 +133,14 @@ class IntroViewController: AnimatedPagingScrollViewController {
         addAnimation(AlphaAnimation(view: searchActive), withKeyFrames: [(3, 0), (3.01, 1), (4, 1), (5, 0)])
         
         // Fifth page
-        addLabelForPage(4, withText: NSLocalizedString("text_search_go", comment: ""))
+        addLabelForPage(4, withText: "text_search_go".localize())
         
         let searchDone = screenshotForPages([4, 5, 6], atTimes: [4, 5, 6], image: UIImage(named: "SearchDone")!)
         
         addAnimation(AlphaAnimation(view: searchDone), withKeyFrames: [(4, 0), (5, 1), (6, 0)])
         
         searchLabel.textColor = UIColor.blackColor()
-        searchLabel.font = UIFont(familyName: .ProximaNova, fontType: .Regular, size: 7)
+        searchLabel.font = UIFont.font(withType: .Regular, size: .Paragraph1)
         contentView.addSubview(searchLabel)
         contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[searchLabel(==110)]", options: .AlignmentMask, metrics: nil, views: ["searchLabel":searchLabel]))
         searchLabel.snp_makeConstraints { (make) -> Void in
@@ -153,14 +153,14 @@ class IntroViewController: AnimatedPagingScrollViewController {
         let detailScreen = screenshotForPages([4, 5, 6, 6.15], atTimes: [4, 5, 6, 6.15], image: UIImage(named: "DetailIntro")!)
         addAnimation(AlphaAnimation(view: detailScreen), withKeyFrames: [(5, 0), (6, 1), (6.15, 1), (6.5, 0)])
         
-        addLabelForPage(5, withText: NSLocalizedString("text_tap_detail", comment: ""))
+        addLabelForPage(5, withText: "text_tap_detail".localize())
         
         // Seventh page
-        addLabelForPage(6, withText: NSLocalizedString("text_save", comment: ""))
+        addLabelForPage(6, withText: "text_save".localize())
         
         // Last page
-        let appLabel = addLabelForPage(7, withText: NSLocalizedString("text_have_fun", comment: ""))
-        appLabel.font = UIFont(familyName: .ProximaNova, fontType: .Regular, size: 26)
+        let appLabel = addLabelForPage(7, withText: "text_have_fun".localize())
+        appLabel.font = UIFont.font(withType: .Regular, size: .Heading4)
         
         let logoImage = UIImageView(image: UIImage(named: "Logo"))
         contentView.addSubview(logoImage)
@@ -173,7 +173,7 @@ class IntroViewController: AnimatedPagingScrollViewController {
         let appTitleLabel = UILabel()
         appTitleLabel.text = "KG ImageViewer"
         appTitleLabel.textColor = UIColor.whiteColor()
-        appTitleLabel.font = UIFont(familyName: .ProximaNova, fontType: .Semibold, size: 26)
+        appTitleLabel.font = UIFont.font(withType: .Semibold, size: .Heading4)
         contentView.addSubview(appTitleLabel)
         appTitleLabel.snp_makeConstraints { (make) -> Void in
             make.bottom.equalTo(logoImage.snp_top).offset(-15)
@@ -181,12 +181,12 @@ class IntroViewController: AnimatedPagingScrollViewController {
         keepView(appTitleLabel, onPages: [6.4, 7], atTimes: [6, 7])
         addAnimation(AlphaAnimation(view: appTitleLabel), withKeyFrames: [(6.6, 0), (7, 1)])
         
-        let startButton = addButtonWithTitle(NSLocalizedString("button_title_got_it", comment: ""), selector: #selector(IntroViewController.startApp), pageTimes: [(6.4, 6), (7, 7)])
+        let startButton = addButtonWithTitle("button_title_got_it".localize(), selector: #selector(IntroViewController.startApp), pageTimes: [(6.4, 6), (7, 7)])
         startButton.accessibilityLabel = "IntroStartAppButton"
         contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[startButton(==buttonWidth)]", options: .AlignmentMask, metrics: ["buttonWidth": CGRectGetWidth(UIScreen.mainScreen().bounds)-40], views: ["startButton": startButton]) + NSLayoutConstraint.constraintsWithVisualFormat("V:[startButton(==55)]-40-|", options: .AlignmentMask, metrics: nil, views: ["startButton": startButton]))
         addAnimation(AlphaAnimation(view: startButton), withKeyFrames: [(6.6, 0), (7, 1)])
         
-        let againButton = addButtonWithTitle(NSLocalizedString("button_title_again", comment: ""), selector: #selector(IntroViewController.watchAgain), pageTimes: [(6.4, 6), (7, 7)])
+        let againButton = addButtonWithTitle("button_title_again".localize(), selector: #selector(IntroViewController.watchAgain), pageTimes: [(6.4, 6), (7, 7)])
         againButton.accessibilityLabel = "IntroWatchAgainButton"
         contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[againButton(==buttonWidth)]", options: .AlignmentMask, metrics: ["buttonWidth": CGRectGetWidth(UIScreen.mainScreen().bounds)-40], views: ["againButton": againButton]) + NSLayoutConstraint.constraintsWithVisualFormat("V:[againButton(==55)]", options: .AlignmentMask, metrics: nil, views: ["againButton": againButton]))
         againButton.snp_makeConstraints { (make) -> Void in
@@ -240,7 +240,7 @@ class IntroViewController: AnimatedPagingScrollViewController {
         button.layer.cornerRadius = 4
         button.setTitle(title, forState: .Normal)
         button.setTitleColor(Helper.mainColor, forState: .Normal)
-        button.titleLabel?.font = UIFont(familyName: .ProximaNova, fontType: .Semibold, size: 18)
+        button.titleLabel?.font = UIFont.font(withType: .Semibold, size: .Paragraph6)
         button.addTarget(self, action: selector, forControlEvents: .TouchUpInside)
         contentView.addSubview(button)
         keepView(button, onPages: pageTimes.map({return $0.page}), atTimes: pageTimes.map({return $0.time}))
@@ -259,7 +259,7 @@ class IntroViewController: AnimatedPagingScrollViewController {
     
     func addLabelForPage(page: CGFloat, withText text: String) -> UILabel {
         let label = UILabel()
-        label.font = UIFont(familyName: .ProximaNova, fontType: .Regular, size: 17)
+        label.font = UIFont.font(withType: .Regular, size: .Paragraph5)
         label.textColor = UIColor.whiteColor()
         label.text = text
         label.textAlignment = NSTextAlignment.Center
@@ -279,10 +279,9 @@ class IntroViewController: AnimatedPagingScrollViewController {
     }
     
     func startApp() {
-        NSUserDefaults.standardUserDefaults().setBool(false, forKey: Setting.ShouldShowIntrol.rawValue)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        Setting.ShowedIntro.setTrue()
         
-        evo_drawerController?.setCenterViewController(storyboard!.instantiateViewControllerWithIdentifier(View.PhotoGrid.rawValue), withCloseAnimation: false, completion: nil)
+        evo_drawerController?.setCenterViewController(storyboard!.viewController(withViewType: .PhotoGrid), withCloseAnimation: false, completion: nil)
     }
 
 }

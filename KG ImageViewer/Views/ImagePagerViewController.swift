@@ -22,10 +22,14 @@ class ImagePagerViewController: KGViewController {
         
         super.viewDidLoad()
         
-        let downloadButton = UIImage(named:"Download")!.navigationBarButtonWithAction({ [unowned self] (sender) -> Void in
+        let downloadButton = UIImage(named:"Download")!.navigationBarButtonWithAction(action: { [unowned self] (sender) -> Void in
             self.downloadImage()
         })
-        navigationItem.setRightBarButtonItem(downloadButton, animated: false)
+        
+        let favoriteButton = UIImage(named:"Rating")!.navigationBarButtonWithAction(UIImage(named: "RatingHighlighted"), setSelected:imageData.isFavorite(), action: { [unowned self] (sender) -> Void in
+            self.favoriteImage(sender)
+        })
+        navigationItem.setRightBarButtonItems([downloadButton, favoriteButton], animated: false)
         
         let firstViewController = imageDetailViewControllerForIndex(currentIndex)!
         
@@ -40,25 +44,36 @@ class ImagePagerViewController: KGViewController {
             NSLayoutConstraint.constraintsWithVisualFormat("V:|[pageView]|", options: .AlignmentMask, metrics: nil, views: ["pageView": pageViewController.view]))
     }
     
+    lazy var currentController: ImageDetailViewController = {
+        return self.pageViewController.viewControllers?.first as! ImageDetailViewController
+    }()
+    
     func downloadImage() {
-        let currentController = pageViewController.viewControllers?.first as! ImageDetailViewController
-        if currentController.detailImage != nil {
-            UIImageWriteToSavedPhotosAlbum(currentController.detailImage, self, #selector(ImagePagerViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
+        guard currentController.detailImage != nil else {
+            let okAction = UIAlertAction(title: "error_button_ok".localize(), style: .Default, handler: nil)
+            let alert = alertControllerWithTitle("error_please_wait_title".localize(), andMessage: "error_not_downloaded_message".localize(), andStyle: .Alert, andActions: [okAction])
+            presentViewController(alert, animated: true, completion: nil)
             return
         }
+        UIImageWriteToSavedPhotosAlbum(currentController.detailImage, self, #selector(ImagePagerViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
+    }
+    
+    func favoriteImage(sender: AnyObject) {
+        guard let favoriteButton = sender as? UIButton else { return }
+        favoriteButton.selected = !favoriteButton.selected
         
-        let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default, handler: nil)
-        let alert = alertControllerWithTitle(NSLocalizedString("error_please_wait_title", comment: ""), andMessage: NSLocalizedString("error_not_downloaded_message", comment: ""), andStyle: .Alert, andActions: [okAction])
-        presentViewController(alert, animated: true, completion: nil)
+        CoreDataManager.saveManagedObject(withEntityName: "ImageDataCoreData", values: currentController.imageData.valuesForCoreDataObject(), save: favoriteButton.selected)
+        
+        DLog("\(currentAppDelegate()!.managedObjectContext.insertedObjects))")
     }
     
     func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafePointer<Void>)       {
-        let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default, handler: nil)
+        let okAction = UIAlertAction(title: "error_button_ok".localize(), style: .Default, handler: nil)
         var alert: UIAlertController!
         if error != nil {
-            alert = alertControllerWithTitle(NSLocalizedString("error_saving_failed_title", comment: ""), andMessage: NSLocalizedString("error_saving_failed_message", comment: ""), andStyle: .Alert, andActions: [okAction])
+            alert = alertControllerWithTitle("error_saving_failed_title".localize(), andMessage: "error_saving_failed_message".localize(), andStyle: .Alert, andActions: [okAction])
         }else{
-            alert = alertControllerWithTitle(NSLocalizedString("error_saved_title", comment: ""), andMessage: NSLocalizedString("error_saved_message", comment: ""), andStyle: .Alert, andActions: [okAction])
+            alert = alertControllerWithTitle("error_saved_title".localize(), andMessage: "error_saved_message".localize(), andStyle: .Alert, andActions: [okAction])
         }
         presentViewController(alert, animated: true, completion: nil)
     }
@@ -73,7 +88,7 @@ extension ImagePagerViewController: UIPageViewControllerDelegate, UIPageViewCont
         if index < 0 || index >= images.count {
             return nil
         }
-        let imageDetailView = storyboard?.instantiateViewControllerWithIdentifier("ImageDetailView") as! ImageDetailViewController
+        let imageDetailView = storyboard?.viewController(withViewType: .ImageDetail) as! ImageDetailViewController
         imageDetailView.imageData = images[index]
         return imageDetailView
     }

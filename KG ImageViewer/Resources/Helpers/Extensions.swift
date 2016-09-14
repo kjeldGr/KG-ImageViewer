@@ -10,7 +10,37 @@ import Foundation
 import UIKit
 import EZSwiftExtensions
 
+// Mark: - String
+
+extension String {
+    
+    func localize(table: String? = nil) -> String {
+        return NSLocalizedString(self, tableName: table, comment: "")
+    }
+    
+}
+
 // Mark: - Objects
+
+extension NSObject {
+    
+    func currentAppDelegate() -> AppDelegate? {
+        if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+            return appDelegate
+        }
+        return nil
+    }
+    
+    func addToDefaults(value: AnyObject, key: String) {
+        NSUserDefaults.standardUserDefaults().setObject(value, forKey: key)
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
+    func getObjectFromDefaults(key: String) -> AnyObject? {
+        return NSUserDefaults.standardUserDefaults().objectForKey(key)
+    }
+    
+}
 
 extension NSObject {
     
@@ -23,7 +53,24 @@ extension NSObject {
     
 }
 
-// MARK: - UI Elements
+extension Dictionary {
+    mutating func update(other: Dictionary) {
+        for (key,value) in other {
+            updateValue(value, forKey:key)
+        }
+    }
+    
+}
+
+extension UIStoryboard {
+    
+    func viewController(withViewType viewType: View) -> UIViewController {
+        return instantiateViewControllerWithIdentifier(viewType.rawValue)
+    }
+    
+}
+
+// MARK: - UI View Elements
 
 extension UIView {
     
@@ -45,20 +92,23 @@ extension UIView {
 }
 
 extension UILabel {
+    
     var localizedText: String {
         set (key) {
-            text = NSLocalizedString(key, comment: "")
+            text = key.localize()
         }
         get {
             return text!
         }
     }
+    
 }
 
 extension UIButton {
+    
     var localizedTitleForNormal: String {
         set (key) {
-            setTitle(NSLocalizedString(key, comment: ""), forState: .Normal)
+            setTitle(key.localize(), forState: .Normal)
         }
         get {
             return titleForState(.Normal)!
@@ -67,28 +117,33 @@ extension UIButton {
     
     var localizedTitleForHighlighted: String {
         set (key) {
-            setTitle(NSLocalizedString(key, comment: ""), forState: .Highlighted)
+            setTitle(key.localize(), forState: .Highlighted)
         }
         get {
             return titleForState(.Highlighted)!
         }
     }
+    
 }
 
 extension UISegmentedControl {
     
     func setLocalizedTitles(titles: [String]) {
         for title in titles {
-            setTitle(NSLocalizedString(title, comment: ""), forSegmentAtIndex: titles.indexOf(title)!)
+            setTitle(title.localize(), forSegmentAtIndex: titles.indexOf(title)!)
         }
     }
+    
 }
 
 extension UIImage {
     
-    func navigationBarButtonWithAction(action: BlockButtonAction) -> UIBarButtonItem {
+    func navigationBarButtonWithAction(highlightedImage: UIImage? = nil, setSelected: Bool = false, action: BlockButtonAction) -> UIBarButtonItem {
         let button = BlockButton(frame: CGRect(x: 0, y: 0, w: size.width, h: size.height), action: action)
         button.setImage(self, forState: .Normal)
+        button.setImage(highlightedImage, forState: .Highlighted)
+        button.setImage(highlightedImage, forState: .Selected)
+        button.selected = setSelected
         let barButton: UIBarButtonItem = UIBarButtonItem(customView: button)
         return barButton
     }
@@ -124,7 +179,24 @@ extension UIColor {
     
 }
 
+enum FontSize: CGFloat {
+    case Paragraph1 = 7.0
+    case Paragraph2 = 11.0
+    case Paragraph3 = 12.0
+    case Paragraph4 = 15.0
+    case Paragraph5 = 16.0
+    case Paragraph6 = 18.0
+    case Heading1 = 20.0
+    case Heading2 = 22.0
+    case Heading3 = 24.0
+    case Heading4 = 26.0
+}
+
 extension UIFont {
+    
+    class func font(withType type: FontType, size: FontSize) -> UIFont? {
+        return UIFont(familyName: .ProximaNova, fontType: type, size: size.rawValue)
+    }
     
     enum FontFamilyName: String {
         case HelveticaNeue = "HelveticaNeue"
@@ -146,14 +218,4 @@ extension UIFont {
         self.init(name: name, size: size)
     }
     
-}
-
-// MARK: - Object Types
-
-extension Dictionary {
-    mutating func update(other: Dictionary) {
-        for (key,value) in other {
-            updateValue(value, forKey:key)
-        }
-    }
 }

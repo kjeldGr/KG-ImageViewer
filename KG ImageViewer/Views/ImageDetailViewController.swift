@@ -49,12 +49,12 @@ class ImageDetailViewController: KGViewController {
                     strongSelf.loadImageForData(imageDetailData["photo"]!.dictionaryValue)
                 case Result.Failure(_):
                     strongSelf.stopLoading()
-                    let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default, handler: nil)
-                    let tryAgainAction = UIAlertAction(title: NSLocalizedString("error_button_try_again", comment: ""), style: .Default, handler: { (action) -> Void in
+                    let okAction = UIAlertAction(title: "error_button_ok".localize(), style: .Default, handler: nil)
+                    let tryAgainAction = UIAlertAction(title: "error_button_try_again".localize(), style: .Default, handler: { (action) -> Void in
                         strongSelf.getDetailedImageData()
                     })
                     
-                    let alertController = strongSelf.alertControllerWithTitle(NSLocalizedString("error_loading_image_title", comment: ""), andMessage: NSLocalizedString("error_loading_images_message", comment: ""), andStyle: .Alert, andActions: [okAction, tryAgainAction])
+                    let alertController = strongSelf.alertControllerWithTitle("error_loading_image_title".localize(), andMessage: "error_loading_images_message".localize(), andStyle: .Alert, andActions: [okAction, tryAgainAction])
                     strongSelf.presentViewController(alertController, animated: true, completion: nil)
                 }
             })
@@ -69,18 +69,18 @@ class ImageDetailViewController: KGViewController {
                 case .Success(let data):
                     let image = UIImage(data: data, scale: UIScreen.mainScreen().scale)
                     strongSelf.setImage(image!)
-                    let saveImage = NSUserDefaults.standardUserDefaults().boolForKey(Setting.SaveHighRes.rawValue)
+                    let saveImage = Setting.SaveHighRes.isTrue()
                     if saveImage {
                         CacheData.sharedInstance.imageCache.setObject(image!, forKey: strongSelf.imageData.id)
                     }
                     strongSelf.stopLoading()
                 case .Failure(_):
-                    let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default, handler: nil)
-                    let tryAgainAction = UIAlertAction(title: NSLocalizedString("error_button_try_again", comment: ""), style: .Default, handler: { (action) -> Void in
+                    let okAction = UIAlertAction(title: "error_button_ok".localize(), style: .Default, handler: nil)
+                    let tryAgainAction = UIAlertAction(title: "error_button_try_again".localize(), style: .Default, handler: { (action) -> Void in
                         strongSelf.loadImageForData(data)
                     })
                     
-                    let alertController = strongSelf.alertControllerWithTitle(NSLocalizedString("error_loading_image_title", comment: ""), andMessage: NSLocalizedString("error_loading_images_message", comment: ""), andStyle: .Alert, andActions: [okAction, tryAgainAction])
+                    let alertController = strongSelf.alertControllerWithTitle("error_loading_image_title".localize(), andMessage: "error_loading_images_message".localize(), andStyle: .Alert, andActions: [okAction, tryAgainAction])
                     strongSelf.presentViewController(alertController, animated: true, completion: nil)
                     strongSelf.stopLoading()
                 }

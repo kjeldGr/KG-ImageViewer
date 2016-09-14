@@ -14,8 +14,8 @@ import Spring
 enum Category: String {
     case Popular = "popular"
     case HighestRating = "highest_rated"
-    case Editors = "editors"
     case Upcoming = "upcoming"
+    case Favorites = "favorites"
 }
 
 class PhotoGridViewController: KGViewController, MenuViewController {
@@ -40,7 +40,7 @@ class PhotoGridViewController: KGViewController, MenuViewController {
     let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
-        title = NSLocalizedString("view_photo_grid_title", comment: "")
+        title = "view_photo_grid_title".localize()
         
         super.viewDidLoad()
         
@@ -56,7 +56,7 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         }
         navigationItem.setRightBarButtonItems([navigationItem.rightBarButtonItem!, searchBarButton], animated: false)
         
-        categorySegmentedBarView.segmentedControl.setLocalizedTitles(["photo_grid_category_popular", "photo_grid_category_highest_rating", "photo_grid_category_editors", "photo_grid_category_upcoming"])
+        categorySegmentedBarView.segmentedControl.setLocalizedTitles(["photo_grid_category_popular", "photo_grid_category_highest_rating", "photo_grid_category_upcoming", "photo_grid_category_favorite"])
         
         categorySegmentedBarView.searchBar.delegate = self
         
@@ -81,8 +81,8 @@ class PhotoGridViewController: KGViewController, MenuViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ShowImage" {
-            navigationController!.navigationBar.topItem!.title = NSLocalizedString("text_back", comment: "");
+        if segue.identifier == Segue.ShowImage.rawValue {
+            navigationController!.navigationBar.topItem!.title = "text_back".localize();
             let detailViewController = segue.destinationViewController as! ImagePagerViewController
             detailViewController.images = images
             detailViewController.currentIndex = sender as! Int
@@ -97,6 +97,10 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         
         imageCollectionView.reloadData()
         
+        guard currentCategory != .Favorites else {
+            loadFavorites()
+            return
+        }
         updateImages()
     }
     
@@ -105,10 +109,14 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         refreshControl.endRefreshing()
     }
     
+    func loadFavorites() {
+        images = ImageData.getAllImageDataFromCoreData()
+        imageCollectionView.reloadData()
+    }
+    
     func updateImages() {
-        if loading {
-            return
-        }
+        guard currentCategory != .Favorites else { return }
+        guard !loading else { return }
         
         startLoading()
         
@@ -128,7 +136,7 @@ class PhotoGridViewController: KGViewController, MenuViewController {
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
                         let lastItem = strongSelf.images.count
                         
-                        let showNSFW = NSUserDefaults.standardUserDefaults().boolForKey(Setting.ShowNSFW.rawValue)
+                        let showNSFW = Setting.ShowNSFW.isTrue()
                         let resultImages = resultData["photos"].arrayValue
                         strongSelf.addImages(resultImages, showNSFW: showNSFW)
                         
@@ -139,12 +147,12 @@ class PhotoGridViewController: KGViewController, MenuViewController {
                         }
                     }
                 case .Failure(_):
-                    let okAction = UIAlertAction(title: NSLocalizedString("error_button_ok", comment: ""), style: .Default, handler: nil)
-                    let tryAgainAction = UIAlertAction(title: NSLocalizedString("error_button_try_again", comment: ""), style: .Default, handler: { (alertAction) in
+                    let okAction = UIAlertAction(title: "error_button_ok".localize(), style: .Default, handler: nil)
+                    let tryAgainAction = UIAlertAction(title: "error_button_try_again".localize(), style: .Default, handler: { (alertAction) in
                         strongSelf.updateImages()
                     })
                     
-                    let alertController = strongSelf.alertControllerWithTitle(NSLocalizedString("error_loading_images_title", comment: ""), andMessage: NSLocalizedString("error_loading_images_message", comment: ""), andStyle: .Alert, andActions: [okAction, tryAgainAction])
+                    let alertController = strongSelf.alertControllerWithTitle("error_loading_images_title".localize(), andMessage: "error_loading_images_message".localize(), andStyle: .Alert, andActions: [okAction, tryAgainAction])
                     strongSelf.presentViewController(alertController, animated: true, completion: nil)
                     
                     strongSelf.stopLoading()
@@ -153,6 +161,7 @@ class PhotoGridViewController: KGViewController, MenuViewController {
     }
     
     func addImages(resultImages: [JSON], showNSFW: Bool) {
+        guard currentCategory != .Favorites else { return }
         images += resultImages.flatMap {
             if !showNSFW && $0.dictionaryValue["nsfw"]!.boolValue == true {
                 return nil
@@ -162,6 +171,8 @@ class PhotoGridViewController: KGViewController, MenuViewController {
     }
     
     func insertImagesInCollectionView(indexPaths: [NSIndexPath]) {
+        guard currentCategory != .Favorites else { return }
+        
         if images.count < indexPaths.count {
             return
         }
@@ -176,9 +187,9 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         case 1:
             currentCategory = .HighestRating
         case 2:
-            currentCategory = .Editors
-        case 3:
             currentCategory = .Upcoming
+        case 3:
+            currentCategory = .Favorites
         default:
             currentCategory = .Popular
         }
@@ -254,7 +265,7 @@ extension PhotoGridViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier("ShowImage", sender: indexPath.item)
+        performSegueWithIdentifier(Segue.ShowImage.rawValue, sender: indexPath.item)
     }
     
 }

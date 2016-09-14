@@ -14,6 +14,11 @@ enum View: String {
     case PhotoGrid = "PhotoGridNavigationView"
     case Intro = "IntroView"
     case Filter = "FilterView"
+    case ImageDetail = "ImageDetailView"
+}
+
+enum Segue: String {
+    case ShowImage = "ShowImage"
 }
 
 // MARK: - Menu View Controller Protocol
@@ -26,7 +31,7 @@ protocol MenuViewController {
 extension MenuViewController where Self: KGViewController {
     
     func makeMenuViewController() {
-        navigationItem.setRightBarButtonItem(UIImage(named: "Filter")!.navigationBarButtonWithAction({ [unowned self] (sender) -> Void in
+        navigationItem.setRightBarButtonItem(UIImage(named: "Filter")!.navigationBarButtonWithAction(action: { [unowned self] (sender) -> Void in
             self.toggleMenu()
         }), animated: false)
         let completionHandler:(DrawerController, UIGestureRecognizer) -> Void = {
@@ -92,7 +97,7 @@ class KGViewController: UIViewController {
     
     func updateTitle(title: String) {
         let titleLabel = UILabel()
-        titleLabel.font = UIFont(familyName: .ProximaNova, fontType: .Regular, size: 24)
+        titleLabel.font = UIFont.font(withType: .Regular, size: .Heading3)
         titleLabel.textColor = UIColor.whiteColor()
         titleLabel.text = title
         navigationItem.titleView = titleLabel

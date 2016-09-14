@@ -8,8 +8,8 @@
 // Photo Grid
 "photo_grid_category_popular"="Populair";
 "photo_grid_category_highest_rating"="Beste rating";
-"photo_grid_category_editors"="Editors";
 "photo_grid_category_upcoming"="Opkomend";
+"photo_grid_category_favorite"="Favorieten";
 
 // Filter View
 "filter_text_filter"="Filter";
@@ -25,7 +25,7 @@
 "error_button_try_again"="Probeer opnieuw";
 "error_button_ok"="Ok";
 "error_please_wait_title"="Even geduld aub";
-"error_not_downloaded_message"="Je kan de afbeeldin alleen opslaan als deze volledig geladen is.";
+"error_not_downloaded_message"="Je kan de afbeelding alleen opslaan als deze volledig geladen is.";
 "error_saved_title"="Afbeelding opgeslagen";
 "error_saved_message"="De afbeelding is opgeslagen in je Filmrol.";
 "error_saving_failed_title"="Opslaan mislukt";

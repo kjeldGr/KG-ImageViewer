@@ -8,8 +8,8 @@
 // Photo Grid
 "photo_grid_category_popular"="Popular";
 "photo_grid_category_highest_rating"="Best Rating";
-"photo_grid_category_editors"="Editors";
 "photo_grid_category_upcoming"="Upcoming";
+"photo_grid_category_favorite"="Favorites";
 
 // Filter View
 "filter_text_filter"="Filter";

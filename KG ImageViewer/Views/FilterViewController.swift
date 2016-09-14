@@ -10,9 +10,22 @@ import UIKit
 import DrawerController
 
 enum Setting: String {
-    case ShouldShowIntrol = "ShouldShowIntro"
+    case ShowedIntro = "ShowedIntro"
     case ShowNSFW = "ShowNSFWImages"
     case SaveHighRes = "SaveHighResImages"
+}
+
+extension Setting {
+    
+    func setTrue(isTrue: Bool = true) {
+        NSUserDefaults.standardUserDefaults().setBool(isTrue, forKey: self.rawValue)
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
+    func isTrue() -> Bool {
+        return NSUserDefaults.standardUserDefaults().boolForKey(self.rawValue)
+    }
+    
 }
 
 class FilterViewController: UIViewController {
@@ -22,14 +35,12 @@ class FilterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        nsfwSwitch.setOn(NSUserDefaults.standardUserDefaults().boolForKey(Setting.ShowNSFW.rawValue), animated: false)
-        cacheSwitch.setOn(NSUserDefaults.standardUserDefaults().boolForKey(Setting.SaveHighRes.rawValue), animated: false)
+        nsfwSwitch.setOn(Setting.ShowNSFW.isTrue(), animated: false)
+        cacheSwitch.setOn(Setting.SaveHighRes.isTrue(), animated: false)
     }
 
     @IBAction func toggleNsfwSwitch(sender: AnyObject) {
-        NSUserDefaults.standardUserDefaults().setBool(nsfwSwitch.on, forKey: Setting.ShowNSFW.rawValue)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        Setting.ShowNSFW.setTrue(nsfwSwitch.on)
         NSNotificationCenter.defaultCenter().postNotificationName(Setting.ShowNSFW.rawValue, object: nil)
     }
     
@@ -37,13 +48,12 @@ class FilterViewController: UIViewController {
         if !cacheSwitch.on {
             CacheData.sharedInstance.imageCache.removeAllObjects()
         }
-        NSUserDefaults.standardUserDefaults().setBool(cacheSwitch.on, forKey: Setting.SaveHighRes.rawValue)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        Setting.SaveHighRes.setTrue(cacheSwitch.on)
     }
     
     @IBAction func introButtonPressed(sender: AnyObject) {
         evo_drawerController?.setCenterViewController(
-            storyboard!.instantiateViewControllerWithIdentifier("IntroView"), withCloseAnimation: true, completion: nil
+            storyboard!.viewController(withViewType: .Intro), withCloseAnimation: true, completion: nil
         )
     }
     

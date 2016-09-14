@@ -22,10 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = UIColor.whiteColor()
         
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let shouldShowIntro = NSUserDefaults.standardUserDefaults().boolForKey(Setting.ShouldShowIntrol.rawValue)
+        let showedIntro = Setting.ShowedIntro.isTrue()
         
-        let centerViewController = storyboard.instantiateViewControllerWithIdentifier(shouldShowIntro ? View.Intro.rawValue : View.PhotoGrid.rawValue)
-        let rightViewController = storyboard.instantiateViewControllerWithIdentifier(View.Filter.rawValue)
+        let centerViewController = storyboard.viewController(withViewType: showedIntro ? .PhotoGrid : .Intro)
+        let rightViewController = storyboard.viewController(withViewType: .Filter)
         
         let drawerController: DrawerController = DrawerController(centerViewController: centerViewController, rightDrawerViewController: rightViewController)
         
@@ -74,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("KG_Assignment", withExtension: "momd")!
+        let modelURL = NSBundle.mainBundle().URLForResource("KG_ImageViewer", withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
     }()
 

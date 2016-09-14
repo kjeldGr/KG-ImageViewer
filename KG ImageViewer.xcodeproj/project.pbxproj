@@ -12,7 +12,10 @@
 		C6154B031BB69E5B0006EAD7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C6154B051BB69E5B0006EAD7 /* Localizable.strings */; };
 		C6154B091BB6A4DB0006EAD7 /* KGImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6154B081BB6A4DB0006EAD7 /* KGImageCell.swift */; };
 		C6154B0B1BB6A4FF0006EAD7 /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6154B0A1BB6A4FF0006EAD7 /* ImageData.swift */; };
+		C62777B91D88A4D70098ADC5 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62777B81D88A4D70098ADC5 /* CoreDataManager.swift */; };
 		C6343BEF1BBB011800F4DF0C /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66961D61BB93C3100D52059 /* IntroViewController.swift */; };
+		C6560C3A1D873C3300F4C693 /* ImageDataCoreData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6560C381D873C3300F4C693 /* ImageDataCoreData+CoreDataProperties.swift */; };
+		C6560C3B1D873C3300F4C693 /* ImageDataCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6560C391D873C3300F4C693 /* ImageDataCoreData.swift */; };
 		C69A83A91BB59171009CAB28 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69A83A71BB59171009CAB28 /* API.swift */; };
 		C69A83AA1BB59171009CAB28 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69A83A81BB59171009CAB28 /* Helper.swift */; };
 		C6B855B41BB6C877006C51BE /* ProximaNova-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6B855AE1BB6C877006C51BE /* ProximaNova-Bold.otf */; };
@@ -60,6 +63,9 @@
 		C6154B061BB69E700006EAD7 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C6154B081BB6A4DB0006EAD7 /* KGImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KGImageCell.swift; sourceTree = "<group>"; };
 		C6154B0A1BB6A4FF0006EAD7 /* ImageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
+		C62777B81D88A4D70098ADC5 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		C6560C381D873C3300F4C693 /* ImageDataCoreData+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ImageDataCoreData+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C6560C391D873C3300F4C693 /* ImageDataCoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDataCoreData.swift; sourceTree = "<group>"; };
 		C66961D61BB93C3100D52059 /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		C69A83A71BB59171009CAB28 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		C69A83A81BB59171009CAB28 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
@@ -216,6 +222,7 @@
 		C6BEDAD31BB573C400F196D5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C62777B81D88A4D70098ADC5 /* CoreDataManager.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -225,6 +232,8 @@
 			children = (
 				C6154B0A1BB6A4FF0006EAD7 /* ImageData.swift */,
 				C6C0B3521BB83A1B009E1760 /* CacheData.swift */,
+				C6560C381D873C3300F4C693 /* ImageDataCoreData+CoreDataProperties.swift */,
+				C6560C391D873C3300F4C693 /* ImageDataCoreData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -473,6 +482,8 @@
 				C6B855C51BB6E4CE006C51BE /* ImageDetailViewController.swift in Sources */,
 				C6BEDAE31BB573C400F196D5 /* AppDelegate.swift in Sources */,
 				C6154B091BB6A4DB0006EAD7 /* KGImageCell.swift in Sources */,
+				C6560C3A1D873C3300F4C693 /* ImageDataCoreData+CoreDataProperties.swift in Sources */,
+				C6560C3B1D873C3300F4C693 /* ImageDataCoreData.swift in Sources */,
 				C6B855C91BB6FF42006C51BE /* ImagePagerViewController.swift in Sources */,
 				C6BEDAEE1BB5741200F196D5 /* KGViewController.swift in Sources */,
 				C6B855C71BB6F6FC006C51BE /* UIImageEffects.swift in Sources */,
@@ -485,6 +496,7 @@
 				C69A83AA1BB59171009CAB28 /* Helper.swift in Sources */,
 				C6142F9F1C1F5F260042D82C /* Extensions.swift in Sources */,
 				C6154B001BB698130006EAD7 /* SegmentedBarView.swift in Sources */,
+				C62777B91D88A4D70098ADC5 /* CoreDataManager.swift in Sources */,
 				C6343BEF1BBB011800F4DF0C /* IntroViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -655,6 +667,7 @@
 				C6B9A3581D5BCBFA00131694 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C6BEDAB61BB5735D00F196D5 /* Build configuration list for PBXProject "KG ImageViewer" */ = {
 			isa = XCConfigurationList;
