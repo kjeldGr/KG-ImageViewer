@@ -10,48 +10,63 @@ import UIKit
 import Alamofire
 
 enum ImageSize: Int {
-    case Tiny = 1
-    case Small = 2
-    case Medium = 3
-    case Large = 4
-    case XLarge = 5
+    case tiny = 1
+    case small = 2
+    case medium = 3
+    case large = 4
+    case xLarge = 5
 }
 
 struct API {
     
     enum Router: URLRequestConvertible {
+        /// Returns a URL request or throws if an `Error` was encountered.
+        ///
+        /// - throws: An `Error` if the underlying `URLRequest` is `nil`.
+        ///
+        /// - returns: A URL request.
+        public func asURLRequest() throws -> URLRequest {
+            return urlRequest
+        }
+
         static let baseURLString = "https://api.500px.com/v1"
         static let consumerKey = "1cpVOiEnzp9QEYoIIlU0qgww77ayOHTVSLbasWSa"
         
-        case getImages([String: AnyObject])
-        case searchImages([String: AnyObject])
-        case getImage(Int, [String: AnyObject])
+        case getImages([String: Any])
+        case searchImages([String: Any])
+        case getImage(Int, [String: Any])
         
-        var URLRequest: NSMutableURLRequest {
-            let (path, parameters, method): (String, [String: AnyObject], Alamofire.Method) = {
+        var urlRequest: URLRequest {
+            let (path, parameters, method): (String, [String: Any], Alamofire.HTTPMethod) = {
                 switch self {
                 case .getImages (let params):
-                    var requestParams: [String: AnyObject] = ["consumer_key": Router.consumerKey, "rpp": "50"]
+                    var requestParams: [String: Any] = ["consumer_key": Router.consumerKey, "rpp": "50"]
                     requestParams.update(params)
-                    return ("/photos", requestParams, Alamofire.Method.GET)
+                    return ("/photos", requestParams, .get)
                 case .searchImages (let params):
-                    var requestParams: [String: AnyObject] = ["consumer_key": Router.consumerKey, "rpp": "50",  "include_store": "store_download"]
+                    var requestParams: [String: Any] = ["consumer_key": Router.consumerKey, "rpp": "50",  "include_store": "store_download"]
                     requestParams.update(params)
-                    return ("/photos/search", requestParams, Alamofire.Method.GET)
+                    return ("/photos/search", requestParams, .get)
                 case .getImage(let imageId, let params):
-                    var requestParams: [String: AnyObject] = ["consumer_key": Router.consumerKey]
+                    var requestParams: [String: Any] = ["consumer_key": Router.consumerKey]
                     requestParams.update(params)
-                    return ("/photos/\(imageId)", requestParams, Alamofire.Method.GET)
+                    return ("/photos/\(imageId)", requestParams, .get)
                 }
                 }()
             
-            let URL = NSURL(string: Router.baseURLString)
-            let URLRequest = NSMutableURLRequest(URL: URL!.URLByAppendingPathComponent(path))
-            URLRequest.HTTPMethod = method.rawValue
+            let URL = Foundation.URL(string: Router.baseURLString)
+            var request = URLRequest(url: URL!.appendingPathComponent(path))
+            request.httpMethod = method.rawValue
             
-            let encoding = method == Alamofire.Method.POST ? Alamofire.ParameterEncoding.JSON : Alamofire.ParameterEncoding.URL
+            let encoding: ParameterEncoding = method == .post ? Alamofire.JSONEncoding() : Alamofire.URLEncoding()
             
-            return encoding.encode(URLRequest, parameters: parameters).0
+            var returnRequest: URLRequest?
+            do {
+               returnRequest = try encoding.encode(request, with: parameters)
+            } catch {
+                returnRequest = request
+            }
+            return returnRequest!
         }
     }
 }

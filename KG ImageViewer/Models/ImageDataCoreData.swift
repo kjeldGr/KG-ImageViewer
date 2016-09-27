@@ -12,9 +12,9 @@ import UIKit
 
 class ImageDataCoreData: NSManagedObject {
     
-    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
-        super.init(entity: entity, insertIntoManagedObjectContext: context)
-        added = NSDate()
+    override init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertInto: context)
+        added = Date()
     }
     
     func imageData() -> ImageData {

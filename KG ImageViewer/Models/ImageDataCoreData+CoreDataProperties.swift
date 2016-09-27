@@ -17,6 +17,6 @@ extension ImageDataCoreData {
     @NSManaged var id: NSNumber?
     @NSManaged var name: String?
     @NSManaged var url: String?
-    @NSManaged var added: NSDate?
+    @NSManaged var added: Date?
 
 }

@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import Foundation
 
 class CacheData: NSObject {
     static let sharedInstance = CacheData()
-    let thumbnailCache = NSCache()
-    let imageCache = NSCache()
+    let thumbnailCache = NSCache<AnyObject, AnyObject>()
+    let imageCache = NSCache<AnyObject, AnyObject>()
     
 }

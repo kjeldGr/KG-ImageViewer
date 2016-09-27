@@ -25,11 +25,11 @@ class PhotoGridViewController: KGViewController, MenuViewController {
     @IBOutlet weak var categorySegmentedBarView: SegmentedBarView!
     @IBOutlet weak var disableView: UIView!
     
-    private var currentCategory: Category = .Popular
-    private var currentPage = 1
-    private var searching = false
-    private var searchTerm: String!
-    private var images = [ImageData]()
+    fileprivate var currentCategory: Category = .Popular
+    fileprivate var currentPage = 1
+    fileprivate var searching = false
+    fileprivate var searchTerm: String!
+    fileprivate var images = [ImageData]()
     
     // Collection View properties
     @IBOutlet weak var imageCollectionView: UICollectionView!
@@ -46,10 +46,10 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         
         imageCollectionView.accessibilityLabel = "PhotoGridCollectionView"
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PhotoGridViewController.reloadImages), name: Setting.ShowNSFW.rawValue, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(PhotoGridViewController.reloadImages), name: NSNotification.Name(rawValue: Setting.ShowNSFW.rawValue), object: nil)
         
-        navigationController?.navigationBar.shadowImage = UIImage.image(withColor: .clearColor(), size: CGSizeMake(1, 1))
-        navigationController?.navigationBar.setBackgroundImage(UIImage.image(withColor: Helper.mainColor, size: CGSizeMake(1, 1)), forBarMetrics: UIBarMetrics.Default)
+        navigationController?.navigationBar.shadowImage = UIImage.image(withColor: .clear, size: CGSize(width: 1, height: 1))
+        navigationController?.navigationBar.setBackgroundImage(UIImage.image(withColor: Helper.mainColor, size: CGSize(width: 1, height: 1)), for: UIBarMetrics.default)
         
         let searchBarButton = UIImage(named: "Search")!.navigationBarButton(action: { [unowned self] (sender) -> Void in
             self.toggleSearchBar()
@@ -62,28 +62,28 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         
         layoutCollectionView()
         
-        imageCollectionView!.registerClass(KGImageCell.classForCoder(), forCellWithReuseIdentifier: imageCellIdentifier)
+        imageCollectionView!.register(KGImageCell.classForCoder(), forCellWithReuseIdentifier: imageCellIdentifier)
         
         refreshControl.backgroundColor = Helper.mainColor
-        refreshControl.tintColor = UIColor.whiteColor()
+        refreshControl.tintColor = UIColor.white
         imageCollectionView.addSubview(refreshControl)
-        refreshControl.addTarget(self, action: #selector(PhotoGridViewController.reloadImages), forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(PhotoGridViewController.reloadImages), for: UIControlEvents.valueChanged)
         
         updateImages()
         
-        appLoader.hidden = true
+        appLoader.isHidden = true
         logoImage.animate()
         splashView.animateNext { [unowned self] () -> () in
             if self.loading {
-                self.appLoader.hidden = false
+                self.appLoader.isHidden = false
             }
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Segue.ShowImage.rawValue {
             navigationController!.navigationBar.topItem!.title = "text_back".localize();
-            let detailViewController = segue.destinationViewController as! ImagePagerViewController
+            let detailViewController = segue.destination as! ImagePagerViewController
             detailViewController.images = images
             detailViewController.currentIndex = sender as! Int
         }
@@ -131,36 +131,35 @@ class PhotoGridViewController: KGViewController, MenuViewController {
             .responseJSON { [weak self] response in
                 guard let strongSelf = self else { return }
                 switch response.result {
-                case .Success(let data):
+                case .success(let data):
                     let resultData = JSON(data)
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
+                    DispatchQueue.global(qos: .default).async {
                         let lastItem = strongSelf.images.count
                         
                         let showNSFW = Setting.ShowNSFW.isTrue()
                         let resultImages = resultData["photos"].arrayValue
                         strongSelf.addImages(resultImages, showNSFW: showNSFW)
                         
-                        let indexPaths = (lastItem..<strongSelf.images.count).map { NSIndexPath(forItem: $0, inSection: 0) }
-                        
-                        dispatch_async(dispatch_get_main_queue()) {
+                        let indexPaths = (lastItem..<strongSelf.images.count).map { IndexPath(item: $0, section: 0) }
+                        DispatchQueue.main.async {
                             strongSelf.insertImagesInCollectionView(forIndexPaths: indexPaths)
                         }
                     }
-                case .Failure(_):
-                    let okAction = UIAlertAction(title: "error_button_ok".localize(), style: .Default, handler: nil)
-                    let tryAgainAction = UIAlertAction(title: "error_button_try_again".localize(), style: .Default, handler: { (alertAction) in
+                case .failure(_):
+                    let okAction = UIAlertAction(title: "error_button_ok".localize(), style: .default, handler: nil)
+                    let tryAgainAction = UIAlertAction(title: "error_button_try_again".localize(), style: .default, handler: { (alertAction) in
                         strongSelf.updateImages()
                     })
                     
-                    let alertController = strongSelf.alertController(withTitle: "error_loading_images_title".localize(), andMessage: "error_loading_images_message".localize(), andStyle: .Alert, andActions: [okAction, tryAgainAction])
-                    strongSelf.presentViewController(alertController, animated: true, completion: nil)
+                    let alertController = strongSelf.alertController(withTitle: "error_loading_images_title".localize(), andMessage: "error_loading_images_message".localize(), andStyle: .alert, andActions: [okAction, tryAgainAction])
+                    strongSelf.present(alertController, animated: true, completion: nil)
                     
                     strongSelf.stopLoading()
                 }
             }
     }
     
-    func addImages(resultImages: [JSON], showNSFW: Bool) {
+    func addImages(_ resultImages: [JSON], showNSFW: Bool) {
         guard currentCategory != .Favorites else { return }
         images += resultImages.flatMap {
             if !showNSFW && $0.dictionaryValue["nsfw"]!.boolValue == true {
@@ -170,18 +169,18 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         }
     }
     
-    func insertImagesInCollectionView(forIndexPaths indexPaths: [NSIndexPath]) {
+    func insertImagesInCollectionView(forIndexPaths indexPaths: [IndexPath]) {
         guard currentCategory != .Favorites else { return }
         
         if images.count < indexPaths.count {
             return
         }
-        imageCollectionView!.insertItemsAtIndexPaths(indexPaths)
+        imageCollectionView!.insertItems(at: indexPaths)
         currentPage += 1
         stopLoading()
     }
     
-    @IBAction func didSelectCategory(sender: AnyObject) {
+    @IBAction func didSelectCategory(_ sender: AnyObject) {
         let segmentedControl = sender as! UISegmentedControl
         switch segmentedControl.selectedSegmentIndex {
         case 1:
@@ -203,7 +202,7 @@ extension PhotoGridViewController: UIScrollViewDelegate {
     
     // MARK: - Scroll View Methods
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y + view.frame.size.height > scrollView.contentSize.height * 0.8 {
             updateImages()
         }
@@ -218,10 +217,10 @@ extension PhotoGridViewController: UICollectionViewDelegate, UICollectionViewDat
     func layoutCollectionView() {
         let flowLayout = UICollectionViewFlowLayout()
         
-        var itemSize = CGRectGetWidth(UIScreen.mainScreen().bounds)/CGFloat(cellsPerRow)
+        var itemSize = UIScreen.main.bounds.width/CGFloat(cellsPerRow)
         itemSize -= (sectionInset*2.0)-(CGFloat(cellsPerRow-1)*cellSpacing)
         
-        flowLayout.itemSize = CGSizeMake(itemSize, itemSize)
+        flowLayout.itemSize = CGSize(width: itemSize, height: itemSize)
         flowLayout.sectionInset = UIEdgeInsetsMake(sectionInset, sectionInset, sectionInset, sectionInset)
         flowLayout.minimumInteritemSpacing = 2
         flowLayout.minimumLineSpacing = 2
@@ -229,33 +228,33 @@ extension PhotoGridViewController: UICollectionViewDelegate, UICollectionViewDat
         imageCollectionView.setCollectionViewLayout(flowLayout, animated: false)
     }
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(imageCellIdentifier, forIndexPath: indexPath) as! KGImageCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageCellIdentifier, for: indexPath) as! KGImageCell
         
-        let imageURL = images[indexPath.item].url
+        let imageURL = images[(indexPath as NSIndexPath).item].url
         cell.request?.cancel()
         
-        if let image = CacheData.sharedInstance.thumbnailCache.objectForKey(imageURL) as? UIImage {
+        if let image = CacheData.sharedInstance.thumbnailCache.object(forKey: imageURL as AnyObject) as? UIImage {
             cell.imageView.image = image
         } else {
             cell.imageView.image = nil
-            cell.request = Alamofire.request(Alamofire.Method.GET, imageURL)
+            cell.request = Alamofire.request(imageURL!, method: .get)
                 .validate(contentType: ["image/*"])
                 .responseData { response -> Void in
                     switch response.result {
-                    case .Success(let data):
-                        let image = UIImage(data: data, scale: UIScreen.mainScreen().scale)
-                        CacheData.sharedInstance.thumbnailCache.setObject(image!, forKey: response.request!.URLString)
+                    case .success(let data):
+                        let image = UIImage(data: data, scale: UIScreen.main.scale)
+                        CacheData.sharedInstance.thumbnailCache.setObject(image!, forKey: response.request!.url!.absoluteString as AnyObject)
                         cell.imageView.image = image
-                    case .Failure(_):
+                    case .failure(_):
                         break
                     }
                 }
@@ -264,8 +263,8 @@ extension PhotoGridViewController: UICollectionViewDelegate, UICollectionViewDat
         return cell
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier(Segue.ShowImage.rawValue, sender: indexPath.item)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: Segue.ShowImage.rawValue, sender: (indexPath as NSIndexPath).item)
     }
     
 }
@@ -274,7 +273,7 @@ extension PhotoGridViewController: UISearchBarDelegate {
     
     // MARK: - Search Bar Methods
     
-    @IBAction func didTapDisableView(sender: AnyObject) {
+    @IBAction func didTapDisableView(_ sender: AnyObject) {
         if categorySegmentedBarView.searchBar.text! == "" {
             closeSearchBar()
         }
@@ -289,7 +288,7 @@ extension PhotoGridViewController: UISearchBarDelegate {
     }
     
     func closeSearchBar() {
-        disableView.hidden = true
+        disableView.isHidden = true
         
         categorySegmentedBarView.closeSearchBar()
         categorySegmentedBarView.searchBar.resignFirstResponder()
@@ -302,12 +301,12 @@ extension PhotoGridViewController: UISearchBarDelegate {
         }
     }
     
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        disableView.hidden = false
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        disableView.isHidden = false
     }
     
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        disableView.hidden = true
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        disableView.isHidden = true
         
         searching = true
         searchTerm = searchBar.text!

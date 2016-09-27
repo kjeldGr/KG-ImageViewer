@@ -14,41 +14,41 @@ class SegmentedBarView: UIView {
     @IBOutlet weak var searchBar: UISearchBar!
     var showingSearchBar = false
     
-    override func willMoveToWindow(newWindow: UIWindow?) {
-        super.willMoveToWindow(window)
+    override func willMove(toWindow newWindow: UIWindow?) {
+        super.willMove(toWindow: window)
         
         backgroundColor = Helper.mainColor
         
-        layer.shadowOffset = CGSizeMake(0, 1.0/UIScreen.mainScreen().scale)
+        layer.shadowOffset = CGSize(width: 0, height: 1.0/UIScreen.main.scale)
         layer.shadowRadius = 0
-        layer.shadowColor = UIColor.blackColor().CGColor
+        layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.25
         
-        segmentedControl.setTitleTextAttributes([NSFontAttributeName: UIFont.font(withType: .Light, size: .Paragraph3)!], forState: UIControlState.Normal)
+        segmentedControl.setTitleTextAttributes([NSFontAttributeName: UIFont.font(withType: .Light, size: .paragraph3)!], for: UIControlState())
         
-        searchBar.setBackgroundImage(UIImage.image(withColor: Helper.mainColor, size: CGSizeMake(1, 1)), forBarPosition: .Top, barMetrics: UIBarMetrics.Default)
+        searchBar.setBackgroundImage(UIImage.image(withColor: Helper.mainColor, size: CGSize(width: 1, height: 1)), for: .top, barMetrics: UIBarMetrics.default)
         
-        let textfieldFont = UIFont.font(withType: .Regular, size: .Paragraph3)
+        let textfieldFont = UIFont.font(withType: .Regular, size: .paragraph3)
         if #available(iOS 9.0, *) {
-            UITextField.appearanceWhenContainedInInstancesOfClasses([UISearchBar.self]).font = textfieldFont
+            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).font = textfieldFont
         } else {
-            for textField in searchBar.subviews where textField.isKindOfClass(UITextField) {
+            for textField in searchBar.subviews where textField.isKind(of: UITextField.self) {
                 (textField as! UITextField).font = textfieldFont
             }
         }
     }
     
-    func animateSearchBar(open: Bool) {
+    func animateSearchBar(_ open: Bool) {
         let animationSpeed = 0.15
         showingSearchBar = open
-        let heightConstraint = constraints.filter() { $0.firstAttribute == .Height }.first!
+        let heightConstraint = constraints.filter() { $0.firstAttribute == .height }.first!
         if open {
-            UIView.animateWithDuration(animationSpeed, animations: { [unowned self] () -> Void in
+            UIView.animate(withDuration: animationSpeed, animations: { [unowned self] () -> Void in
                 heightConstraint.constant += 44
                 self.layoutIfNeeded()
                 }, completion: { [unowned self] (finished) -> Void in
-                    UIView.animateWithDuration(animationSpeed, animations: { () -> Void in
-                        self.searchBar.hidden = false
+                    UIView.animate(withDuration: animationSpeed, animations: { () -> Void in
+                        self.searchBar.isHidden = false
                         self.searchBar.alpha = 1
                         }, completion: { [unowned self] (finished) -> Void in
                             self.searchBar.becomeFirstResponder()
@@ -57,12 +57,12 @@ class SegmentedBarView: UIView {
             return
         }
         searchBar.resignFirstResponder()
-        UIView.animateWithDuration(animationSpeed, animations: { [unowned self] () -> Void in
+        UIView.animate(withDuration: animationSpeed, animations: { [unowned self] () -> Void in
             self.searchBar.alpha = 0
             }, completion: { [unowned self] (finished) -> Void in
-                self.searchBar.hidden = true
+                self.searchBar.isHidden = true
                 self.searchBar.text = ""
-                UIView.animateWithDuration(animationSpeed, animations: { [unowned self] () -> Void in
+                UIView.animate(withDuration: animationSpeed, animations: { [unowned self] () -> Void in
                     heightConstraint.constant -= 44
                     self.layoutIfNeeded()
                     })

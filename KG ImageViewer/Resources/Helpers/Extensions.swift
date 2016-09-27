@@ -25,36 +25,36 @@ extension String {
 extension NSObject {
     
     func currentAppDelegate() -> AppDelegate? {
-        if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             return appDelegate
         }
         return nil
     }
     
     func addObjectToDefaults(withValue value: AnyObject, key: String) {
-        NSUserDefaults.standardUserDefaults().setObject(value, forKey: key)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        UserDefaults.standard.set(value, forKey: key)
+        UserDefaults.standard.synchronize()
     }
     
     func getObjectFromDefaults(withKey key: String) -> AnyObject? {
-        return NSUserDefaults.standardUserDefaults().objectForKey(key)
+        return UserDefaults.standard.object(forKey: key) as AnyObject?
     }
     
 }
 
 extension NSObject {
     
-    func DLog(message:String, function:String = #function) {
+    func DLog(_ message:String, function:String = #function) {
         // Before you can use this please make sure you added the "-DDEBUG" flag to: Swift Compiler - Custom Flags->Other
         #if DEBUG
-            print("\(self.dynamicType) - \(function): \(message)")
+            print("\(type(of: self)) - \(function): \(message)")
         #endif
     }
     
 }
 
 extension Dictionary {
-    mutating func update(other: Dictionary) {
+    mutating func update(_ other: Dictionary) {
         for (key,value) in other {
             updateValue(value, forKey:key)
         }
@@ -65,7 +65,7 @@ extension Dictionary {
 extension UIStoryboard {
     
     func viewController(withViewType viewType: View) -> UIViewController {
-        return instantiateViewControllerWithIdentifier(viewType.rawValue)
+        return instantiateViewController(withIdentifier: viewType.rawValue)
     }
     
 }
@@ -75,15 +75,17 @@ extension UIStoryboard {
 extension UIView {
     
     public class var nameOfClass: String {
-        return NSStringFromClass(self).componentsSeparatedByString(".").last!
+        return NSStringFromClass(self).components(separatedBy: ".").last!
     }
     
     class func loadFromNib() -> UIView? {
         let nibName = nameOfClass
-        let elements = NSBundle.mainBundle().loadNibNamed(nibName, owner: nil, options: nil)
+        let elements = Bundle.main.loadNibNamed(nibName, owner: nil, options: nil)!
         
-        for anObject in elements where anObject.isKindOfClass(UIView) {
-            return anObject as? UIView
+        for anObject in elements {
+            if let view = anObject as? UIView {
+                return view
+            }
         }
         
         return nil
@@ -108,19 +110,19 @@ extension UIButton {
     
     var localizedTitleForNormal: String {
         set (key) {
-            setTitle(key.localize(), forState: .Normal)
+            setTitle(key.localize(), for: UIControlState())
         }
         get {
-            return titleForState(.Normal)!
+            return title(for: UIControlState())!
         }
     }
     
     var localizedTitleForHighlighted: String {
         set (key) {
-            setTitle(key.localize(), forState: .Highlighted)
+            setTitle(key.localize(), for: .highlighted)
         }
         get {
-            return titleForState(.Highlighted)!
+            return title(for: .highlighted)!
         }
     }
     
@@ -128,9 +130,9 @@ extension UIButton {
 
 extension UISegmentedControl {
     
-    func setLocalizedTitles(titles: [String]) {
+    func setLocalizedTitles(_ titles: [String]) {
         for title in titles {
-            setTitle(title.localize(), forSegmentAtIndex: titles.indexOf(title)!)
+            setTitle(title.localize(), forSegmentAt: titles.index(of: title)!)
         }
     }
     
@@ -138,28 +140,28 @@ extension UISegmentedControl {
 
 extension UIImage {
     
-    func navigationBarButton(withHighlightedImage highlightedImage: UIImage? = nil, setSelected: Bool = false, action: BlockButtonAction) -> UIBarButtonItem {
+    func navigationBarButton(withHighlightedImage highlightedImage: UIImage? = nil, setSelected: Bool = false, action: @escaping BlockButtonAction) -> UIBarButtonItem {
         let button = BlockButton(frame: CGRect(x: 0, y: 0, w: size.width, h: size.height), action: action)
-        button.setImage(self, forState: .Normal)
-        button.setImage(highlightedImage, forState: .Highlighted)
-        button.setImage(highlightedImage, forState: .Selected)
-        button.selected = setSelected
+        button.setImage(self, for: UIControlState())
+        button.setImage(highlightedImage, for: .highlighted)
+        button.setImage(highlightedImage, for: .selected)
+        button.isSelected = setSelected
         let barButton: UIBarButtonItem = UIBarButtonItem(customView: button)
         return barButton
     }
     
     class func image(withColor color: UIColor, size: CGSize) -> UIImage {
-        let rect = CGRectMake(0.0, 0.0, size.width, size.height)
+        let rect = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)
         UIGraphicsBeginImageContext(rect.size)
         let context = UIGraphicsGetCurrentContext()
         
-        CGContextSetFillColorWithColor(context, color.CGColor)
-        CGContextFillRect(context, rect)
+        context?.setFillColor(color.cgColor)
+        context?.fill(rect)
         
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return image
+        return image!
     }
     
 }
@@ -180,16 +182,16 @@ extension UIColor {
 }
 
 enum FontSize: CGFloat {
-    case Paragraph1 = 7.0
-    case Paragraph2 = 11.0
-    case Paragraph3 = 12.0
-    case Paragraph4 = 15.0
-    case Paragraph5 = 16.0
-    case Paragraph6 = 18.0
-    case Heading1 = 20.0
-    case Heading2 = 22.0
-    case Heading3 = 24.0
-    case Heading4 = 26.0
+    case paragraph1 = 7.0
+    case paragraph2 = 11.0
+    case paragraph3 = 12.0
+    case paragraph4 = 15.0
+    case paragraph5 = 16.0
+    case paragraph6 = 18.0
+    case heading1 = 20.0
+    case heading2 = 22.0
+    case heading3 = 24.0
+    case heading4 = 26.0
 }
 
 extension UIFont {

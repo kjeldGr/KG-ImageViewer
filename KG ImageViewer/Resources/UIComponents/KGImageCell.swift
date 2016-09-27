@@ -26,7 +26,7 @@ class KGImageCell: UICollectionViewCell {
     func commonInit() {
         accessibilityLabel = "ImageCell"
         
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = UIColor.white
         
         addSubview(imageView)
         imageView.frame = bounds

@@ -22,7 +22,7 @@ class Loader: UIView {
     }
     
     func doAnimation() {
-        if !animating || loaderImage.isAnimating() {
+        if !animating || loaderImage.isAnimating {
             return
         }
         let duration: CGFloat = 1.0
@@ -33,7 +33,7 @@ class Loader: UIView {
         loaderImage.animate()
         
         loaderImage.animateNext { [unowned self] () -> () in
-            self.performSelector(#selector(Loader.doAnimation), withObject: nil, afterDelay: NSTimeInterval(0.2))
+            self.perform(#selector(Loader.doAnimation), with: nil, afterDelay: TimeInterval(0.2))
         }
         
     }

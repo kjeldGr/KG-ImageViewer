@@ -12,17 +12,17 @@ import CoreData
 class CoreDataManager: NSObject {
     
     class func managedContextFromDelegate() -> NSManagedObjectContext {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.managedObjectContext
     }
     
-    class func getManagedObjects<T where T: NSManagedObject>(withEntityName entityName: String) -> [T] {
+    class func getManagedObjects<T>(withEntityName entityName: String) -> [T] where T: NSManagedObject {
         let managedContext = managedContextFromDelegate()
         
-        let fetchRequest = NSFetchRequest(entityName: entityName)
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: entityName)
         
         do {
-            let results = try managedContext.executeFetchRequest(fetchRequest)
+            let results = try managedContext.fetch(fetchRequest)
             let managedObjects = results.flatMap({ (result) -> T? in
                 guard let managedObject = result as? T else { return nil }
                 return managedObject
@@ -34,14 +34,14 @@ class CoreDataManager: NSObject {
         }
     }
     
-    class func getManagedObject<T where T: NSManagedObject>(withId id: NSNumber, entityName: String) -> T? {
+    class func getManagedObject<T>(withId id: NSNumber, entityName: String) -> T? where T: NSManagedObject {
         let returnObject: T? = CoreDataManager.getManagedObjects(withEntityName: entityName).filter({ (managedObject) -> Bool in
-            return (managedObject as NSManagedObject).valueForKey("id") as! NSNumber == id
+            return (managedObject as NSManagedObject).value(forKey: "id") as! NSNumber == id
         }).first
         return returnObject
     }
     
-    class func saveManagedObject<T where T: NSManagedObject>(withEntityName entityName: String, values: [String: AnyObject], save: Bool = true, shouldBeUnique unique: Bool = true) -> T? {
+    @discardableResult class func saveManagedObject<T>(withEntityName entityName: String, values: [String: AnyObject], save: Bool = true, shouldBeUnique unique: Bool = true) -> T? where T: NSManagedObject {
         guard let objectId = values["id"] as? NSNumber else { return nil }
         
         let managedContext = managedContextFromDelegate()
@@ -49,9 +49,9 @@ class CoreDataManager: NSObject {
         var managedObject: T? = getManagedObject(withId: objectId, entityName: entityName)
         if save && (managedObject == nil && unique) {
             // When the object should be unique, only save when a managedObject with the specific id doesn't exist yet
-            let entity = NSEntityDescription.entityForName(entityName, inManagedObjectContext: managedContext)!
+            let entity = NSEntityDescription.entity(forEntityName: entityName, in: managedContext)!
             
-            managedObject = T(entity: entity, insertIntoManagedObjectContext: managedContext)
+            managedObject = T(entity: entity, insertInto: managedContext)
             for (key, value) in values {
                 (managedObject as! NSManagedObject).setValue(value, forKey: key)
             }
@@ -70,9 +70,9 @@ class CoreDataManager: NSObject {
         return managedObject
     }
     
-    class func deleteManagedObject<T where T: NSManagedObject>(object: T) {
+    class func deleteManagedObject<T>(_ object: T) where T: NSManagedObject {
         let managedContext = managedContextFromDelegate()
-        managedContext.deleteObject(object)
+        managedContext.delete(object)
     }
     
 }

@@ -13,7 +13,7 @@ import SnapKit
 
 extension Animation {
     
-    func addKeyFrames(keyFrames: [(time: CGFloat, value: T)]) {
+    func addKeyFrames(_ keyFrames: [(time: CGFloat, value: T)]) {
         for keyFrame in keyFrames {
             addKeyframe(keyFrame.time, value: keyFrame.value)
         }
@@ -31,8 +31,8 @@ class IntroViewController: AnimatedPagingScrollViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
-        evo_drawerController?.centerHiddenInteractionMode = .None
+        UIApplication.shared.statusBarStyle = .lightContent
+        evo_drawerController?.centerHiddenInteractionMode = .none
         
         scrollView.accessibilityLabel = "IntroScrollView"
         
@@ -43,16 +43,18 @@ class IntroViewController: AnimatedPagingScrollViewController {
         return pages
     }
     
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         pageControl.currentPage = Int(round(pageOffset))
         super.scrollViewDidScroll(scrollView)
         if pageOffset >= 3.0 && pageOffset < 4.0 {
-            let stringLength = 8-Int(8.0*(4.0-pageOffset))
-            searchLabel.text = "Airplane".substringToIndex(stringLength < 0 ? 0 : stringLength)
+            var stringLength = 8-Int(8.0*(4.0-pageOffset))
+            stringLength = stringLength < 0 ? 0 : stringLength
+            let searchString = "Airplane"
+            searchLabel.text = searchString.substring(to: searchString.index(searchString.startIndex, offsetBy: stringLength))
         }
     }
     
-    func addAnimation(animation: Animatable, withKeyFrames keyFrames:[(time: CGFloat, value: CGFloat)]) {
+    func addAnimation(_ animation: Animatable, withKeyFrames keyFrames:[(time: CGFloat, value: CGFloat)]) {
         if let floatAnimation = animation as? Animation<CGFloat> {
             floatAnimation.addKeyFrames(keyFrames)
         }
@@ -62,14 +64,14 @@ class IntroViewController: AnimatedPagingScrollViewController {
     func createIntroViews() {
         // Add Page control and Phone model
         pageControl.numberOfPages = numberOfPages()
-        pageControl.pageIndicatorTintColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
-        pageControl.currentPageIndicatorTintColor = UIColor.whiteColor()
-        pageControl.userInteractionEnabled = false
+        pageControl.pageIndicatorTintColor = UIColor.white.withAlphaComponent(0.5)
+        pageControl.currentPageIndicatorTintColor = UIColor.white
+        pageControl.isUserInteractionEnabled = false
         contentView.addSubview(pageControl)
         if Helper.deviceType() == .iPhone6 || Helper.deviceType() == .iPhone6Plus {
-            contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[pageControl]-20-|", options: .AlignmentMask, metrics: nil, views: ["pageControl": pageControl]))
+            contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[pageControl]-20-|", options: .alignmentMask, metrics: nil, views: ["pageControl": pageControl]))
         } else {
-            contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-20-[pageControl]", options: .AlignmentMask, metrics: nil, views: ["pageControl": pageControl]))
+            contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-20-[pageControl]", options: .alignmentMask, metrics: nil, views: ["pageControl": pageControl]))
         }
         keepView(pageControl, onPages: [0,1,2,3,4,5,6])
         addAnimation(AlphaAnimation(view: pageControl), withKeyFrames: [(6, 1), (6.01, 0)])
@@ -84,7 +86,7 @@ class IntroViewController: AnimatedPagingScrollViewController {
             iPhoneOffset = 100
         }
         contentView.addSubview(iPhoneImage)
-        iPhoneImage.snp_makeConstraints { (make) -> Void in
+        iPhoneImage.snp.makeConstraints { (make) -> Void in
             make.bottom.equalTo(contentView).inset(iPhoneOffset)
         }
         keepView(iPhoneImage, onPages: [0, 1, 2, 3, 4, 5, 6, 6.15])
@@ -103,7 +105,7 @@ class IntroViewController: AnimatedPagingScrollViewController {
         let homeScreen = screenshot(forPages: keepViewArray, atTimes: [0, 0.15, 1, 2, 3], image: UIImage(named: "HomeIntro")!)
         addAnimation(AlphaAnimation(view: homeScreen), withKeyFrames: [(1, 1), (2, 1), (3, 0), (4, 0)])
         
-        let blurView = UIImageView(image: UIImage.image(withColor: .whiteColor(), size: CGSizeMake(CGRectGetWidth(homeScreen.frame)*0.7, CGRectGetHeight(homeScreen.frame))).applyBlurWithRadius(5, tintColor: Helper.mainColor.colorWithAlphaComponent(0.5), saturationDeltaFactor: 1.8))
+        let blurView = UIImageView(image: UIImage.image(withColor: .white, size: CGSize(width: homeScreen.frame.width*0.7, height: homeScreen.frame.height)).applyBlurWithRadius(5, tintColor: Helper.mainColor.withAlphaComponent(0.5), saturationDeltaFactor: 1.8))
         homeScreen.addSubview(blurView)
         
         addAnimation(AlphaAnimation(view: blurView), withKeyFrames: [(0.4, 0), (1, 0.6), (1.3, 0)])
@@ -112,7 +114,7 @@ class IntroViewController: AnimatedPagingScrollViewController {
         
         // Second page
         let settingsScreen = screenshot(forPages: [0, 1, 2, 3], atTimes: [0, 1, 2, 3], image: UIImage(named: "SettingsIntro")!)
-        contentView.bringSubviewToFront(homeScreen)
+        contentView.bringSubview(toFront: homeScreen)
         
         addAnimation(AlphaAnimation(view: settingsScreen), withKeyFrames: [(0, 1), (1, 1), (2, 1), (2.01, 0)])
         
@@ -139,11 +141,11 @@ class IntroViewController: AnimatedPagingScrollViewController {
         
         addAnimation(AlphaAnimation(view: searchDone), withKeyFrames: [(4, 0), (5, 1), (6, 0)])
         
-        searchLabel.textColor = UIColor.blackColor()
-        searchLabel.font = UIFont.font(withType: .Regular, size: .Paragraph1)
+        searchLabel.textColor = UIColor.black
+        searchLabel.font = UIFont.font(withType: .Regular, size: .paragraph1)
         contentView.addSubview(searchLabel)
-        contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[searchLabel(==110)]", options: .AlignmentMask, metrics: nil, views: ["searchLabel":searchLabel]))
-        searchLabel.snp_makeConstraints { (make) -> Void in
+        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[searchLabel(==110)]", options: .alignmentMask, metrics: nil, views: ["searchLabel":searchLabel]))
+        searchLabel.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(searchActive).offset(55)
         }
         keepView(searchLabel, onPages: [2.96, 3.96, 4.96, 5.96], atTimes: [3, 4, 5, 6])
@@ -160,11 +162,11 @@ class IntroViewController: AnimatedPagingScrollViewController {
         
         // Last page
         let appLabel = addLabel(forPage: 7, withText: "text_have_fun".localize())
-        appLabel.font = UIFont.font(withType: .Regular, size: .Heading4)
+        appLabel.font = UIFont.font(withType: .Regular, size: .heading4)
         
         let logoImage = UIImageView(image: UIImage(named: "Logo"))
         contentView.addSubview(logoImage)
-        logoImage.snp_makeConstraints { (make) -> Void in
+        logoImage.snp.makeConstraints { (make) -> Void in
             make.centerY.equalTo(contentView)
         }
         keepView(logoImage, onPages: [6.4, 7], atTimes: [6, 7])
@@ -172,34 +174,34 @@ class IntroViewController: AnimatedPagingScrollViewController {
         
         let appTitleLabel = UILabel()
         appTitleLabel.text = "KG ImageViewer"
-        appTitleLabel.textColor = UIColor.whiteColor()
-        appTitleLabel.font = UIFont.font(withType: .Semibold, size: .Heading4)
+        appTitleLabel.textColor = UIColor.white
+        appTitleLabel.font = UIFont.font(withType: .Semibold, size: .heading4)
         contentView.addSubview(appTitleLabel)
-        appTitleLabel.snp_makeConstraints { (make) -> Void in
-            make.bottom.equalTo(logoImage.snp_top).offset(-15)
+        appTitleLabel.snp.makeConstraints { (make) -> Void in
+            make.bottom.equalTo(logoImage.snp.top).offset(-15)
         }
         keepView(appTitleLabel, onPages: [6.4, 7], atTimes: [6, 7])
         addAnimation(AlphaAnimation(view: appTitleLabel), withKeyFrames: [(6.6, 0), (7, 1)])
         
         let startButton = addButton(withTitle: "button_title_got_it".localize(), selector: #selector(IntroViewController.startApp), pageTimes: [(6.4, 6), (7, 7)])
         startButton.accessibilityLabel = "IntroStartAppButton"
-        contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[startButton(==buttonWidth)]", options: .AlignmentMask, metrics: ["buttonWidth": CGRectGetWidth(UIScreen.mainScreen().bounds)-40], views: ["startButton": startButton]) + NSLayoutConstraint.constraintsWithVisualFormat("V:[startButton(==55)]-40-|", options: .AlignmentMask, metrics: nil, views: ["startButton": startButton]))
+        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[startButton(==buttonWidth)]", options: .alignmentMask, metrics: ["buttonWidth": UIScreen.main.bounds.width-40], views: ["startButton": startButton]) + NSLayoutConstraint.constraints(withVisualFormat: "V:[startButton(==55)]-40-|", options: .alignmentMask, metrics: nil, views: ["startButton": startButton]))
         addAnimation(AlphaAnimation(view: startButton), withKeyFrames: [(6.6, 0), (7, 1)])
         
         let againButton = addButton(withTitle: "button_title_again".localize(), selector: #selector(IntroViewController.watchAgain), pageTimes: [(6.4, 6), (7, 7)])
         againButton.accessibilityLabel = "IntroWatchAgainButton"
-        contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[againButton(==buttonWidth)]", options: .AlignmentMask, metrics: ["buttonWidth": CGRectGetWidth(UIScreen.mainScreen().bounds)-40], views: ["againButton": againButton]) + NSLayoutConstraint.constraintsWithVisualFormat("V:[againButton(==55)]", options: .AlignmentMask, metrics: nil, views: ["againButton": againButton]))
-        againButton.snp_makeConstraints { (make) -> Void in
-            make.bottom.equalTo(startButton.snp_top).offset(-15)
+        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[againButton(==buttonWidth)]", options: .alignmentMask, metrics: ["buttonWidth": UIScreen.main.bounds.width-40], views: ["againButton": againButton]) + NSLayoutConstraint.constraints(withVisualFormat: "V:[againButton(==55)]", options: .alignmentMask, metrics: nil, views: ["againButton": againButton]))
+        againButton.snp.makeConstraints { (make) -> Void in
+            make.bottom.equalTo(startButton.snp.top).offset(-15)
         }
         addAnimation(AlphaAnimation(view: againButton), withKeyFrames: [(6.6, 0), (7, 1)])
         
-        contentView.bringSubviewToFront(iPhoneImage)
+        contentView.bringSubview(toFront: iPhoneImage)
         
         // Add gestures
         let tapImage = UIImageView(image: UIImage(named: "Tap"))
         contentView.addSubview(tapImage)
-        tapImage.snp_makeConstraints { (make) -> Void in
+        tapImage.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(homeScreen).offset(-13)
         }
         switch Helper.deviceType() {
@@ -216,7 +218,7 @@ class IntroViewController: AnimatedPagingScrollViewController {
         let fingerImage = UIImageView(image: UIImage(named: "Finger"))
         contentView.addSubview(fingerImage)
         
-        let fingerConstraint = NSLayoutConstraint(item: fingerImage, attribute: .Top, relatedBy: .Equal, toItem: tapImage, attribute: .Top, multiplier: 1, constant: 22)
+        let fingerConstraint = NSLayoutConstraint(item: fingerImage, attribute: .top, relatedBy: .equal, toItem: tapImage, attribute: .top, multiplier: 1, constant: 22)
         contentView.addConstraint(fingerConstraint)
         switch Helper.deviceType() {
         case .iPhone6:
@@ -236,12 +238,12 @@ class IntroViewController: AnimatedPagingScrollViewController {
     
     func addButton(withTitle title: String, selector: Selector, pageTimes: [(page: CGFloat, time: CGFloat)]) -> UIButton {
         let button = UIButton()
-        button.backgroundColor = UIColor.whiteColor()
+        button.backgroundColor = UIColor.white
         button.layer.cornerRadius = 4
-        button.setTitle(title, forState: .Normal)
-        button.setTitleColor(Helper.mainColor, forState: .Normal)
-        button.titleLabel?.font = UIFont.font(withType: .Semibold, size: .Paragraph6)
-        button.addTarget(self, action: selector, forControlEvents: .TouchUpInside)
+        button.setTitle(title, for: UIControlState())
+        button.setTitleColor(Helper.mainColor, for: UIControlState())
+        button.titleLabel?.font = UIFont.font(withType: .Semibold, size: .paragraph6)
+        button.addTarget(self, action: selector, for: .touchUpInside)
         contentView.addSubview(button)
         keepView(button, onPages: pageTimes.map({return $0.page}), atTimes: pageTimes.map({return $0.time}))
         return button
@@ -251,21 +253,21 @@ class IntroViewController: AnimatedPagingScrollViewController {
         let imageView = UIImageView(image: image)
         contentView.addSubview(imageView)
         keepView(imageView, onPages: pages, atTimes: times)
-        imageView.snp_makeConstraints { (make) -> Void in
+        imageView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(iPhoneImage).offset(49.5)
         }
         return imageView
     }
     
-    func addLabel(forPage page: CGFloat, withText text: String) -> UILabel {
+    @discardableResult func addLabel(forPage page: CGFloat, withText text: String) -> UILabel {
         let label = UILabel()
-        label.font = UIFont.font(withType: .Regular, size: .Paragraph5)
-        label.textColor = UIColor.whiteColor()
+        label.font = UIFont.font(withType: .Regular, size: .paragraph5)
+        label.textColor = UIColor.white
         label.text = text
-        label.textAlignment = NSTextAlignment.Center
+        label.textAlignment = NSTextAlignment.center
         label.numberOfLines = 0
         contentView.addSubview(label)
-        label.snp_makeConstraints { (make) -> Void in
+        label.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(contentView).offset(60)
         }
         keepView(label, onPages: [page-0.6, page, page-0.4], atTimes: [page-1, page, page+1])
@@ -275,7 +277,7 @@ class IntroViewController: AnimatedPagingScrollViewController {
     }
     
     func watchAgain() {
-        scrollView.setContentOffset(CGPointMake(0, 0), animated: true)
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
     
     func startApp() {

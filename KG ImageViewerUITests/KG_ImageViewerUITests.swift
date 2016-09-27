@@ -14,10 +14,10 @@ enum ScrollDirection: Int {
 
 extension XCUIElement {
     
-    func isVisible(inSuperViewElement superElement: XCUIElement = XCUIApplication().windows.elementBoundByIndex(0)) -> Bool {
-        guard exists && !CGRectIsEmpty(frame) else { return false }
-        guard hittable else { return false }
-        return CGRectContainsRect(superElement.frame, frame)
+    func isVisible(inSuperViewElement superElement: XCUIElement = XCUIApplication().windows.element(boundBy: 0)) -> Bool {
+        guard exists && !frame.isEmpty else { return false }
+        guard isHittable else { return false }
+        return superElement.frame.contains(frame)
     }
     
     func scroll(toDirection scrollDirection: ScrollDirection) {
@@ -89,7 +89,7 @@ class KG_ImageViewerUITests: XCTestCase {
         let photoGridCollectionView = XCUIApplication().otherElements.collectionViews["PhotoGridCollectionView"]
         
         // Wait until items are loaded
-        let imageCell = photoGridCollectionView.cells.elementBoundByIndex(0)
+        let imageCell = photoGridCollectionView.cells.element(boundBy: 0)
         waitUntilElementExists(imageCell, waitTime: 5)
         
         // Check if loader becomes visible when scrolling
@@ -104,7 +104,7 @@ class KG_ImageViewerUITests: XCTestCase {
         let photoGridCollectionView = XCUIApplication().otherElements.collectionViews["PhotoGridCollectionView"]
         
         // Wait until items are loaded
-        let imageCell = photoGridCollectionView.cells.elementBoundByIndex(0)
+        let imageCell = photoGridCollectionView.cells.element(boundBy: 0)
         waitUntilElementExists(imageCell, waitTime: 5)
         let itemVisible = imageCell.isVisible()
         XCTAssert(itemVisible, "Cell should be visible")
@@ -128,10 +128,10 @@ extension KG_ImageViewerUITests {
         app.launch()
     }
     
-    func waitUntilElementExists(element: XCUIElement, waitTime: NSTimeInterval) {
+    func waitUntilElementExists(_ element: XCUIElement, waitTime: TimeInterval) {
         let exists = NSPredicate(format: "exists == 1")
-        expectationForPredicate(exists, evaluatedWithObject: element, handler: nil)
-        waitForExpectationsWithTimeout(waitTime, handler: nil)
+        expectation(for: exists, evaluatedWith: element, handler: nil)
+        waitForExpectations(timeout: waitTime, handler: nil)
     }
     
 }

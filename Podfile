@@ -1,15 +1,15 @@
-platform :ios, '8.0'
+platform :ios, '10.0'
 use_frameworks!
 
 target 'KG ImageViewer' do
 
-pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift2'
-pod 'Alamofire', '3.4.1'
-pod 'RazzleDazzle', '0.1.3'
-pod 'SwiftyJSON', '2.3.2'
-pod 'DrawerController', '1.1.0'
-pod 'EZSwiftExtensions', '1.5'
-pod 'SnapKit', '0.22.0'
+pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift3'
+pod 'Alamofire', '~> 4.0'
+pod 'RazzleDazzle', :git => 'https://github.com/raphaelcruzeiro/RazzleDazzle.git', :commit => '3e8a0f20080d2921416549ab5b7842c1849bd745'
+pod 'SwiftyJSON', '3.1.0'
+pod 'DrawerController', :git => 'https://github.com/sascha/DrawerController.git', :branch => 'swift-3.0'
+pod 'EZSwiftExtensions'
+pod 'SnapKit', '~> 3.0'
 
 end
 

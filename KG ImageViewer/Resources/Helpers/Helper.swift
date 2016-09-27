@@ -13,27 +13,27 @@ Use this class to create public functions you want to use through the whole app
 */
 
 enum DeviceType: Int {
-    case iPhone4, iPhone5, iPhone6, iPhone6Plus, iPad, Unknown
+    case iPhone4, iPhone5, iPhone6, iPhone6Plus, iPad, unknown
 }
 
-public class Helper: NSObject {
+open class Helper: NSObject {
     static let mainColor = UIColor(hex: 0x4DE8AA)
     
     class func deviceType() -> DeviceType {
-        let mainscreenBounds: CGRect = UIScreen.mainScreen().bounds
+        let mainscreenBounds: CGRect = UIScreen.main.bounds
         
-        if CGRectGetHeight(mainscreenBounds) == 480 {
+        if mainscreenBounds.height == 480 {
             return .iPhone4
-        } else if CGRectGetHeight(mainscreenBounds) == 568 {
+        } else if mainscreenBounds.height == 568 {
             return .iPhone5
-        } else if CGRectGetHeight(mainscreenBounds) == 667 {
+        } else if mainscreenBounds.height == 667 {
             return .iPhone6
-        } else if CGRectGetHeight(mainscreenBounds) == 736 {
+        } else if mainscreenBounds.height == 736 {
             return .iPhone6Plus
-        } else if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
+        } else if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {
             return .iPad
         }
-        return .Unknown
+        return .unknown
     }
     
 }

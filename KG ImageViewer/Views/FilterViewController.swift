@@ -17,13 +17,13 @@ enum Setting: String {
 
 extension Setting {
     
-    func setTrue(isTrue: Bool = true) {
-        NSUserDefaults.standardUserDefaults().setBool(isTrue, forKey: self.rawValue)
-        NSUserDefaults.standardUserDefaults().synchronize()
+    func setTrue(_ isTrue: Bool = true) {
+        UserDefaults.standard.set(isTrue, forKey: self.rawValue)
+        UserDefaults.standard.synchronize()
     }
     
     func isTrue() -> Bool {
-        return NSUserDefaults.standardUserDefaults().boolForKey(self.rawValue)
+        return UserDefaults.standard.bool(forKey: self.rawValue)
     }
     
 }
@@ -39,19 +39,19 @@ class FilterViewController: UIViewController {
         cacheSwitch.setOn(Setting.SaveHighRes.isTrue(), animated: false)
     }
 
-    @IBAction func toggleNsfwSwitch(sender: AnyObject) {
-        Setting.ShowNSFW.setTrue(nsfwSwitch.on)
-        NSNotificationCenter.defaultCenter().postNotificationName(Setting.ShowNSFW.rawValue, object: nil)
+    @IBAction func toggleNsfwSwitch(_ sender: AnyObject) {
+        Setting.ShowNSFW.setTrue(nsfwSwitch.isOn)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Setting.ShowNSFW.rawValue), object: nil)
     }
     
-    @IBAction func toggleCacheSwitch(sender: AnyObject) {
-        if !cacheSwitch.on {
+    @IBAction func toggleCacheSwitch(_ sender: AnyObject) {
+        if !cacheSwitch.isOn {
             CacheData.sharedInstance.imageCache.removeAllObjects()
         }
-        Setting.SaveHighRes.setTrue(cacheSwitch.on)
+        Setting.SaveHighRes.setTrue(cacheSwitch.isOn)
     }
     
-    @IBAction func introButtonPressed(sender: AnyObject) {
+    @IBAction func introButtonPressed(_ sender: AnyObject) {
         evo_drawerController?.setCenterViewController(
             storyboard!.viewController(withViewType: .Intro), withCloseAnimation: true, completion: nil
         )
