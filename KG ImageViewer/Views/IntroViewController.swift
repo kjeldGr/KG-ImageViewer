@@ -100,42 +100,42 @@ class IntroViewController: AnimatedPagingScrollViewController {
         default:
             keepViewArray = [0, 0.15, 0.592, 2, 3]
         }
-        let homeScreen = screenshotForPages(keepViewArray, atTimes: [0, 0.15, 1, 2, 3], image: UIImage(named: "HomeIntro")!)
+        let homeScreen = screenshot(forPages: keepViewArray, atTimes: [0, 0.15, 1, 2, 3], image: UIImage(named: "HomeIntro")!)
         addAnimation(AlphaAnimation(view: homeScreen), withKeyFrames: [(1, 1), (2, 1), (3, 0), (4, 0)])
         
-        let blurView = UIImageView(image: UIImage.imageWithColor(UIColor.whiteColor(), size: CGSizeMake(CGRectGetWidth(homeScreen.frame)*0.7, CGRectGetHeight(homeScreen.frame))).applyBlurWithRadius(5, tintColor: Helper.mainColor.colorWithAlphaComponent(0.5), saturationDeltaFactor: 1.8))
+        let blurView = UIImageView(image: UIImage.image(withColor: .whiteColor(), size: CGSizeMake(CGRectGetWidth(homeScreen.frame)*0.7, CGRectGetHeight(homeScreen.frame))).applyBlurWithRadius(5, tintColor: Helper.mainColor.colorWithAlphaComponent(0.5), saturationDeltaFactor: 1.8))
         homeScreen.addSubview(blurView)
         
         addAnimation(AlphaAnimation(view: blurView), withKeyFrames: [(0.4, 0), (1, 0.6), (1.3, 0)])
         
-        addLabelForPage(0, withText: "text_home_screen".localize())
+        addLabel(forPage: 0, withText: "text_home_screen".localize())
         
         // Second page
-        let settingsScreen = screenshotForPages([0, 1, 2, 3], atTimes: [0, 1, 2, 3], image: UIImage(named: "SettingsIntro")!)
+        let settingsScreen = screenshot(forPages: [0, 1, 2, 3], atTimes: [0, 1, 2, 3], image: UIImage(named: "SettingsIntro")!)
         contentView.bringSubviewToFront(homeScreen)
         
         addAnimation(AlphaAnimation(view: settingsScreen), withKeyFrames: [(0, 1), (1, 1), (2, 1), (2.01, 0)])
         
-        addLabelForPage(1, withText: "text_filter_settings".localize())
+        addLabel(forPage: 1, withText: "text_filter_settings".localize())
         
         // Third page
-        addLabelForPage(2, withText: "text_search_tap".localize())
+        addLabel(forPage: 2, withText: "text_search_tap".localize())
         
         // Fourth page
-        addLabelForPage(3, withText: "text_search_term".localize())
+        addLabel(forPage: 3, withText: "text_search_term".localize())
         
-        let searchInactive = screenshotForPages([2, 3, 4], atTimes: [2, 3, 4], image: UIImage(named: "SearchDisabled")!)
+        let searchInactive = screenshot(forPages: [2, 3, 4], atTimes: [2, 3, 4], image: UIImage(named: "SearchDisabled")!)
 
         addAnimation(AlphaAnimation(view: searchInactive), withKeyFrames: [(2, 0), (3, 1), (3.05, 0)])
         
-        let searchActive = screenshotForPages([2, 3, 4, 5], atTimes: [2, 3, 4, 5], image: UIImage(named: "SearchEnabled")!)
+        let searchActive = screenshot(forPages: [2, 3, 4, 5], atTimes: [2, 3, 4, 5], image: UIImage(named: "SearchEnabled")!)
         
         addAnimation(AlphaAnimation(view: searchActive), withKeyFrames: [(3, 0), (3.01, 1), (4, 1), (5, 0)])
         
         // Fifth page
-        addLabelForPage(4, withText: "text_search_go".localize())
+        addLabel(forPage: 4, withText: "text_search_go".localize())
         
-        let searchDone = screenshotForPages([4, 5, 6], atTimes: [4, 5, 6], image: UIImage(named: "SearchDone")!)
+        let searchDone = screenshot(forPages: [4, 5, 6], atTimes: [4, 5, 6], image: UIImage(named: "SearchDone")!)
         
         addAnimation(AlphaAnimation(view: searchDone), withKeyFrames: [(4, 0), (5, 1), (6, 0)])
         
@@ -150,16 +150,16 @@ class IntroViewController: AnimatedPagingScrollViewController {
         addAnimation(AlphaAnimation(view: searchLabel), withKeyFrames: [(3, 0), (3.01, 1), (5, 1), (5.5, 0)])
         
         // Sixth page
-        let detailScreen = screenshotForPages([4, 5, 6, 6.15], atTimes: [4, 5, 6, 6.15], image: UIImage(named: "DetailIntro")!)
+        let detailScreen = screenshot(forPages: [4, 5, 6, 6.15], atTimes: [4, 5, 6, 6.15], image: UIImage(named: "DetailIntro")!)
         addAnimation(AlphaAnimation(view: detailScreen), withKeyFrames: [(5, 0), (6, 1), (6.15, 1), (6.5, 0)])
         
-        addLabelForPage(5, withText: "text_tap_detail".localize())
+        addLabel(forPage: 5, withText: "text_tap_detail".localize())
         
         // Seventh page
-        addLabelForPage(6, withText: "text_save".localize())
+        addLabel(forPage: 6, withText: "text_save".localize())
         
         // Last page
-        let appLabel = addLabelForPage(7, withText: "text_have_fun".localize())
+        let appLabel = addLabel(forPage: 7, withText: "text_have_fun".localize())
         appLabel.font = UIFont.font(withType: .Regular, size: .Heading4)
         
         let logoImage = UIImageView(image: UIImage(named: "Logo"))
@@ -181,12 +181,12 @@ class IntroViewController: AnimatedPagingScrollViewController {
         keepView(appTitleLabel, onPages: [6.4, 7], atTimes: [6, 7])
         addAnimation(AlphaAnimation(view: appTitleLabel), withKeyFrames: [(6.6, 0), (7, 1)])
         
-        let startButton = addButtonWithTitle("button_title_got_it".localize(), selector: #selector(IntroViewController.startApp), pageTimes: [(6.4, 6), (7, 7)])
+        let startButton = addButton(withTitle: "button_title_got_it".localize(), selector: #selector(IntroViewController.startApp), pageTimes: [(6.4, 6), (7, 7)])
         startButton.accessibilityLabel = "IntroStartAppButton"
         contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[startButton(==buttonWidth)]", options: .AlignmentMask, metrics: ["buttonWidth": CGRectGetWidth(UIScreen.mainScreen().bounds)-40], views: ["startButton": startButton]) + NSLayoutConstraint.constraintsWithVisualFormat("V:[startButton(==55)]-40-|", options: .AlignmentMask, metrics: nil, views: ["startButton": startButton]))
         addAnimation(AlphaAnimation(view: startButton), withKeyFrames: [(6.6, 0), (7, 1)])
         
-        let againButton = addButtonWithTitle("button_title_again".localize(), selector: #selector(IntroViewController.watchAgain), pageTimes: [(6.4, 6), (7, 7)])
+        let againButton = addButton(withTitle: "button_title_again".localize(), selector: #selector(IntroViewController.watchAgain), pageTimes: [(6.4, 6), (7, 7)])
         againButton.accessibilityLabel = "IntroWatchAgainButton"
         contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:[againButton(==buttonWidth)]", options: .AlignmentMask, metrics: ["buttonWidth": CGRectGetWidth(UIScreen.mainScreen().bounds)-40], views: ["againButton": againButton]) + NSLayoutConstraint.constraintsWithVisualFormat("V:[againButton(==55)]", options: .AlignmentMask, metrics: nil, views: ["againButton": againButton]))
         againButton.snp_makeConstraints { (make) -> Void in
@@ -234,7 +234,7 @@ class IntroViewController: AnimatedPagingScrollViewController {
 
     }
     
-    func addButtonWithTitle(title: String, selector: Selector, pageTimes: [(page: CGFloat, time: CGFloat)]) -> UIButton {
+    func addButton(withTitle title: String, selector: Selector, pageTimes: [(page: CGFloat, time: CGFloat)]) -> UIButton {
         let button = UIButton()
         button.backgroundColor = UIColor.whiteColor()
         button.layer.cornerRadius = 4
@@ -247,17 +247,17 @@ class IntroViewController: AnimatedPagingScrollViewController {
         return button
     }
     
-    func screenshotForPages(pages: [CGFloat], atTimes: [CGFloat], image: UIImage) -> UIImageView {
+    func screenshot(forPages pages: [CGFloat], atTimes times: [CGFloat], image: UIImage) -> UIImageView {
         let imageView = UIImageView(image: image)
         contentView.addSubview(imageView)
-        keepView(imageView, onPages: pages, atTimes: atTimes)
+        keepView(imageView, onPages: pages, atTimes: times)
         imageView.snp_makeConstraints { (make) -> Void in
             make.top.equalTo(iPhoneImage).offset(49.5)
         }
         return imageView
     }
     
-    func addLabelForPage(page: CGFloat, withText text: String) -> UILabel {
+    func addLabel(forPage page: CGFloat, withText text: String) -> UILabel {
         let label = UILabel()
         label.font = UIFont.font(withType: .Regular, size: .Paragraph5)
         label.textColor = UIColor.whiteColor()

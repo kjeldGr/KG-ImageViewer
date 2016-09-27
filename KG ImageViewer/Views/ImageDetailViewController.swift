@@ -27,7 +27,7 @@ class ImageDetailViewController: KGViewController {
         navigationController?.navigationBar.layer.shadowColor = UIColor.blackColor().CGColor
         navigationController?.navigationBar.layer.shadowOpacity = 0.25
         
-        backgroundImageView.image = UIImage.imageWithColor(UIColor.whiteColor(), size: CGSizeMake(1, 1)).applyBlurWithRadius(5, tintColor: Helper.mainColor.colorWithAlphaComponent(0.5), saturationDeltaFactor: 1.8)
+        backgroundImageView.image = UIImage.image(withColor: UIColor.whiteColor(), size: CGSizeMake(1, 1)).applyBlurWithRadius(5, tintColor: Helper.mainColor.colorWithAlphaComponent(0.5), saturationDeltaFactor: 1.8)
         backgroundImageView.frame = view.bounds
         imageView.frame = view.bounds
         
@@ -46,7 +46,7 @@ class ImageDetailViewController: KGViewController {
                 switch result.result {
                 case .Success(let data):
                     let imageDetailData = JSON(data).dictionaryValue
-                    strongSelf.loadImageForData(imageDetailData["photo"]!.dictionaryValue)
+                    strongSelf.loadImage(forData: imageDetailData["photo"]!.dictionaryValue)
                 case Result.Failure(_):
                     strongSelf.stopLoading()
                     let okAction = UIAlertAction(title: "error_button_ok".localize(), style: .Default, handler: nil)
@@ -54,13 +54,13 @@ class ImageDetailViewController: KGViewController {
                         strongSelf.getDetailedImageData()
                     })
                     
-                    let alertController = strongSelf.alertControllerWithTitle("error_loading_image_title".localize(), andMessage: "error_loading_images_message".localize(), andStyle: .Alert, andActions: [okAction, tryAgainAction])
+                    let alertController = strongSelf.alertController(withTitle: "error_loading_image_title".localize(), andMessage: "error_loading_images_message".localize(), andStyle: .Alert, andActions: [okAction, tryAgainAction])
                     strongSelf.presentViewController(alertController, animated: true, completion: nil)
                 }
             })
     }
     
-    func loadImageForData(data: [String: JSON]) {
+    func loadImage(forData data: [String: JSON]) {
         Alamofire.request(Alamofire.Method.GET, data["image_url"]!.stringValue)
             .validate(contentType: ["image/*"])
             .responseData { [weak self] response -> Void in
@@ -77,10 +77,10 @@ class ImageDetailViewController: KGViewController {
                 case .Failure(_):
                     let okAction = UIAlertAction(title: "error_button_ok".localize(), style: .Default, handler: nil)
                     let tryAgainAction = UIAlertAction(title: "error_button_try_again".localize(), style: .Default, handler: { (action) -> Void in
-                        strongSelf.loadImageForData(data)
+                        strongSelf.loadImage(forData: data)
                     })
                     
-                    let alertController = strongSelf.alertControllerWithTitle("error_loading_image_title".localize(), andMessage: "error_loading_images_message".localize(), andStyle: .Alert, andActions: [okAction, tryAgainAction])
+                    let alertController = strongSelf.alertController(withTitle: "error_loading_image_title".localize(), andMessage: "error_loading_images_message".localize(), andStyle: .Alert, andActions: [okAction, tryAgainAction])
                     strongSelf.presentViewController(alertController, animated: true, completion: nil)
                     strongSelf.stopLoading()
                 }

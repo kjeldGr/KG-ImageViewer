@@ -14,7 +14,7 @@ import EZSwiftExtensions
 
 extension String {
     
-    func localize(table: String? = nil) -> String {
+    func localize(fromTable table: String? = nil) -> String {
         return NSLocalizedString(self, tableName: table, comment: "")
     }
     
@@ -31,12 +31,12 @@ extension NSObject {
         return nil
     }
     
-    func addToDefaults(value: AnyObject, key: String) {
+    func addObjectToDefaults(withValue value: AnyObject, key: String) {
         NSUserDefaults.standardUserDefaults().setObject(value, forKey: key)
         NSUserDefaults.standardUserDefaults().synchronize()
     }
     
-    func getObjectFromDefaults(key: String) -> AnyObject? {
+    func getObjectFromDefaults(withKey key: String) -> AnyObject? {
         return NSUserDefaults.standardUserDefaults().objectForKey(key)
     }
     
@@ -138,7 +138,7 @@ extension UISegmentedControl {
 
 extension UIImage {
     
-    func navigationBarButtonWithAction(highlightedImage: UIImage? = nil, setSelected: Bool = false, action: BlockButtonAction) -> UIBarButtonItem {
+    func navigationBarButton(withHighlightedImage highlightedImage: UIImage? = nil, setSelected: Bool = false, action: BlockButtonAction) -> UIBarButtonItem {
         let button = BlockButton(frame: CGRect(x: 0, y: 0, w: size.width, h: size.height), action: action)
         button.setImage(self, forState: .Normal)
         button.setImage(highlightedImage, forState: .Highlighted)
@@ -148,7 +148,7 @@ extension UIImage {
         return barButton
     }
     
-    class func imageWithColor(color: UIColor, size: CGSize) -> UIImage {
+    class func image(withColor color: UIColor, size: CGSize) -> UIImage {
         let rect = CGRectMake(0.0, 0.0, size.width, size.height)
         UIGraphicsBeginImageContext(rect.size)
         let context = UIGraphicsGetCurrentContext()

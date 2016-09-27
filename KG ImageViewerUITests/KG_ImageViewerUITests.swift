@@ -9,22 +9,39 @@
 import XCTest
 
 enum ScrollDirection: Int {
-    case Left, Right, Up, Down
+    case left, right, up, down
 }
 
 extension XCUIElement {
     
-    func scrollToDirection(scrollDirection: ScrollDirection) {
+    func isVisible(inSuperViewElement superElement: XCUIElement = XCUIApplication().windows.elementBoundByIndex(0)) -> Bool {
+        guard exists && !CGRectIsEmpty(frame) else { return false }
+        guard hittable else { return false }
+        return CGRectContainsRect(superElement.frame, frame)
+    }
+    
+    func scroll(toDirection scrollDirection: ScrollDirection) {
         switch scrollDirection {
-        case .Left:
+        case .left:
             swipeRight()
-        case .Right:
+        case .right:
             swipeLeft()
-        case .Up:
+        case .up:
             swipeDown()
-        case .Down:
+        case .down:
             swipeUp()
         }
+    }
+    
+    func scroll(toView view: XCUIElement, scrollDirection: ScrollDirection = .right) -> XCUIElement {
+        var tries = 0
+        // Swipe left until button is visible
+        while !view.isVisible(inSuperViewElement: self) {
+            scroll(toDirection: scrollDirection)
+            tries += 1
+            XCTAssert(tries < 10, "View not found in scrollview")
+        }
+        return view
     }
     
 }
@@ -52,17 +69,17 @@ class KG_ImageViewerUITests: XCTestCase {
         let watchAgainButton = XCUIApplication().buttons["IntroWatchAgainButton"]
         let startAppButton = XCUIApplication().buttons["IntroStartAppButton"]
         // Scroll to end and test watch again
-        scrollToView(watchAgainButton, inScrollView: scrollView).tap()
+        scrollView.scroll(toView: watchAgainButton).tap()
         
         // Start the app
-        scrollToView(startAppButton, inScrollView: scrollView).tap()
+        scrollView.scroll(toView: startAppButton).tap()
         
         // Check if the photo grid is shown
         let photoGridCollectionView = XCUIApplication().otherElements.collectionViews["PhotoGridCollectionView"]
         // First check if collection view exists
         XCTAssert(photoGridCollectionView.exists, "Photo Grid CollectionView doesn't exist")
         // When collectionview exists, check if it's visible
-        let collectionViewIsVisible = elementIsVisible(photoGridCollectionView)
+        let collectionViewIsVisible = photoGridCollectionView.isVisible()
         XCTAssert(collectionViewIsVisible, "Photo Grid CollectionView should be visible")
     }
     
@@ -89,27 +106,13 @@ class KG_ImageViewerUITests: XCTestCase {
         // Wait until items are loaded
         let imageCell = photoGridCollectionView.cells.elementBoundByIndex(0)
         waitUntilElementExists(imageCell, waitTime: 5)
-        let itemVisible = elementIsVisible(imageCell)
+        let itemVisible = imageCell.isVisible()
         XCTAssert(itemVisible, "Cell should be visible")
         
         imageCell.tap()
         let detailImageView = XCUIApplication().images["DetailImageView"]
         waitUntilElementExists(detailImageView, waitTime: 3)
         detailImageView.swipeLeft()
-        
-    }
-    
-    func testRecording() {
-        launchApp()
-        
-        let app = XCUIApplication()
-        app.navigationBars["Photos"].buttons["Search"].tap()
-        app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).elementBoundByIndex(1).childrenMatchingType(.Other).element.childrenMatchingType(.SearchField).element.tap()
-        
-        app.searchFields.containingType(.Button, identifier:"Clear text").element
-        let element = app.searchFields.elementBoundByIndex(0)
-        waitUntilElementExists(element, waitTime: 6)
-        element.typeText("test\r")
         
     }
     
@@ -123,22 +126,6 @@ extension KG_ImageViewerUITests {
         let app = XCUIApplication()
         app.launchArguments += ["-ShowedIntro", showedIntro]
         app.launch()
-    }
-    
-    func scrollToView(viewElement: XCUIElement, inScrollView scrollView: XCUIElement, scrollDirection: ScrollDirection = .Right) -> XCUIElement {
-        var tries = 0
-        // Swipe left until button is visible
-        while !elementIsVisible(viewElement, inSuperViewElement: scrollView) {
-            scrollView.scrollToDirection(scrollDirection)
-            tries += 1
-            XCTAssert(tries < 10, "View not found in scrollview")
-        }
-        return viewElement
-    }
-    
-    func elementIsVisible(element: XCUIElement, inSuperViewElement superElement: XCUIElement = XCUIApplication().windows.elementBoundByIndex(0)) -> Bool {
-        guard element.exists && !CGRectIsEmpty(element.frame) else { return false }
-        return CGRectContainsRect(superElement.frame, element.frame)
     }
     
     func waitUntilElementExists(element: XCUIElement, waitTime: NSTimeInterval) {

@@ -31,7 +31,6 @@
 		C6B855C71BB6F6FC006C51BE /* UIImageEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B855C61BB6F6FC006C51BE /* UIImageEffects.swift */; };
 		C6B855C91BB6FF42006C51BE /* ImagePagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B855C81BB6FF42006C51BE /* ImagePagerViewController.swift */; };
 		C6B9A3531D5BCBFA00131694 /* KG_ImageViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B9A3521D5BCBFA00131694 /* KG_ImageViewerUITests.swift */; };
-		C6B9A35C1D5BCEDA00131694 /* Pods_KG_ImageViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6B9A35B1D5BCEDA00131694 /* Pods_KG_ImageViewer.framework */; };
 		C6BEDAE31BB573C400F196D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BEDAD61BB573C400F196D5 /* AppDelegate.swift */; };
 		C6BEDAE51BB573C400F196D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C6BEDADB1BB573C400F196D5 /* Assets.xcassets */; };
 		C6BEDAE61BB573C400F196D5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6BEDADC1BB573C400F196D5 /* LaunchScreen.storyboard */; };
@@ -103,7 +102,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C6B9A35C1D5BCEDA00131694 /* Pods_KG_ImageViewer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,7 +428,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		CF5879C9FB4376D4C7EB9076 /* [CP] Embed Pods Frameworks */ = {

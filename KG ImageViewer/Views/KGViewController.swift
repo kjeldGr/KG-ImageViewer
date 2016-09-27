@@ -31,7 +31,7 @@ protocol MenuViewController {
 extension MenuViewController where Self: KGViewController {
     
     func makeMenuViewController() {
-        navigationItem.setRightBarButtonItem(UIImage(named: "Filter")!.navigationBarButtonWithAction(action: { [unowned self] (sender) -> Void in
+        navigationItem.setRightBarButtonItem(UIImage(named: "Filter")!.navigationBarButton(action: { [unowned self] (sender) -> Void in
             self.toggleMenu()
         }), animated: false)
         let completionHandler:(DrawerController, UIGestureRecognizer) -> Void = {
@@ -104,7 +104,7 @@ class KGViewController: UIViewController {
         titleLabel.sizeToFit()
     }
     
-    func alertControllerWithTitle(title: String, andMessage message: String, andStyle style: UIAlertControllerStyle, andActions actions: [UIAlertAction]) -> UIAlertController {
+    func alertController(withTitle title: String, andMessage message: String, andStyle style: UIAlertControllerStyle, andActions actions: [UIAlertAction]) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
         
         for action in actions {

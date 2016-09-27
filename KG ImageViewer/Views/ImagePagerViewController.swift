@@ -22,16 +22,16 @@ class ImagePagerViewController: KGViewController {
         
         super.viewDidLoad()
         
-        let downloadButton = UIImage(named:"Download")!.navigationBarButtonWithAction(action: { [unowned self] (sender) -> Void in
+        let downloadButton = UIImage(named:"Download")!.navigationBarButton(action: { [unowned self] (sender) -> Void in
             self.downloadImage()
         })
         
-        let favoriteButton = UIImage(named:"Rating")!.navigationBarButtonWithAction(UIImage(named: "RatingHighlighted"), setSelected:imageData.isFavorite(), action: { [unowned self] (sender) -> Void in
+        let favoriteButton = UIImage(named:"Rating")!.navigationBarButton(withHighlightedImage: UIImage(named: "RatingHighlighted"), setSelected: imageData.isFavorite(), action: { [unowned self] (sender) -> Void in
             self.favoriteImage(sender)
         })
         navigationItem.setRightBarButtonItems([downloadButton, favoriteButton], animated: false)
         
-        let firstViewController = imageDetailViewControllerForIndex(currentIndex)!
+        let firstViewController = imageDetailViewController(forIndex: currentIndex)!
         
         pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
         pageViewController.delegate = self
@@ -51,7 +51,7 @@ class ImagePagerViewController: KGViewController {
     func downloadImage() {
         guard currentController.detailImage != nil else {
             let okAction = UIAlertAction(title: "error_button_ok".localize(), style: .Default, handler: nil)
-            let alert = alertControllerWithTitle("error_please_wait_title".localize(), andMessage: "error_not_downloaded_message".localize(), andStyle: .Alert, andActions: [okAction])
+            let alert = alertController(withTitle: "error_please_wait_title".localize(), andMessage: "error_not_downloaded_message".localize(), andStyle: .Alert, andActions: [okAction])
             presentViewController(alert, animated: true, completion: nil)
             return
         }
@@ -71,9 +71,9 @@ class ImagePagerViewController: KGViewController {
         let okAction = UIAlertAction(title: "error_button_ok".localize(), style: .Default, handler: nil)
         var alert: UIAlertController!
         if error != nil {
-            alert = alertControllerWithTitle("error_saving_failed_title".localize(), andMessage: "error_saving_failed_message".localize(), andStyle: .Alert, andActions: [okAction])
+            alert = alertController(withTitle: "error_saving_failed_title".localize(), andMessage: "error_saving_failed_message".localize(), andStyle: .Alert, andActions: [okAction])
         }else{
-            alert = alertControllerWithTitle("error_saved_title".localize(), andMessage: "error_saved_message".localize(), andStyle: .Alert, andActions: [okAction])
+            alert = alertController(withTitle: "error_saved_title".localize(), andMessage: "error_saved_message".localize(), andStyle: .Alert, andActions: [okAction])
         }
         presentViewController(alert, animated: true, completion: nil)
     }
@@ -84,7 +84,7 @@ extension ImagePagerViewController: UIPageViewControllerDelegate, UIPageViewCont
     
     // MARK: - Page View Controller Methods
     
-    func imageDetailViewControllerForIndex(index: Int) -> ImageDetailViewController? {
+    func imageDetailViewController(forIndex index: Int) -> ImageDetailViewController? {
         if index < 0 || index >= images.count {
             return nil
         }
@@ -94,11 +94,11 @@ extension ImagePagerViewController: UIPageViewControllerDelegate, UIPageViewCont
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        return imageDetailViewControllerForIndex(currentIndex-1)
+        return imageDetailViewController(forIndex: currentIndex-1)
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        return imageDetailViewControllerForIndex(currentIndex+1)
+        return imageDetailViewController(forIndex: currentIndex+1)
     }
     
     func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {

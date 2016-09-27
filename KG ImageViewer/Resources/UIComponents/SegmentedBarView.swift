@@ -26,7 +26,7 @@ class SegmentedBarView: UIView {
         
         segmentedControl.setTitleTextAttributes([NSFontAttributeName: UIFont.font(withType: .Light, size: .Paragraph3)!], forState: UIControlState.Normal)
         
-        searchBar.setBackgroundImage(UIImage.imageWithColor(Helper.mainColor, size: CGSizeMake(1, 1)), forBarPosition: .Top, barMetrics: UIBarMetrics.Default)
+        searchBar.setBackgroundImage(UIImage.image(withColor: Helper.mainColor, size: CGSizeMake(1, 1)), forBarPosition: .Top, barMetrics: UIBarMetrics.Default)
         
         let textfieldFont = UIFont.font(withType: .Regular, size: .Paragraph3)
         if #available(iOS 9.0, *) {

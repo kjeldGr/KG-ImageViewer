@@ -48,12 +48,12 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PhotoGridViewController.reloadImages), name: Setting.ShowNSFW.rawValue, object: nil)
         
-        navigationController?.navigationBar.shadowImage = UIImage.imageWithColor(.clearColor(), size: CGSizeMake(1, 1))
-        navigationController?.navigationBar.setBackgroundImage(UIImage.imageWithColor(Helper.mainColor, size: CGSizeMake(1, 1)), forBarMetrics: UIBarMetrics.Default)
+        navigationController?.navigationBar.shadowImage = UIImage.image(withColor: .clearColor(), size: CGSizeMake(1, 1))
+        navigationController?.navigationBar.setBackgroundImage(UIImage.image(withColor: Helper.mainColor, size: CGSizeMake(1, 1)), forBarMetrics: UIBarMetrics.Default)
         
-        let searchBarButton = UIImage(named: "Search")!.navigationBarButtonWithAction { [unowned self] (sender) -> Void in
+        let searchBarButton = UIImage(named: "Search")!.navigationBarButton(action: { [unowned self] (sender) -> Void in
             self.toggleSearchBar()
-        }
+        })
         navigationItem.setRightBarButtonItems([navigationItem.rightBarButtonItem!, searchBarButton], animated: false)
         
         categorySegmentedBarView.segmentedControl.setLocalizedTitles(["photo_grid_category_popular", "photo_grid_category_highest_rating", "photo_grid_category_upcoming", "photo_grid_category_favorite"])
@@ -143,7 +143,7 @@ class PhotoGridViewController: KGViewController, MenuViewController {
                         let indexPaths = (lastItem..<strongSelf.images.count).map { NSIndexPath(forItem: $0, inSection: 0) }
                         
                         dispatch_async(dispatch_get_main_queue()) {
-                            strongSelf.insertImagesInCollectionView(indexPaths)
+                            strongSelf.insertImagesInCollectionView(forIndexPaths: indexPaths)
                         }
                     }
                 case .Failure(_):
@@ -152,7 +152,7 @@ class PhotoGridViewController: KGViewController, MenuViewController {
                         strongSelf.updateImages()
                     })
                     
-                    let alertController = strongSelf.alertControllerWithTitle("error_loading_images_title".localize(), andMessage: "error_loading_images_message".localize(), andStyle: .Alert, andActions: [okAction, tryAgainAction])
+                    let alertController = strongSelf.alertController(withTitle: "error_loading_images_title".localize(), andMessage: "error_loading_images_message".localize(), andStyle: .Alert, andActions: [okAction, tryAgainAction])
                     strongSelf.presentViewController(alertController, animated: true, completion: nil)
                     
                     strongSelf.stopLoading()
@@ -170,7 +170,7 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         }
     }
     
-    func insertImagesInCollectionView(indexPaths: [NSIndexPath]) {
+    func insertImagesInCollectionView(forIndexPaths indexPaths: [NSIndexPath]) {
         guard currentCategory != .Favorites else { return }
         
         if images.count < indexPaths.count {
