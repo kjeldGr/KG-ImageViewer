@@ -53,7 +53,7 @@ class FilterViewController: UIViewController {
     
     @IBAction func introButtonPressed(_ sender: AnyObject) {
         evo_drawerController?.setCenterViewController(
-            storyboard!.viewController(withViewType: .Intro), withCloseAnimation: true, completion: nil
+            storyboard!.viewController(withViewType: .intro), withCloseAnimation: true, completion: nil
         )
     }
     

@@ -15,9 +15,25 @@ class ImagePagerViewController: KGViewController {
     var currentIndex = 0
     var transitionIndex = 0
     var transitionTitle: String!
+    var imageData: ImageData {
+        get {
+            return images[currentIndex]
+        }
+    }
+    
+    override var previewActionItems: [UIPreviewActionItem] {
+        let isFavorite = imageData.isFavorite()
+        let favoriteTitleKey = isFavorite ? "preview_action_undo_favorite" : "preview_action_favorite";
+        let favoriteAction = UIPreviewAction(title: favoriteTitleKey.localize(), style: isFavorite ? .destructive : .default) { [unowned self] (action, viewController) in
+            self.favoriteImage(action)
+        }
+        let downloadAction = UIPreviewAction(title: "preview_action_download".localize(), style: .default) { [unowned self] (action, viewController) in
+            self.downloadImage()
+        }
+        return [favoriteAction, downloadAction]
+    }
     
     override func viewDidLoad() {
-        let imageData = images[currentIndex]
         title = imageData.name
         
         super.viewDidLoad()
@@ -59,12 +75,11 @@ class ImagePagerViewController: KGViewController {
     }
     
     func favoriteImage(_ sender: AnyObject) {
-        guard let favoriteButton = sender as? UIButton else { return }
-        favoriteButton.isSelected = !favoriteButton.isSelected
+        if let favoriteButton = sender as? UIButton {
+            favoriteButton.isSelected = !favoriteButton.isSelected
+        }
         
-        CoreDataManager.saveManagedObject(withEntityName: "ImageDataCoreData", values: currentController.imageData.valuesForCoreDataObject(), save: favoriteButton.isSelected)
-        
-        DLog("\(currentAppDelegate()!.managedObjectContext.insertedObjects))")
+        CoreDataManager.saveManagedObject(withEntityName: "ImageDataCoreData", values: currentController.imageData.valuesForCoreDataObject(), save: !currentController.imageData.isFavorite())
     }
     
     func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafeRawPointer)       {
@@ -88,7 +103,7 @@ extension ImagePagerViewController: UIPageViewControllerDelegate, UIPageViewCont
         if index < 0 || index >= images.count {
             return nil
         }
-        let imageDetailView = storyboard?.viewController(withViewType: .ImageDetail) as! ImageDetailViewController
+        let imageDetailView = storyboard?.viewController(withViewType: .imageDetail) as! ImageDetailViewController
         imageDetailView.imageData = images[index]
         return imageDetailView
     }

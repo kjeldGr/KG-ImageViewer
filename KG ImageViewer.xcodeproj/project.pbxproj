@@ -18,6 +18,7 @@
 		C6560C3B1D873C3300F4C693 /* ImageDataCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6560C391D873C3300F4C693 /* ImageDataCoreData.swift */; };
 		C69A83A91BB59171009CAB28 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69A83A71BB59171009CAB28 /* API.swift */; };
 		C69A83AA1BB59171009CAB28 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69A83A81BB59171009CAB28 /* Helper.swift */; };
+		C6A4DB1C1DA192D300810E59 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C6A4DB1E1DA192D300810E59 /* InfoPlist.strings */; };
 		C6B855B41BB6C877006C51BE /* ProximaNova-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6B855AE1BB6C877006C51BE /* ProximaNova-Bold.otf */; };
 		C6B855B51BB6C877006C51BE /* ProximaNova-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6B855AF1BB6C877006C51BE /* ProximaNova-Light.otf */; };
 		C6B855B61BB6C877006C51BE /* ProximaNova-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6B855B01BB6C877006C51BE /* ProximaNova-LightItalic.otf */; };
@@ -68,6 +69,8 @@
 		C66961D61BB93C3100D52059 /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		C69A83A71BB59171009CAB28 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		C69A83A81BB59171009CAB28 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		C6A4DB1D1DA192D300810E59 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C6A4DB1F1DA192D500810E59 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C6B855AE1BB6C877006C51BE /* ProximaNova-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Bold.otf"; sourceTree = "<group>"; };
 		C6B855AF1BB6C877006C51BE /* ProximaNova-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Light.otf"; sourceTree = "<group>"; };
 		C6B855B01BB6C877006C51BE /* ProximaNova-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-LightItalic.otf"; sourceTree = "<group>"; };
@@ -280,6 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				C6BEDAE01BB573C400F196D5 /* Info.plist */,
+				C6A4DB1E1DA192D300810E59 /* InfoPlist.strings */,
 			);
 			path = "Supporting files";
 			sourceTree = "<group>";
@@ -364,6 +368,7 @@
 					};
 					C6BEDABA1BB5735D00F196D5 = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = RL8CZXXMEE;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -403,6 +408,7 @@
 				C6154B031BB69E5B0006EAD7 /* Localizable.strings in Resources */,
 				C6B855B61BB6C877006C51BE /* ProximaNova-LightItalic.otf in Resources */,
 				C6B855C11BB6D25B006C51BE /* Loader.xib in Resources */,
+				C6A4DB1C1DA192D300810E59 /* InfoPlist.strings in Resources */,
 				C6B855B71BB6C877006C51BE /* ProximaNova-Regular.otf in Resources */,
 				C6BEDAE51BB573C400F196D5 /* Assets.xcassets in Resources */,
 				C6BEDAE71BB573C400F196D5 /* Main.storyboard in Resources */,
@@ -519,6 +525,15 @@
 				C6154B061BB69E700006EAD7 /* nl */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		C6A4DB1E1DA192D300810E59 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C6A4DB1D1DA192D300810E59 /* Base */,
+				C6A4DB1F1DA192D500810E59 /* nl */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -646,6 +661,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = RL8CZXXMEE;
 				INFOPLIST_FILE = "KG ImageViewer/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -662,6 +678,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = RL8CZXXMEE;
 				INFOPLIST_FILE = "KG ImageViewer/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

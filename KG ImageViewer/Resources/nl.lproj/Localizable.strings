@@ -31,6 +31,11 @@
 "error_saving_failed_title"="Opslaan mislukt";
 "error_saving_failed_message"="Er ging iets mis tijdens het opslaan van de foto. Controleer aub of je de app toegang hebt gegeven tot je foto's.";
 
+// Preview actions
+"preview_action_favorite"="Maak favoriet";
+"preview_action_undo_favorite"="Favoriet ongedaan maken";
+"preview_action_download"="Afbeelding downloaden";
+
 // Intro
 "text_home_screen"="In het beginscherm kun je door alle\nafbeeldingen heen scrollen.";
 "text_filter_settings"="Om te filteren of instellingen aan te\npassen, sleep naar links vanaf de\nrechter zijkant om het instellingen-\nmenu te openen.";

@@ -30,6 +30,7 @@ class PhotoGridViewController: KGViewController, MenuViewController {
     fileprivate var searching = false
     fileprivate var searchTerm: String!
     fileprivate var images = [ImageData]()
+    fileprivate var currentIndex = 0
     
     // Collection View properties
     @IBOutlet weak var imageCollectionView: UICollectionView!
@@ -44,6 +45,11 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         
         super.viewDidLoad()
         
+        // Check for 3D touch
+        if (traitCollection.forceTouchCapability == .available) {
+            registerForPreviewing(with: self, sourceView: view)
+        }
+        
         imageCollectionView.accessibilityLabel = "PhotoGridCollectionView"
         
         NotificationCenter.default.addObserver(self, selector: #selector(PhotoGridViewController.reloadImages), name: NSNotification.Name(rawValue: Setting.ShowNSFW.rawValue), object: nil)
@@ -53,7 +59,7 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         
         let searchBarButton = UIImage(named: "Search")!.navigationBarButton(action: { [unowned self] (sender) -> Void in
             self.toggleSearchBar()
-        })
+            })
         navigationItem.setRightBarButtonItems([navigationItem.rightBarButtonItem!, searchBarButton], animated: false)
         
         categorySegmentedBarView.segmentedControl.setLocalizedTitles(["photo_grid_category_popular", "photo_grid_category_highest_rating", "photo_grid_category_upcoming", "photo_grid_category_favorite"])
@@ -81,7 +87,7 @@ class PhotoGridViewController: KGViewController, MenuViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Segue.ShowImage.rawValue {
+        if segue.identifier == Segue.showImage.rawValue {
             navigationController!.navigationBar.topItem!.title = "text_back".localize();
             let detailViewController = segue.destination as! ImagePagerViewController
             detailViewController.images = images
@@ -156,7 +162,7 @@ class PhotoGridViewController: KGViewController, MenuViewController {
                     
                     strongSelf.stopLoading()
                 }
-            }
+        }
     }
     
     func addImages(_ resultImages: [JSON], showNSFW: Bool) {
@@ -257,14 +263,14 @@ extension PhotoGridViewController: UICollectionViewDelegate, UICollectionViewDat
                     case .failure(_):
                         break
                     }
-                }
+            }
         }
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: Segue.ShowImage.rawValue, sender: (indexPath as NSIndexPath).item)
+        performSegue(withIdentifier: Segue.showImage.rawValue, sender: (indexPath as NSIndexPath).item)
     }
     
 }
@@ -314,6 +320,31 @@ extension PhotoGridViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         
         reloadImages()
+    }
+    
+}
+
+extension PhotoGridViewController: UIViewControllerPreviewingDelegate {
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = imageCollectionView.indexPathForItem(at: location) else { return nil }
+        guard let cell = imageCollectionView.cellForItem(at: indexPath) else { return nil }
+        guard let detailViewController = storyboard?.viewController(withViewType: .imagePager) as? ImagePagerViewController else { return nil }
+        
+        // Add data to detail view
+        detailViewController.images = images
+        detailViewController.currentIndex = indexPath.item
+        currentIndex = indexPath.item
+        
+        detailViewController.preferredContentSize = CGSize(width: 0.0, height: 300)
+        
+        previewingContext.sourceRect = cell.frame
+        
+        return detailViewController
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        show(viewControllerToCommit, sender: self)
     }
     
 }

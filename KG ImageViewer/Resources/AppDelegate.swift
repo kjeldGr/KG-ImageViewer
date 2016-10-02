@@ -24,8 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let showedIntro = Setting.ShowedIntro.isTrue()
         
-        let centerViewController = storyboard.viewController(withViewType: showedIntro ? .PhotoGrid : .Intro)
-        let rightViewController = storyboard.viewController(withViewType: .Filter)
+        let centerViewController = storyboard.viewController(withViewType: showedIntro ? .photoGrid : .intro)
+        let rightViewController = storyboard.viewController(withViewType: .filter)
         
         let drawerController: DrawerController = DrawerController(centerViewController: centerViewController, rightDrawerViewController: rightViewController)
         

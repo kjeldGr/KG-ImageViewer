@@ -32,8 +32,9 @@ class Loader: UIView {
         loaderImage.rotate = 4
         loaderImage.animate()
         
-        loaderImage.animateNext { [unowned self] () -> () in
-            self.perform(#selector(Loader.doAnimation), with: nil, afterDelay: TimeInterval(0.2))
+        loaderImage.animateNext { [weak self] () -> () in
+            guard let strongSelf = self else { return }
+            strongSelf.perform(#selector(Loader.doAnimation), with: nil, afterDelay: TimeInterval(0.2))
         }
         
     }

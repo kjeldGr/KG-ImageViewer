@@ -31,6 +31,10 @@
 "error_saving_failed_title"="Saving failed";
 "error_saving_failed_message"="Something went wrong while saving the image to your Camera Roll. Please check if you gave the app access to your photos.";
 
+// Preview actions
+"preview_action_favorite"="Favorite";
+"preview_action_undo_favorite"="Undo favorite";
+"preview_action_download"="Download image";
 
 // Intro
 "text_home_screen"="When you're in the homescreen, you can\nscroll through all the images.";

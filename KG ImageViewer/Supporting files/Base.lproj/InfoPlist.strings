@@ -1,0 +1,8 @@
+/* 
+  InfoPlist.strings
+  KG ImageViewer
+
+  Created by Kjeld Groot on 02-10-16.
+  Copyright © 2016 KjeldGr. All rights reserved.
+*/
+"NSPhotoLibraryUsageDescription" = "To save images, please give the app access to your photo library";

@@ -283,7 +283,7 @@ class IntroViewController: AnimatedPagingScrollViewController {
     func startApp() {
         Setting.ShowedIntro.setTrue()
         
-        evo_drawerController?.setCenterViewController(storyboard!.viewController(withViewType: .PhotoGrid), withCloseAnimation: false, completion: nil)
+        evo_drawerController?.setCenterViewController(storyboard!.viewController(withViewType: .photoGrid), withCloseAnimation: false, completion: nil)
     }
 
 }

@@ -11,14 +11,15 @@ import DrawerController
 import EZSwiftExtensions
 
 enum View: String {
-    case PhotoGrid = "PhotoGridNavigationView"
-    case Intro = "IntroView"
-    case Filter = "FilterView"
-    case ImageDetail = "ImageDetailView"
+    case photoGrid = "PhotoGridNavigationView"
+    case intro = "IntroView"
+    case filter = "FilterView"
+    case imagePager = "ImagePagerView"
+    case imageDetail = "ImageDetailView"
 }
 
 enum Segue: String {
-    case ShowImage = "ShowImage"
+    case showImage = "ShowImage"
 }
 
 // MARK: - Menu View Controller Protocol
@@ -88,6 +89,10 @@ class KGViewController: UIViewController {
         if let menuViewController = self as? MenuViewController {
             menuViewController.makeMenuViewController()
         }
+    }
+    
+    deinit {
+        stopLoading()
     }
     
     func setupNavigationBar() {
