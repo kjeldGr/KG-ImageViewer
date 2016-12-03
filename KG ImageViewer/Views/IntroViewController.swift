@@ -105,7 +105,7 @@ class IntroViewController: AnimatedPagingScrollViewController {
         let homeScreen = screenshot(forPages: keepViewArray, atTimes: [0, 0.15, 1, 2, 3], image: UIImage(named: "HomeIntro")!)
         addAnimation(AlphaAnimation(view: homeScreen), withKeyFrames: [(1, 1), (2, 1), (3, 0), (4, 0)])
         
-        let blurView = UIImageView(image: UIImage.image(withColor: .white, size: CGSize(width: homeScreen.frame.width*0.7, height: homeScreen.frame.height)).applyBlurWithRadius(5, tintColor: Helper.mainColor.withAlphaComponent(0.5), saturationDeltaFactor: 1.8))
+        let blurView = UIImageView(image: UIImage.image(withColor: .white, size: CGSize(width: homeScreen.frame.width*0.7, height: homeScreen.frame.height)).applyBlurWithRadius(5, tintColor: UIColor.mainColor.withAlphaComponent(0.5), saturationDeltaFactor: 1.8))
         homeScreen.addSubview(blurView)
         
         addAnimation(AlphaAnimation(view: blurView), withKeyFrames: [(0.4, 0), (1, 0.6), (1.3, 0)])
@@ -241,7 +241,7 @@ class IntroViewController: AnimatedPagingScrollViewController {
         button.backgroundColor = UIColor.white
         button.layer.cornerRadius = 4
         button.setTitle(title, for: UIControlState())
-        button.setTitleColor(Helper.mainColor, for: UIControlState())
+        button.setTitleColor(UIColor.mainColor, for: UIControlState())
         button.titleLabel?.font = UIFont.font(withType: .Semibold, size: .paragraph6)
         button.addTarget(self, action: selector, for: .touchUpInside)
         contentView.addSubview(button)
@@ -281,7 +281,7 @@ class IntroViewController: AnimatedPagingScrollViewController {
     }
     
     func startApp() {
-        Setting.ShowedIntro.setTrue()
+        Setting.showedIntro.setTrue()
         
         evo_drawerController?.setCenterViewController(storyboard!.viewController(withViewType: .photoGrid), withCloseAnimation: false, completion: nil)
     }

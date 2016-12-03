@@ -16,6 +16,7 @@ enum View: String {
     case filter = "FilterView"
     case imagePager = "ImagePagerView"
     case imageDetail = "ImageDetailView"
+    case authentication = "AuthenticationView"
 }
 
 enum Segue: String {
@@ -35,23 +36,12 @@ extension MenuViewController where Self: KGViewController {
         navigationItem.setRightBarButton(UIImage(named: "Filter")!.navigationBarButton(action: { [unowned self] (sender) -> Void in
             self.toggleMenu()
         }), animated: false)
-        let completionHandler:(DrawerController, UIGestureRecognizer) -> Void = { [unowned self]
-            (drawerController: DrawerController, gestureRecognizer: UIGestureRecognizer) -> Void in
-            if drawerController.openSide == .right {
-                self.showLightContentStatusBarStyle = false
-            } else {
-                self.showLightContentStatusBarStyle = true
-            }
-        }
-        evo_drawerController?.gestureCompletionBlock = completionHandler
     }
     
     func toggleMenu() {
         if evo_drawerController?.openSide == .right {
-            showLightContentStatusBarStyle = true
             evo_drawerController?.closeDrawerAnimated(true, completion: nil)
         } else {
-            showLightContentStatusBarStyle = false
             evo_drawerController?.openDrawerSide(.right, animated: true, completion: nil)
         }
     }
@@ -72,17 +62,12 @@ protocol AppLoader {
 class KGViewController: UIViewController {
     
     var loading = false
-    var appLoader = Loader.loadFromNib() as! Loader
-    var showLightContentStatusBarStyle = false {
-        didSet {
-            UIApplication.shared.statusBarStyle = showLightContentStatusBarStyle ? .lightContent : .default
-        }
-    }
+    var appLoader: Loader = Loader.loadFromNib()!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
+        UIApplication.shared.statusBarStyle = .lightContent
         
         setupNavigationBar()
         
@@ -98,30 +83,20 @@ class KGViewController: UIViewController {
     func setupNavigationBar() {
         navigationController?.navigationBar.isTranslucent = false
         
-        navigationController?.navigationBar.barTintColor = Helper.mainColor
+        navigationController?.navigationBar.barTintColor = UIColor.mainColor
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
-        updateTitle(title!)
+        updateTitle(title)
     }
     
-    func updateTitle(_ title: String) {
+    func updateTitle(_ title: String?) {
         let titleLabel = UILabel()
         titleLabel.font = UIFont.font(withType: .Regular, size: .heading3)
         titleLabel.textColor = UIColor.white
         titleLabel.text = title
         navigationItem.titleView = titleLabel
         titleLabel.sizeToFit()
-    }
-    
-    func alertController(withTitle title: String, andMessage message: String, andStyle style: UIAlertControllerStyle, andActions actions: [UIAlertAction]) -> UIAlertController {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
-        
-        for action in actions {
-            alertController.addAction(action)
-        }
-        
-        return alertController
     }
     
 }

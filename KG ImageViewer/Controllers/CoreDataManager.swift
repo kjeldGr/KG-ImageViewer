@@ -29,14 +29,14 @@ class CoreDataManager: NSObject {
             })
             return managedObjects
         } catch let error as NSError {
-            error.DLog("Error: \(error)\nWhile fetchin core data objects")
+            DLog("Error: \(error)\nWhile fetchin core data objects")
             return [T]()
         }
     }
     
     class func getManagedObject<T>(withId id: NSNumber, entityName: String) -> T? where T: NSManagedObject {
         let returnObject: T? = CoreDataManager.getManagedObjects(withEntityName: entityName).filter({ (managedObject) -> Bool in
-            return (managedObject as NSManagedObject).value(forKey: "id") as! NSNumber == id
+            return (managedObject as T).value(forKey: "id") as! NSNumber == id
         }).first
         return returnObject
     }
@@ -53,7 +53,7 @@ class CoreDataManager: NSObject {
             
             managedObject = T(entity: entity, insertInto: managedContext)
             for (key, value) in values {
-                (managedObject as! NSManagedObject).setValue(value, forKey: key)
+                managedObject!.setValue(value, forKey: key)
             }
         } else if managedObject != nil {
             // Delete if save is false

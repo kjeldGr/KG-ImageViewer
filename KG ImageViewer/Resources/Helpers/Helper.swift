@@ -17,7 +17,6 @@ enum DeviceType: Int {
 }
 
 open class Helper: NSObject {
-    static let mainColor = UIColor(hex: 0x4DE8AA)
     
     class func deviceType() -> DeviceType {
         let mainscreenBounds: CGRect = UIScreen.main.bounds

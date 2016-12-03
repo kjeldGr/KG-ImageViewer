@@ -7,11 +7,14 @@
 //
 
 import UIKit
-import Alamofire
 
 class KGImageCell: UICollectionViewCell {
-    var request: Alamofire.Request?
-    let imageView = UIImageView()
+    var imageURL: String! {
+        didSet {
+            loadImage(url: imageURL)
+        }
+    }
+    private let imageView = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,5 +33,21 @@ class KGImageCell: UICollectionViewCell {
         
         addSubview(imageView)
         imageView.frame = bounds
+    }
+    
+    func loadImage(url: String) {
+        if let image = CacheData.sharedInstance.thumbnailCache.object(forKey: imageURL as AnyObject) as? UIImage {
+            imageView.image = image
+            return
+        }
+        let urlRequest = try! URLRequest(url: url, method: .get)
+        RequestController.performImageRequest(request: urlRequest, completion: {
+            [weak self] response in
+            guard let strongSelf = self else { return }
+            guard let image = response.responseData else { return }
+            
+            CacheData.sharedInstance.thumbnailCache.setObject(image, forKey: url as AnyObject)
+            strongSelf.imageView.image = image
+        })
     }
 }

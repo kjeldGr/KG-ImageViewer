@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = UIColor.white
         
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let showedIntro = Setting.ShowedIntro.isTrue()
+        let showedIntro = Setting.showedIntro.isTrue()
         
         let centerViewController = storyboard.viewController(withViewType: showedIntro ? .photoGrid : .intro)
         let rightViewController = storyboard.viewController(withViewType: .filter)
@@ -33,6 +33,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         drawerController.openDrawerGestureModeMask = OpenDrawerGestureMode.BezelPanningCenterView
         drawerController.closeDrawerGestureModeMask = [CloseDrawerGestureMode.PanningCenterView, CloseDrawerGestureMode.TapCenterView]
+        
+        let statusBarView = UIView()
+        statusBarView.translatesAutoresizingMaskIntoConstraints = false
+        statusBarView.backgroundColor = UIColor.mainColor
+        drawerController.view.addSubview(statusBarView)
+        drawerController.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[statusBarView]|", options: .alignmentMask, metrics: nil, views: ["statusBarView": statusBarView]))
+        drawerController.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[statusBarView(==statusBarHeight)]", options: .alignmentMask, metrics: ["statusBarHeight": 20.0], views: ["statusBarView": statusBarView]))
+        
         
         window?.rootViewController = drawerController
         window?.makeKeyAndVisible()

@@ -47,15 +47,15 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         
         // Check for 3D touch
         if (traitCollection.forceTouchCapability == .available) {
-            registerForPreviewing(with: self, sourceView: view)
+            registerForPreviewing(with: self, sourceView: imageCollectionView)
         }
         
         imageCollectionView.accessibilityLabel = "PhotoGridCollectionView"
         
-        NotificationCenter.default.addObserver(self, selector: #selector(PhotoGridViewController.reloadImages), name: NSNotification.Name(rawValue: Setting.ShowNSFW.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(PhotoGridViewController.reloadImages), name: NSNotification.Name(rawValue: Setting.showNSFW.rawValue), object: nil)
         
         navigationController?.navigationBar.shadowImage = UIImage.image(withColor: .clear, size: CGSize(width: 1, height: 1))
-        navigationController?.navigationBar.setBackgroundImage(UIImage.image(withColor: Helper.mainColor, size: CGSize(width: 1, height: 1)), for: UIBarMetrics.default)
+        navigationController?.navigationBar.setBackgroundImage(UIImage.image(withColor: UIColor.mainColor, size: CGSize(width: 1, height: 1)), for: UIBarMetrics.default)
         
         let searchBarButton = UIImage(named: "Search")!.navigationBarButton(action: { [unowned self] (sender) -> Void in
             self.toggleSearchBar()
@@ -70,7 +70,7 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         
         imageCollectionView!.register(KGImageCell.classForCoder(), forCellWithReuseIdentifier: imageCellIdentifier)
         
-        refreshControl.backgroundColor = Helper.mainColor
+        refreshControl.backgroundColor = UIColor.mainColor
         refreshControl.tintColor = UIColor.white
         imageCollectionView.addSubview(refreshControl)
         refreshControl.addTarget(self, action: #selector(PhotoGridViewController.reloadImages), for: UIControlEvents.valueChanged)
@@ -104,7 +104,12 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         imageCollectionView.reloadData()
         
         guard currentCategory != .Favorites else {
-            loadFavorites()
+//            if Setting.protectWithPin.isTrue() {
+                let authenticatonViewController = storyboard!.viewController(withViewType: .authentication)
+                present(authenticatonViewController, animated: false, completion: nil)
+//            } else {
+                loadFavorites()
+//            }
             return
         }
         updateImages()
@@ -133,35 +138,35 @@ class PhotoGridViewController: KGViewController, MenuViewController {
             request = API.Router.getImages(["page": currentPage, "feature": currentCategory.rawValue])
         }
         
-        Alamofire.request(request).validate()
-            .responseJSON { [weak self] response in
-                guard let strongSelf = self else { return }
-                switch response.result {
-                case .success(let data):
-                    let resultData = JSON(data)
-                    DispatchQueue.global(qos: .default).async {
-                        let lastItem = strongSelf.images.count
-                        
-                        let showNSFW = Setting.ShowNSFW.isTrue()
-                        let resultImages = resultData["photos"].arrayValue
-                        strongSelf.addImages(resultImages, showNSFW: showNSFW)
-                        
-                        let indexPaths = (lastItem..<strongSelf.images.count).map { IndexPath(item: $0, section: 0) }
-                        DispatchQueue.main.async {
-                            strongSelf.insertImagesInCollectionView(forIndexPaths: indexPaths)
-                        }
-                    }
-                case .failure(_):
-                    let okAction = UIAlertAction(title: "error_button_ok".localize(), style: .default, handler: nil)
-                    let tryAgainAction = UIAlertAction(title: "error_button_try_again".localize(), style: .default, handler: { (alertAction) in
-                        strongSelf.updateImages()
-                    })
-                    
-                    let alertController = strongSelf.alertController(withTitle: "error_loading_images_title".localize(), andMessage: "error_loading_images_message".localize(), andStyle: .alert, andActions: [okAction, tryAgainAction])
-                    strongSelf.present(alertController, animated: true, completion: nil)
-                    
-                    strongSelf.stopLoading()
+        RequestController.performJSONRequest(request: request) {
+            [weak self] response in
+            guard let strongSelf = self else { return }
+            guard response.error == nil && response.responseData != nil else {
+                // Request failed
+                let okAction = UIAlertAction(title: "error_button_ok".localize(), style: .default, handler: nil)
+                let tryAgainAction = UIAlertAction(title: "error_button_try_again".localize(), style: .default, handler: { (alertAction) in
+                    strongSelf.updateImages()
+                })
+                
+                strongSelf.showAlertController(withTitle: "error_loading_images_title".localize(), andMessage: "error_loading_images_message".localize(), andActions: [okAction, tryAgainAction])
+                
+                strongSelf.stopLoading()
+                return
+            }
+            
+            // Request succeeded
+            DispatchQueue.global(qos: .default).async {
+                let lastItem = strongSelf.images.count
+                
+                let showNSFW = Setting.showNSFW.isTrue()
+                let resultImages = response.responseData!["photos"].arrayValue
+                strongSelf.addImages(resultImages, showNSFW: showNSFW)
+                
+                let indexPaths = (lastItem..<strongSelf.images.count).map { IndexPath(item: $0, section: 0) }
+                DispatchQueue.main.async {
+                    strongSelf.insertImagesInCollectionView(forIndexPaths: indexPaths)
                 }
+            }
         }
     }
     
@@ -246,25 +251,7 @@ extension PhotoGridViewController: UICollectionViewDelegate, UICollectionViewDat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageCellIdentifier, for: indexPath) as! KGImageCell
         
         let imageURL = images[(indexPath as NSIndexPath).item].url
-        cell.request?.cancel()
-        
-        if let image = CacheData.sharedInstance.thumbnailCache.object(forKey: imageURL as AnyObject) as? UIImage {
-            cell.imageView.image = image
-        } else {
-            cell.imageView.image = nil
-            cell.request = Alamofire.request(imageURL!, method: .get)
-                .validate(contentType: ["image/*"])
-                .responseData { response -> Void in
-                    switch response.result {
-                    case .success(let data):
-                        let image = UIImage(data: data, scale: UIScreen.main.scale)
-                        CacheData.sharedInstance.thumbnailCache.setObject(image!, forKey: response.request!.url!.absoluteString as AnyObject)
-                        cell.imageView.image = image
-                    case .failure(_):
-                        break
-                    }
-            }
-        }
+        cell.imageURL = imageURL!
         
         return cell
     }

@@ -16,6 +16,8 @@
 "filter_text_nsfw"="Toon NSFW afbeeldingen:";
 "filter_text_other_settings"="Overige instellingen";
 "filter_text_cache"="Bewaar afbeeldingen van\nhoge resolutie in cache\ntijdens de sessie:";
+"filter_text_pin"="Bescherm favorieten met een pincode:";
+"filter_text_touch_id"="Gebruik Touch ID:";
 "filter_button_text_introduction"="Introductie opnieuw bekijken";
 
 // Error Messages

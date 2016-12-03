@@ -67,8 +67,7 @@ class ImagePagerViewController: KGViewController {
     func downloadImage() {
         guard currentController.detailImage != nil else {
             let okAction = UIAlertAction(title: "error_button_ok".localize(), style: .default, handler: nil)
-            let alert = alertController(withTitle: "error_please_wait_title".localize(), andMessage: "error_not_downloaded_message".localize(), andStyle: .alert, andActions: [okAction])
-            present(alert, animated: true, completion: nil)
+            showAlertController(withTitle: "error_please_wait_title".localize(), andMessage: "error_not_downloaded_message".localize(), andActions: [okAction])
             return
         }
         UIImageWriteToSavedPhotosAlbum(currentController.detailImage, self, #selector(ImagePagerViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
@@ -84,13 +83,15 @@ class ImagePagerViewController: KGViewController {
     
     func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafeRawPointer)       {
         let okAction = UIAlertAction(title: "error_button_ok".localize(), style: .default, handler: nil)
-        var alert: UIAlertController!
+        var title, message: String
         if error != nil {
-            alert = alertController(withTitle: "error_saving_failed_title".localize(), andMessage: "error_saving_failed_message".localize(), andStyle: .alert, andActions: [okAction])
+            title = "error_saving_failed_title".localize()
+            message = "error_saving_failed_message".localize()
         }else{
-            alert = alertController(withTitle: "error_saved_title".localize(), andMessage: "error_saved_message".localize(), andStyle: .alert, andActions: [okAction])
+            title = "error_saved_title".localize()
+            message = "error_saved_message".localize()
         }
-        present(alert, animated: true, completion: nil)
+        showAlertController(withTitle: title, andMessage: message, andActions: [okAction])
     }
     
 }

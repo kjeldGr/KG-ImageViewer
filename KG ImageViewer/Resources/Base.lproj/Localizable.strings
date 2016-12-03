@@ -16,6 +16,8 @@
 "filter_text_nsfw"="Show NSFW images:";
 "filter_text_other_settings"="Other settings";
 "filter_text_cache"="Save high resolution images\nin cache during session:";
+"filter_text_pin"="Protect favorites with Pin:";
+"filter_text_touch_id"="Use Touch ID:";
 "filter_button_text_introduction"="Watch introduction again";
 
 // Error Messages

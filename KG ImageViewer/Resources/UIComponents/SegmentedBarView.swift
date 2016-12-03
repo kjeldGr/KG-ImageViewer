@@ -17,7 +17,7 @@ class SegmentedBarView: UIView {
     override func willMove(toWindow newWindow: UIWindow?) {
         super.willMove(toWindow: window)
         
-        backgroundColor = Helper.mainColor
+        backgroundColor = UIColor.mainColor
         
         layer.shadowOffset = CGSize(width: 0, height: 1.0/UIScreen.main.scale)
         layer.shadowRadius = 0
@@ -26,7 +26,7 @@ class SegmentedBarView: UIView {
         
         segmentedControl.setTitleTextAttributes([NSFontAttributeName: UIFont.font(withType: .Light, size: .paragraph3)!], for: UIControlState())
         
-        searchBar.setBackgroundImage(UIImage.image(withColor: Helper.mainColor, size: CGSize(width: 1, height: 1)), for: .top, barMetrics: UIBarMetrics.default)
+        searchBar.setBackgroundImage(UIImage.image(withColor: UIColor.mainColor, size: CGSize(width: 1, height: 1)), for: .top, barMetrics: UIBarMetrics.default)
         
         let textfieldFont = UIFont.font(withType: .Regular, size: .paragraph3)
         if #available(iOS 9.0, *) {

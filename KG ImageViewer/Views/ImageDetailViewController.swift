@@ -27,7 +27,7 @@ class ImageDetailViewController: KGViewController {
         navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
         navigationController?.navigationBar.layer.shadowOpacity = 0.25
         
-        backgroundImageView.image = UIImage.image(withColor: UIColor.white, size: CGSize(width: 1, height: 1)).applyBlurWithRadius(5, tintColor: Helper.mainColor.withAlphaComponent(0.5), saturationDeltaFactor: 1.8)
+        backgroundImageView.image = UIImage.image(withColor: UIColor.white, size: CGSize(width: 1, height: 1)).applyBlurWithRadius(5, tintColor: UIColor.mainColor.withAlphaComponent(0.5), saturationDeltaFactor: 1.8)
         backgroundImageView.frame = view.bounds
         imageView.frame = view.bounds
         
@@ -40,57 +40,55 @@ class ImageDetailViewController: KGViewController {
     
     func getDetailedImageData() {
         startLoading()
-        Alamofire.request(API.Router.getImage(imageData.id, ["image_size": ImageSize.xLarge.rawValue])).validate()
-            .responseJSON(completionHandler: { [weak self] result -> Void in
-                guard let strongSelf = self else { return }
-                switch result.result {
-                case .success(let data):
-                    let imageDetailData = JSON(data).dictionaryValue
-                    strongSelf.loadImage(forData: imageDetailData["photo"]!.dictionaryValue)
-                case Result.failure(_):
-                    strongSelf.stopLoading()
-                    let okAction = UIAlertAction(title: "error_button_ok".localize(), style: .default, handler: nil)
-                    let tryAgainAction = UIAlertAction(title: "error_button_try_again".localize(), style: .default, handler: { (action) -> Void in
-                        strongSelf.getDetailedImageData()
-                    })
-                    
-                    let alertController = strongSelf.alertController(withTitle: "error_loading_image_title".localize(), andMessage: "error_loading_images_message".localize(), andStyle: .alert, andActions: [okAction, tryAgainAction])
-                    strongSelf.present(alertController, animated: true, completion: nil)
-                }
-            })
+        RequestController.performJSONRequest(request: API.Router.getImage(imageData.id, ["image_size": ImageSize.xLarge.rawValue])) {
+            [weak self] response in
+            guard let strongSelf = self else { return }
+            guard response.error == nil && response.responseData != nil else {
+                strongSelf.stopLoading()
+                let okAction = UIAlertAction(title: "error_button_ok".localize(), style: .default, handler: nil)
+                let tryAgainAction = UIAlertAction(title: "error_button_try_again".localize(), style: .default, handler: { (action) -> Void in
+                    strongSelf.getDetailedImageData()
+                })
+                
+                strongSelf.showAlertController(withTitle: "error_loading_image_title".localize(), andMessage: "error_loading_images_message".localize(), andActions: [okAction, tryAgainAction])
+                return
+            }
+            strongSelf.loadImage(forData: response.responseData!["photo"].dictionaryValue)
+        }
     }
     
     func loadImage(forData data: [String: JSON]) {
-        Alamofire.request(data["image_url"]!.stringValue, method: .get)
-            .validate(contentType: ["image/*"])
-            .responseData { [weak self] response -> Void in
-                guard let strongSelf = self else { return }
-                switch response.result {
-                case .success(let data):
-                    let image = UIImage(data: data, scale: UIScreen.main.scale)
-                    strongSelf.setImage(image!)
-                    let saveImage = Setting.SaveHighRes.isTrue()
-                    if saveImage {
-                        CacheData.sharedInstance.imageCache.setObject(image!, forKey: strongSelf.imageData.id as AnyObject)
-                    }
-                    strongSelf.stopLoading()
-                case .failure(_):
-                    let okAction = UIAlertAction(title: "error_button_ok".localize(), style: .default, handler: nil)
-                    let tryAgainAction = UIAlertAction(title: "error_button_try_again".localize(), style: .default, handler: { (action) -> Void in
-                        strongSelf.loadImage(forData: data)
-                    })
-                    
-                    let alertController = strongSelf.alertController(withTitle: "error_loading_image_title".localize(), andMessage: "error_loading_images_message".localize(), andStyle: .alert, andActions: [okAction, tryAgainAction])
-                    strongSelf.present(alertController, animated: true, completion: nil)
-                    strongSelf.stopLoading()
-                }
+        let url = data["image_url"]!.stringValue
+        let urlRequest = try! URLRequest(url: url, method: .get)
+        RequestController.performImageRequest(request: urlRequest) {
+            [weak self] response in
+            
+            guard let strongSelf = self else { return }
+            strongSelf.stopLoading()
+            
+            let image = response.responseData
+            guard response.error == nil && image != nil else {
+                let okAction = UIAlertAction(title: "error_button_ok".localize(), style: .default, handler: nil)
+                let tryAgainAction = UIAlertAction(title: "error_button_try_again".localize(), style: .default, handler: { (action) -> Void in
+                    strongSelf.loadImage(forData: data)
+                })
+                
+                strongSelf.showAlertController(withTitle: "error_loading_image_title".localize(), andMessage: "error_loading_images_message".localize(), andActions: [okAction, tryAgainAction])
+                return
             }
+            
+            strongSelf.setImage(image!)
+            let saveImage = Setting.saveHighRes.isTrue()
+            if saveImage {
+                CacheData.sharedInstance.imageCache.setObject(image!, forKey: strongSelf.imageData.id as AnyObject)
+            }
+        }
     }
     
     func setImage(_ image: UIImage) {
         detailImage = image
         imageView.image = image
-        backgroundImageView.image = image.applyBlurWithRadius(5, tintColor: Helper.mainColor.withAlphaComponent(0.5), saturationDeltaFactor: 1.8)
+        backgroundImageView.image = image.applyBlurWithRadius(5, tintColor: UIColor.mainColor.withAlphaComponent(0.5), saturationDeltaFactor: 1.8)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
