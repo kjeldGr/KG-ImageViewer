@@ -40,6 +40,7 @@ class KGImageCell: UICollectionViewCell {
             imageView.image = image
             return
         }
+        imageView.image = nil
         let urlRequest = try! URLRequest(url: url, method: .get)
         RequestController.performImageRequest(request: urlRequest, completion: {
             [weak self] response in

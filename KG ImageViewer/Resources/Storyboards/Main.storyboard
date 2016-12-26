@@ -89,7 +89,6 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="Vus-3y-IrO"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="jRq-tz-JI4"/>
                                 </connections>
                             </collectionView>
@@ -294,7 +293,7 @@
         <scene sceneID="9vC-ap-CZB">
             <objects>
                 <navigationController storyboardIdentifier="PhotoGridNavigationView" id="RXI-Yg-zIw" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="oye-U3-eh0">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oye-U3-eh0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>

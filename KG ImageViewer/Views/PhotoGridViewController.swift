@@ -12,10 +12,10 @@ import SwiftyJSON
 import Spring
 
 enum Category: String {
-    case Popular = "popular"
-    case HighestRating = "highest_rated"
-    case Upcoming = "upcoming"
-    case Favorites = "favorites"
+    case popular = "popular"
+    case highestRating = "highest_rated"
+    case upcoming = "upcoming"
+    case favorites = "favorites"
 }
 
 class PhotoGridViewController: KGViewController, MenuViewController {
@@ -25,16 +25,15 @@ class PhotoGridViewController: KGViewController, MenuViewController {
     @IBOutlet weak var categorySegmentedBarView: SegmentedBarView!
     @IBOutlet weak var disableView: UIView!
     
-    fileprivate var currentCategory: Category = .Popular
+    fileprivate var currentCategory: Category = .popular
     fileprivate var currentPage = 1
     fileprivate var searching = false
     fileprivate var searchTerm: String!
-    fileprivate var images = [ImageData]()
     fileprivate var currentIndex = 0
     
     // Collection View properties
     @IBOutlet weak var imageCollectionView: UICollectionView!
-    let imageCellIdentifier = "KGImageCell"
+    var imageDataSource: KGImageCollectionViewDataSource!
     let sectionInset: CGFloat = 5
     let cellSpacing: CGFloat = 2
     let cellsPerRow = 4
@@ -45,12 +44,10 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         
         super.viewDidLoad()
         
-        // Check for 3D touch
+        // Check for 3D touch availability
         if (traitCollection.forceTouchCapability == .available) {
             registerForPreviewing(with: self, sourceView: imageCollectionView)
         }
-        
-        imageCollectionView.accessibilityLabel = "PhotoGridCollectionView"
         
         NotificationCenter.default.addObserver(self, selector: #selector(PhotoGridViewController.reloadImages), name: NSNotification.Name(rawValue: Setting.showNSFW.rawValue), object: nil)
         
@@ -68,7 +65,12 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         
         layoutCollectionView()
         
-        imageCollectionView!.register(KGImageCell.classForCoder(), forCellWithReuseIdentifier: imageCellIdentifier)
+        imageCollectionView.accessibilityLabel = "PhotoGridCollectionView"
+        
+        let cellIdentifier = "KGImageCell"
+        imageDataSource = KGImageCollectionViewDataSource(cellIdentifier: cellIdentifier)
+        imageCollectionView.dataSource = imageDataSource
+        imageCollectionView!.register(KGImageCell.classForCoder(), forCellWithReuseIdentifier: cellIdentifier)
         
         refreshControl.backgroundColor = UIColor.mainColor
         refreshControl.tintColor = UIColor.white
@@ -90,7 +92,7 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         if segue.identifier == Segue.showImage.rawValue {
             navigationController!.navigationBar.topItem!.title = "text_back".localize();
             let detailViewController = segue.destination as! ImagePagerViewController
-            detailViewController.images = images
+            detailViewController.images = imageDataSource.data
             detailViewController.currentIndex = sender as! Int
         }
     }
@@ -98,18 +100,13 @@ class PhotoGridViewController: KGViewController, MenuViewController {
     // MARK: - Load Images methods
     
     func reloadImages() {
-        images.removeAll()
+        imageDataSource.reset()
         currentPage = 1
         
         imageCollectionView.reloadData()
         
-        guard currentCategory != .Favorites else {
-//            if Setting.protectWithPin.isTrue() {
-                let authenticatonViewController = storyboard!.viewController(withViewType: .authentication)
-                present(authenticatonViewController, animated: false, completion: nil)
-//            } else {
-                loadFavorites()
-//            }
+        guard currentCategory != .favorites else {
+            loadFavorites()
             return
         }
         updateImages()
@@ -121,12 +118,12 @@ class PhotoGridViewController: KGViewController, MenuViewController {
     }
     
     func loadFavorites() {
-        images = ImageData.getAllImageDataFromCoreData()
-        imageCollectionView.reloadData()
+        let cachedImages = ImageData.getAllImageDataFromCoreData()
+        imageDataSource.insertData(cachedImages, inCollectionView: imageCollectionView)
     }
     
     func updateImages() {
-        guard currentCategory != .Favorites else { return }
+        guard currentCategory != .favorites else { return }
         guard !loading else { return }
         
         startLoading()
@@ -141,6 +138,8 @@ class PhotoGridViewController: KGViewController, MenuViewController {
         RequestController.performJSONRequest(request: request) {
             [weak self] response in
             guard let strongSelf = self else { return }
+            
+            strongSelf.stopLoading()
             guard response.error == nil && response.responseData != nil else {
                 // Request failed
                 let okAction = UIAlertAction(title: "error_button_ok".localize(), style: .default, handler: nil)
@@ -150,58 +149,39 @@ class PhotoGridViewController: KGViewController, MenuViewController {
                 
                 strongSelf.showAlertController(withTitle: "error_loading_images_title".localize(), andMessage: "error_loading_images_message".localize(), andActions: [okAction, tryAgainAction])
                 
-                strongSelf.stopLoading()
                 return
             }
             
             // Request succeeded
-            DispatchQueue.global(qos: .default).async {
-                let lastItem = strongSelf.images.count
-                
-                let showNSFW = Setting.showNSFW.isTrue()
-                let resultImages = response.responseData!["photos"].arrayValue
-                strongSelf.addImages(resultImages, showNSFW: showNSFW)
-                
-                let indexPaths = (lastItem..<strongSelf.images.count).map { IndexPath(item: $0, section: 0) }
-                DispatchQueue.main.async {
-                    strongSelf.insertImagesInCollectionView(forIndexPaths: indexPaths)
-                }
-            }
+            let showNSFW = Setting.showNSFW.isTrue()
+            let resultImages = response.responseData!["photos"].arrayValue
+            let newImages = strongSelf.parseImages(fromData: resultImages, showNSFW: showNSFW)
+            strongSelf.imageDataSource.insertData(newImages, inCollectionView: strongSelf.imageCollectionView)
+            strongSelf.currentPage += 1
         }
     }
     
-    func addImages(_ resultImages: [JSON], showNSFW: Bool) {
-        guard currentCategory != .Favorites else { return }
-        images += resultImages.flatMap {
-            if !showNSFW && $0.dictionaryValue["nsfw"]!.boolValue == true {
+    func parseImages(fromData data: [JSON], showNSFW: Bool) -> [ImageData] {
+        guard currentCategory != .favorites else { return [] }
+        return data.flatMap({ (jsonObject) -> ImageData? in
+            if !showNSFW && jsonObject.dictionaryValue["nsfw"]!.boolValue == true {
                 return nil
             }
-            return ImageData(data: $0.dictionaryValue)
-        }
-    }
-    
-    func insertImagesInCollectionView(forIndexPaths indexPaths: [IndexPath]) {
-        guard currentCategory != .Favorites else { return }
-        
-        if images.count < indexPaths.count {
-            return
-        }
-        imageCollectionView!.insertItems(at: indexPaths)
-        currentPage += 1
-        stopLoading()
+            return ImageData(data: jsonObject.dictionaryValue)
+        })
     }
     
     @IBAction func didSelectCategory(_ sender: AnyObject) {
         let segmentedControl = sender as! UISegmentedControl
         switch segmentedControl.selectedSegmentIndex {
         case 1:
-            currentCategory = .HighestRating
+            currentCategory = .highestRating
         case 2:
-            currentCategory = .Upcoming
+            currentCategory = .upcoming
         case 3:
-            currentCategory = .Favorites
+            currentCategory = .favorites
         default:
-            currentCategory = .Popular
+            currentCategory = .popular
         }
         
         reloadImages()
@@ -221,7 +201,7 @@ extension PhotoGridViewController: UIScrollViewDelegate {
     
 }
 
-extension PhotoGridViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension PhotoGridViewController: UICollectionViewDelegate {
     
     // MARK: - Collection View Methods
     
@@ -233,27 +213,10 @@ extension PhotoGridViewController: UICollectionViewDelegate, UICollectionViewDat
         
         flowLayout.itemSize = CGSize(width: itemSize, height: itemSize)
         flowLayout.sectionInset = UIEdgeInsetsMake(sectionInset, sectionInset, sectionInset, sectionInset)
-        flowLayout.minimumInteritemSpacing = 2
-        flowLayout.minimumLineSpacing = 2
+        flowLayout.minimumInteritemSpacing = cellSpacing
+        flowLayout.minimumLineSpacing = cellSpacing
         
         imageCollectionView.setCollectionViewLayout(flowLayout, animated: false)
-    }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageCellIdentifier, for: indexPath) as! KGImageCell
-        
-        let imageURL = images[(indexPath as NSIndexPath).item].url
-        cell.imageURL = imageURL!
-        
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -319,7 +282,7 @@ extension PhotoGridViewController: UIViewControllerPreviewingDelegate {
         guard let detailViewController = storyboard?.viewController(withViewType: .imagePager) as? ImagePagerViewController else { return nil }
         
         // Add data to detail view
-        detailViewController.images = images
+        detailViewController.images = imageDataSource.data
         detailViewController.currentIndex = indexPath.item
         currentIndex = indexPath.item
         
