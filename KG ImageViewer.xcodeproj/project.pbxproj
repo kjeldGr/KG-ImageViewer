@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C6154B001BB698130006EAD7 /* SegmentedBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6154AFF1BB698130006EAD7 /* SegmentedBarView.swift */; };
 		C6154B031BB69E5B0006EAD7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C6154B051BB69E5B0006EAD7 /* Localizable.strings */; };
-		C6154B091BB6A4DB0006EAD7 /* KGImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6154B081BB6A4DB0006EAD7 /* KGImageCell.swift */; };
 		C6154B0B1BB6A4FF0006EAD7 /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6154B0A1BB6A4FF0006EAD7 /* ImageData.swift */; };
 		C62777B91D88A4D70098ADC5 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62777B81D88A4D70098ADC5 /* CoreDataManager.swift */; };
 		C6343BEF1BBB011800F4DF0C /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66961D61BB93C3100D52059 /* IntroViewController.swift */; };
@@ -42,8 +40,6 @@
 		C6B855B71BB6C877006C51BE /* ProximaNova-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6B855B11BB6C877006C51BE /* ProximaNova-Regular.otf */; };
 		C6B855B81BB6C877006C51BE /* ProximaNova-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6B855B21BB6C877006C51BE /* ProximaNova-RegularItalic.otf */; };
 		C6B855B91BB6C877006C51BE /* ProximaNova-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C6B855B31BB6C877006C51BE /* ProximaNova-Semibold.otf */; };
-		C6B855BB1BB6CC14006C51BE /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B855BA1BB6CC14006C51BE /* Loader.swift */; };
-		C6B855C11BB6D25B006C51BE /* Loader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6B855C01BB6D25B006C51BE /* Loader.xib */; };
 		C6B855C31BB6DA4F006C51BE /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B855C21BB6DA4F006C51BE /* FilterViewController.swift */; };
 		C6B855C51BB6E4CE006C51BE /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B855C41BB6E4CE006C51BE /* ImageDetailViewController.swift */; };
 		C6B855C71BB6F6FC006C51BE /* UIImageEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B855C61BB6F6FC006C51BE /* UIImageEffects.swift */; };
@@ -59,6 +55,16 @@
 		C6BEDAF01BB5742600F196D5 /* PhotoGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BEDAEF1BB5742600F196D5 /* PhotoGridViewController.swift */; };
 		C6C0B3531BB83A1B009E1760 /* CacheData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C0B3521BB83A1B009E1760 /* CacheData.swift */; };
 		C6D001461DE77F910050C3DD /* RequestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D001451DE77F910050C3DD /* RequestController.swift */; };
+		C6D53ED81E118FBE004BF3B7 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D53ED21E118FBE004BF3B7 /* Loader.swift */; };
+		C6D53ED91E118FBE004BF3B7 /* Loader.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6D53ED31E118FBE004BF3B7 /* Loader.xib */; };
+		C6D53EDA1E118FBE004BF3B7 /* SegmentedBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D53ED51E118FBE004BF3B7 /* SegmentedBarView.swift */; };
+		C6D53EDB1E118FBE004BF3B7 /* KGImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D53ED71E118FBE004BF3B7 /* KGImageCell.swift */; };
+		C6D53EDE1E118FE6004BF3B7 /* OnboardingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D53EDD1E118FE6004BF3B7 /* OnboardingRouter.swift */; };
+		C6D53EE01E11911F004BF3B7 /* DrawerControllerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D53EDF1E11911F004BF3B7 /* DrawerControllerRouter.swift */; };
+		C6D53EE21E1191D2004BF3B7 /* SettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D53EE11E1191D2004BF3B7 /* SettingsRouter.swift */; };
+		C6D53EE41E1191EA004BF3B7 /* ImageViewerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D53EE31E1191EA004BF3B7 /* ImageViewerRouter.swift */; };
+		C6D53EE61E119495004BF3B7 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6D53EE51E119495004BF3B7 /* Onboarding.storyboard */; };
+		C6D53EE81E119731004BF3B7 /* DrawerControllerDescendantRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D53EE71E119731004BF3B7 /* DrawerControllerDescendantRouter.swift */; };
 		D5DB25B60B7BB11BB6F02B17 /* Pods_KG_ImageViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BEBD436FF303A4241D190C6 /* Pods_KG_ImageViewer.framework */; };
 /* End PBXBuildFile section */
 
@@ -75,10 +81,8 @@
 /* Begin PBXFileReference section */
 		1294FADEB05C0D088E83E8F6 /* Pods-KG ImageViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KG ImageViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KG ImageViewer/Pods-KG ImageViewer.debug.xcconfig"; sourceTree = "<group>"; };
 		6BEBD436FF303A4241D190C6 /* Pods_KG_ImageViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KG_ImageViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C6154AFF1BB698130006EAD7 /* SegmentedBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedBarView.swift; sourceTree = "<group>"; };
 		C6154B041BB69E5B0006EAD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C6154B061BB69E700006EAD7 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
-		C6154B081BB6A4DB0006EAD7 /* KGImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KGImageCell.swift; sourceTree = "<group>"; };
 		C6154B0A1BB6A4FF0006EAD7 /* ImageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
 		C62777B81D88A4D70098ADC5 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		C64182521DF97A040048DE48 /* KGCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KGCollectionViewDataSource.swift; sourceTree = "<group>"; };
@@ -112,8 +116,6 @@
 		C6B855B11BB6C877006C51BE /* ProximaNova-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Regular.otf"; sourceTree = "<group>"; };
 		C6B855B21BB6C877006C51BE /* ProximaNova-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-RegularItalic.otf"; sourceTree = "<group>"; };
 		C6B855B31BB6C877006C51BE /* ProximaNova-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Semibold.otf"; sourceTree = "<group>"; };
-		C6B855BA1BB6CC14006C51BE /* Loader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
-		C6B855C01BB6D25B006C51BE /* Loader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Loader.xib; sourceTree = "<group>"; };
 		C6B855C21BB6DA4F006C51BE /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		C6B855C41BB6E4CE006C51BE /* ImageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
 		C6B855C61BB6F6FC006C51BE /* UIImageEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageEffects.swift; sourceTree = "<group>"; };
@@ -133,6 +135,16 @@
 		C6BEDAEF1BB5742600F196D5 /* PhotoGridViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoGridViewController.swift; sourceTree = "<group>"; };
 		C6C0B3521BB83A1B009E1760 /* CacheData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheData.swift; sourceTree = "<group>"; };
 		C6D001451DE77F910050C3DD /* RequestController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestController.swift; sourceTree = "<group>"; };
+		C6D53ED21E118FBE004BF3B7 /* Loader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
+		C6D53ED31E118FBE004BF3B7 /* Loader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Loader.xib; sourceTree = "<group>"; };
+		C6D53ED51E118FBE004BF3B7 /* SegmentedBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedBarView.swift; sourceTree = "<group>"; };
+		C6D53ED71E118FBE004BF3B7 /* KGImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KGImageCell.swift; sourceTree = "<group>"; };
+		C6D53EDD1E118FE6004BF3B7 /* OnboardingRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingRouter.swift; sourceTree = "<group>"; };
+		C6D53EDF1E11911F004BF3B7 /* DrawerControllerRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerControllerRouter.swift; sourceTree = "<group>"; };
+		C6D53EE11E1191D2004BF3B7 /* SettingsRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsRouter.swift; sourceTree = "<group>"; };
+		C6D53EE31E1191EA004BF3B7 /* ImageViewerRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewerRouter.swift; sourceTree = "<group>"; };
+		C6D53EE51E119495004BF3B7 /* Onboarding.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
+		C6D53EE71E119731004BF3B7 /* DrawerControllerDescendantRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerControllerDescendantRouter.swift; sourceTree = "<group>"; };
 		C77E6274A248E48FF18E36D7 /* Pods-KG ImageViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KG ImageViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-KG ImageViewer/Pods-KG ImageViewer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,16 +175,6 @@
 				C77E6274A248E48FF18E36D7 /* Pods-KG ImageViewer.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		C6154AFE1BB697F00006EAD7 /* UIComponents */ = {
-			isa = PBXGroup;
-			children = (
-				C6154AFF1BB698130006EAD7 /* SegmentedBarView.swift */,
-				C6B855BF1BB6CC8B006C51BE /* CollectionCells */,
-				C6B855BE1BB6CC7D006C51BE /* Loader */,
-			);
-			path = UIComponents;
 			sourceTree = "<group>";
 		};
 		C64182511DF97A040048DE48 /* DataSources */ = {
@@ -245,23 +247,6 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		C6B855BE1BB6CC7D006C51BE /* Loader */ = {
-			isa = PBXGroup;
-			children = (
-				C6B855C01BB6D25B006C51BE /* Loader.xib */,
-				C6B855BA1BB6CC14006C51BE /* Loader.swift */,
-			);
-			name = Loader;
-			sourceTree = "<group>";
-		};
-		C6B855BF1BB6CC8B006C51BE /* CollectionCells */ = {
-			isa = PBXGroup;
-			children = (
-				C6154B081BB6A4DB0006EAD7 /* KGImageCell.swift */,
-			);
-			name = CollectionCells;
-			sourceTree = "<group>";
-		};
 		C6B9A3511D5BCBFA00131694 /* KG ImageViewerUITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -294,8 +279,9 @@
 		C6BEDABD1BB5735D00F196D5 /* KG ImageViewer */ = {
 			isa = PBXGroup;
 			children = (
+				C6D53EC71E118F77004BF3B7 /* Views */,
 				C6BEDAD41BB573C400F196D5 /* Models */,
-				C6BEDAE11BB573C400F196D5 /* Views */,
+				C6BEDAE11BB573C400F196D5 /* ViewControllers */,
 				C6BEDAD31BB573C400F196D5 /* Controllers */,
 				C6BEDAD51BB573C400F196D5 /* Resources */,
 				C6BEDADF1BB573C400F196D5 /* Supporting files */,
@@ -306,6 +292,7 @@
 		C6BEDAD31BB573C400F196D5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C6D53EDC1E118FD5004BF3B7 /* Routers */,
 				C64182511DF97A040048DE48 /* DataSources */,
 				C62777B81D88A4D70098ADC5 /* CoreDataManager.swift */,
 				C6D001451DE77F910050C3DD /* RequestController.swift */,
@@ -330,7 +317,6 @@
 				C6BEDAD61BB573C400F196D5 /* AppDelegate.swift */,
 				C6BEDADC1BB573C400F196D5 /* LaunchScreen.storyboard */,
 				C6B855AD1BB6C877006C51BE /* Fonts */,
-				C6154AFE1BB697F00006EAD7 /* UIComponents */,
 				C69A83A61BB59171009CAB28 /* Helpers */,
 				C6BEDAD91BB573C400F196D5 /* CoreData */,
 				C6BEDADA1BB573C400F196D5 /* Images */,
@@ -360,6 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				C6BEDADE1BB573C400F196D5 /* Main.storyboard */,
+				C6D53EE51E119495004BF3B7 /* Onboarding.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -373,7 +360,7 @@
 			path = "Supporting files";
 			sourceTree = "<group>";
 		};
-		C6BEDAE11BB573C400F196D5 /* Views */ = {
+		C6BEDAE11BB573C400F196D5 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				C66961D61BB93C3100D52059 /* IntroViewController.swift */,
@@ -384,7 +371,62 @@
 				C6B855C21BB6DA4F006C51BE /* FilterViewController.swift */,
 				C65A866A1DB03ABF000C335E /* AuthenticationViewController.swift */,
 			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		C6D53EC71E118F77004BF3B7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C6D53EC81E118F77004BF3B7 /* UIComponents */,
+			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C6D53EC81E118F77004BF3B7 /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				C6D53ED11E118FBE004BF3B7 /* Loader */,
+				C6D53ED41E118FBE004BF3B7 /* SegmentedBar */,
+				C6D53ED61E118FBE004BF3B7 /* UICollectionViewCells */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		C6D53ED11E118FBE004BF3B7 /* Loader */ = {
+			isa = PBXGroup;
+			children = (
+				C6D53ED21E118FBE004BF3B7 /* Loader.swift */,
+				C6D53ED31E118FBE004BF3B7 /* Loader.xib */,
+			);
+			path = Loader;
+			sourceTree = "<group>";
+		};
+		C6D53ED41E118FBE004BF3B7 /* SegmentedBar */ = {
+			isa = PBXGroup;
+			children = (
+				C6D53ED51E118FBE004BF3B7 /* SegmentedBarView.swift */,
+			);
+			path = SegmentedBar;
+			sourceTree = "<group>";
+		};
+		C6D53ED61E118FBE004BF3B7 /* UICollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				C6D53ED71E118FBE004BF3B7 /* KGImageCell.swift */,
+			);
+			path = UICollectionViewCells;
+			sourceTree = "<group>";
+		};
+		C6D53EDC1E118FD5004BF3B7 /* Routers */ = {
+			isa = PBXGroup;
+			children = (
+				C6D53EDF1E11911F004BF3B7 /* DrawerControllerRouter.swift */,
+				C6D53EE71E119731004BF3B7 /* DrawerControllerDescendantRouter.swift */,
+				C6D53EDD1E118FE6004BF3B7 /* OnboardingRouter.swift */,
+				C6D53EE11E1191D2004BF3B7 /* SettingsRouter.swift */,
+				C6D53EE31E1191EA004BF3B7 /* ImageViewerRouter.swift */,
+			);
+			path = Routers;
 			sourceTree = "<group>";
 		};
 		E2F7B9DC5C4489323CF05E40 /* Frameworks */ = {
@@ -493,8 +535,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6154B031BB69E5B0006EAD7 /* Localizable.strings in Resources */,
+				C6D53ED91E118FBE004BF3B7 /* Loader.xib in Resources */,
 				C6B855B61BB6C877006C51BE /* ProximaNova-LightItalic.otf in Resources */,
-				C6B855C11BB6D25B006C51BE /* Loader.xib in Resources */,
 				C6A4DB1C1DA192D300810E59 /* InfoPlist.strings in Resources */,
 				C6B855B71BB6C877006C51BE /* ProximaNova-Regular.otf in Resources */,
 				C6BEDAE51BB573C400F196D5 /* Assets.xcassets in Resources */,
@@ -503,6 +545,7 @@
 				C6B855B81BB6C877006C51BE /* ProximaNova-RegularItalic.otf in Resources */,
 				C6B855B51BB6C877006C51BE /* ProximaNova-Light.otf in Resources */,
 				C6B855B41BB6C877006C51BE /* ProximaNova-Bold.otf in Resources */,
+				C6D53EE61E119495004BF3B7 /* Onboarding.storyboard in Resources */,
 				C6BEDAE61BB573C400F196D5 /* LaunchScreen.storyboard in Resources */,
 				C6BEDAE81BB573C400F196D5 /* Info.plist in Resources */,
 			);
@@ -571,17 +614,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6D53EE81E119731004BF3B7 /* DrawerControllerDescendantRouter.swift in Sources */,
 				C6BEDAEC1BB573EE00F196D5 /* KG_ImageViewer.xcdatamodeld in Sources */,
 				C6B855C51BB6E4CE006C51BE /* ImageDetailViewController.swift in Sources */,
 				C64182541DF97A040048DE48 /* KGCollectionViewDataSource.swift in Sources */,
 				C6BEDAE31BB573C400F196D5 /* AppDelegate.swift in Sources */,
-				C6154B091BB6A4DB0006EAD7 /* KGImageCell.swift in Sources */,
 				C6560C3A1D873C3300F4C693 /* ImageDataCoreData+CoreDataProperties.swift in Sources */,
 				C6560C3B1D873C3300F4C693 /* ImageDataCoreData.swift in Sources */,
 				C67A79DC1DE7A1A50056C6FB /* UILabelExtension.swift in Sources */,
+				C6D53EDB1E118FBE004BF3B7 /* KGImageCell.swift in Sources */,
 				C67A79D51DE7A1A50056C6FB /* Extensions.swift in Sources */,
+				C6D53EE21E1191D2004BF3B7 /* SettingsRouter.swift in Sources */,
 				C67A79E01DE7A1A50056C6FB /* UIViewExtension.swift in Sources */,
 				C64182551DF97A040048DE48 /* KGImageCollectionViewDataSource.swift in Sources */,
+				C6D53EE41E1191EA004BF3B7 /* ImageViewerRouter.swift in Sources */,
+				C6D53EDE1E118FE6004BF3B7 /* OnboardingRouter.swift in Sources */,
 				C6B855C91BB6FF42006C51BE /* ImagePagerViewController.swift in Sources */,
 				C67A79D71DE7A1A50056C6FB /* StringExtension.swift in Sources */,
 				C6BEDAEE1BB5741200F196D5 /* KGViewController.swift in Sources */,
@@ -596,15 +643,16 @@
 				C67A79DE1DE7A1A50056C6FB /* UIStoryboardExtension.swift in Sources */,
 				C6B855C31BB6DA4F006C51BE /* FilterViewController.swift in Sources */,
 				C67A79D81DE7A1A50056C6FB /* UIButtonExtension.swift in Sources */,
+				C6D53ED81E118FBE004BF3B7 /* Loader.swift in Sources */,
+				C6D53EDA1E118FBE004BF3B7 /* SegmentedBarView.swift in Sources */,
 				C6154B0B1BB6A4FF0006EAD7 /* ImageData.swift in Sources */,
 				C67A79D91DE7A1A50056C6FB /* UIColorExtension.swift in Sources */,
+				C6D53EE01E11911F004BF3B7 /* DrawerControllerRouter.swift in Sources */,
 				C69A83A91BB59171009CAB28 /* API.swift in Sources */,
-				C6B855BB1BB6CC14006C51BE /* Loader.swift in Sources */,
 				C67A79DD1DE7A1A50056C6FB /* UISegmentedControlExtension.swift in Sources */,
 				C67A79D41DE7A1A50056C6FB /* DictionaryExtension.swift in Sources */,
 				C69A83AA1BB59171009CAB28 /* Helper.swift in Sources */,
 				C6D001461DE77F910050C3DD /* RequestController.swift in Sources */,
-				C6154B001BB698130006EAD7 /* SegmentedBarView.swift in Sources */,
 				C62777B91D88A4D70098ADC5 /* CoreDataManager.swift in Sources */,
 				C67A79DA1DE7A1A50056C6FB /* UIFontExtension.swift in Sources */,
 				C6343BEF1BBB011800F4DF0C /* IntroViewController.swift in Sources */,

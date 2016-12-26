@@ -11,12 +11,12 @@ import DrawerController
 import EZSwiftExtensions
 
 enum View: String {
-    case photoGrid = "PhotoGridNavigationView"
-    case intro = "IntroView"
-    case filter = "FilterView"
-    case imagePager = "ImagePagerView"
-    case imageDetail = "ImageDetailView"
-    case authentication = "AuthenticationView"
+    case photoGrid = "PhotoGridViewController"
+    case intro = "IntroViewController"
+    case filter = "FilterViewController"
+    case imagePager = "ImagePagerViewController"
+    case imageDetail = "ImageDetailViewController"
+    case authentication = "AuthenticationViewController"
 }
 
 enum Segue: String {

@@ -14,36 +14,19 @@ import DrawerController
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let menuWidth: CGFloat = 240
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.backgroundColor = UIColor.white
         
-        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let showedIntro = Setting.showedIntro.isTrue()
+        guard let window = window else {
+            assert(false, "There must be a window. Where else are you going to display the UI?")
+        }
+        window.backgroundColor = UIColor.white
         
-        let centerViewController = storyboard.viewController(withViewType: showedIntro ? .photoGrid : .intro)
-        let rightViewController = storyboard.viewController(withViewType: .filter)
+        let drawerControllerRouter = DrawerControllerRouter(window: window)
+        drawerControllerRouter.start()
         
-        let drawerController: DrawerController = DrawerController(centerViewController: centerViewController, rightDrawerViewController: rightViewController)
-        
-        drawerController.setMaximumLeftDrawerWidth(menuWidth, animated: false, completion: nil)
-        
-        drawerController.openDrawerGestureModeMask = OpenDrawerGestureMode.BezelPanningCenterView
-        drawerController.closeDrawerGestureModeMask = [CloseDrawerGestureMode.PanningCenterView, CloseDrawerGestureMode.TapCenterView]
-        
-        let statusBarView = UIView()
-        statusBarView.translatesAutoresizingMaskIntoConstraints = false
-        statusBarView.backgroundColor = UIColor.mainColor
-        drawerController.view.addSubview(statusBarView)
-        drawerController.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[statusBarView]|", options: .alignmentMask, metrics: nil, views: ["statusBarView": statusBarView]))
-        drawerController.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[statusBarView(==statusBarHeight)]", options: .alignmentMask, metrics: ["statusBarHeight": 20.0], views: ["statusBarView": statusBarView]))
-        
-        
-        window?.rootViewController = drawerController
-        window?.makeKeyAndVisible()
+        window.makeKeyAndVisible()
         
         return true
     }
